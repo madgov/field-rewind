@@ -5,6 +5,7 @@ import Link from "next/link";
 import { DEMO_PINS } from "@/lib/demoPins";
 import PinPicker from "./PinPicker";
 import CoordinatePanel from "./CoordinatePanel";
+import { EXAMPLE_FARM_LABEL, exampleFarmHref } from "./replay/exampleFarm";
 import { samePin, type Pin } from "./geo";
 
 export default function HomeClient() {
@@ -22,6 +23,15 @@ export default function HomeClient() {
       </header>
 
       <main className="main">
+        <section className="examplefarm" aria-labelledby="example-farm-h">
+          <div>
+            <h2 id="example-farm-h" className="examplefarm__title">Just want to see it work?</h2>
+            <p className="examplefarm__text">
+              Opens the 40-season replay for Brentwood with three example rotations and an example water supply, using a saved NASA weather response. It needs no connection to NASA. The rotations and supply are a constructed example, not a real farm&rsquo;s records.
+            </p>
+          </div>
+          <Link className="examplefarm__btn" href={exampleFarmHref()}>{EXAMPLE_FARM_LABEL}</Link>
+        </section>
         <section className="step" aria-labelledby="pick-heading">
           <h2 id="pick-heading" className="step__title">
             <span className="step__num" aria-hidden="true">1</span> Pick your field

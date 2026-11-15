@@ -7,6 +7,7 @@
  *   outcome vs supply: "short" (red) when need > supply, otherwise "ok" (green)
  *
  * Missing data is never filled. Days with no ET0 add nothing to ETc (a slight under-count of the need) and are counted.
+ * A season with more than 10 days missing ET0, or more than 10 days missing rainfall, is grey (not judged).
  */
 import type { Crop } from "../crops/types";
 import { type PreparedClimate, monthDaysMissingPrecip } from "./climate";
@@ -104,6 +105,11 @@ function computeNeed(climate: PreparedClimate, crop: ResolvedCrop, year: number)
   if (missingEt0 > MAX_MISSING_SEASON_DAYS) {
     return grey(
       `${missingEt0} of the season's ${dates.lengthDays} days have no crop water demand (ET0) value; more than ${MAX_MISSING_SEASON_DAYS} missing days is too many to judge the season.`,
+    );
+  }
+  if (missingPrecip > MAX_MISSING_SEASON_DAYS) {
+    return grey(
+      `${missingPrecip} of the season's ${dates.lengthDays} days have no rainfall value; more than ${MAX_MISSING_SEASON_DAYS} missing days is too many to judge the season, because the rain that offsets the crop's need would be undercounted.`,
     );
   }
 

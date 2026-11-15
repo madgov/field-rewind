@@ -16,7 +16,7 @@ export default function MethodSteps() {
         <li>No delivery losses or irrigation efficiency: your supply is compared with the net crop need. A real system must deliver more than the net need.</li>
         <li>Planting dates and stage lengths are the same every year, and crop factors are table values without the FAO-56 climate adjustment.</li>
         <li>The weather is regional climate, about 50 km grid. This kind of reanalysis may read high compared with an irrigated field station.</li>
-        <li>The monthly effective-rain formula, shared across the season, is an approximation and tends to give lower effective rain than some other methods.</li>
+        <li>The monthly effective-rain formula, shared across the season, is an approximation.</li>
         <li>Hot days are shown for information only. Ten seasons per decade is a small sample, so the counts describe what the record shows, not a trend or a forecast.</li>
       </ul>
     </section>

@@ -7,7 +7,9 @@ import { EXAMPLE_LABEL, FIRST_SEASON, type ReplayOk, type SeasonResult } from "@
 import { formatInches, formatMm } from "@/lib/shift/units";
 import { powerOriginLine } from "../shift/format";
 import type { PowerResult } from "@/lib/types";
+import type { CropRegionNotice } from "@/lib/crops/region";
 import { cellKind, decadeCountText } from "./cells";
+import { exampleInputsNote } from "./printText";
 
 type Header = Omit<PowerResult, "days">;
 
@@ -101,13 +103,16 @@ export default function PrintReport(props: {
   place: string;
   gridText: string;
   header: Header;
-  isExample: boolean;
+  exampleRotations: boolean;
+  exampleSupply: boolean;
+  region: CropRegionNotice;
   abbr: Record<string, string>;
   usedCrops: Crop[];
   meta: PrintMeta;
 }) {
   const { result, header } = props;
   const sources = usedSources(props.usedCrops);
+  const exampleNote = exampleInputsNote(props.exampleRotations, props.exampleSupply);
   return (
     <section className="pr" aria-hidden="true" data-testid="print-report">
       <header className="pr-head">
@@ -117,8 +122,10 @@ export default function PrintReport(props: {
         <p className="pr-supply"><strong>Water supply:</strong> {formatMm(result.supplyMm)} ({formatInches(result.supplyMm)}) per season.</p>
         <p className="pr-flags">
           <strong>Weather data: {powerOriginLine(header)}</strong>
-          {props.isExample && <> <strong>{EXAMPLE_LABEL}</strong> The rotations and supply shown are the built-in example.</>}
+          {exampleNote && <> <strong>{EXAMPLE_LABEL}</strong> {exampleNote}</>}
         </p>
+        <p className="pr-region"><strong>Crop values:</strong> {props.region.region}.</p>
+        {props.region.shortWarning && <p className="pr-regionwarn" data-testid="print-region-warning"><strong>Warning:</strong> {props.region.shortWarning}</p>}
       </header>
 
       {result.rotations.map((r, i) => (
@@ -139,7 +146,7 @@ export default function PrintReport(props: {
           <li>Weather: NASA POWER daily data (community AG), regional climate, about 50 km grid; {powerOriginLine(header).replace(/\.$/, "")}.</li>
           <li>Crop water demand: FAO Irrigation and Drainage Paper 56 (Allen et al. 1998): Penman-Monteith ET0 (Ch. 3 to 4) and crop factors (Ch. 6).</li>
           <li>Crop values: {sources.join("; ")}.</li>
-          <li>Rain that counts: USDA Soil Conservation Service monthly formula as used in FAO CROPWAT (verified from M. Todorovic, CIHEAM-IAMB, ClimaSouth slides, 2016).</li>
+          <li>Rain that counts: USDA Soil Conservation Service monthly formula as used in FAO CROPWAT (formula verified from a secondary source, not an FAO page: M. Todorovic, CIHEAM-IAMB, ClimaSouth slides, 2016).</li>
         </ul>
         <h2 className="pr-h">Caveats</h2>
         <ul>

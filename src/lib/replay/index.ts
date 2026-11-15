@@ -10,4 +10,4 @@ export { kcCurve, kcForDay } from "./kc";
 export { seasonDates, checkSpansNewYear } from "./season";
 export { effectiveRainMonthly, seasonEffectiveRain } from "./effectiveRain";
 export { resolveCrop } from "./crop";
-export { describeSeason, rotationHeadline, rotationSentence, SMALL_SAMPLE_CAVEAT } from "./wording";
+export { describeSeason, displayedFigures, rotationHeadline, rotationSentence, SMALL_SAMPLE_CAVEAT } from "./wording";

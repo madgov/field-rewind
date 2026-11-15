@@ -48,6 +48,11 @@ describe("gauge geometry", () => {
     expect(g.overPct).toBeGreaterThanOrEqual(MIN_VISIBLE_OVER_PCT);
     expect(gaugeShape({ needMm: 699, supplyMm: 700, needFractionOfSupply: 699 / 700, outcome: "ok" }).overPct).toBe(0);
   });
+  it("flags when the minimum visible height was applied (so the gauge can say it is not to scale)", () => {
+    expect(gaugeShape({ needMm: 703, supplyMm: 700, needFractionOfSupply: 703 / 700, outcome: "short" }).minimumApplied).toBe(true);
+    expect(gaugeShape({ needMm: 1200, supplyMm: 1000, needFractionOfSupply: 1.2, outcome: "short" }).minimumApplied).toBe(false);
+    expect(gaugeShape(base).minimumApplied).toBe(false);
+  });
   it("is clipped, not broken, for a huge need", () => {
     const g = gaugeShape({ needMm: 1e6, supplyMm: 10, needFractionOfSupply: 1e5, outcome: "short" });
     expect(g.clipped).toBe(true);

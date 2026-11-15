@@ -1,5 +1,6 @@
 import { et0FromDailyRecord } from "../et0/fao56";
 import type { PowerResult } from "../types";
+import { CLEAR_PHRASE } from "./direction";
 import type { MetricId, MetricShift, PeriodStats, ShiftResult, ShiftVerdict, YearValue } from "./types";
 
 export const EARLY_PERIOD: [number, number] = [1985, 2004];
@@ -83,6 +84,12 @@ function sampleVariance(v: number[]): number {
 export function roundInt(x: number): number {
   const r = Math.round(Math.abs(x)) * Math.sign(x);
   return r === 0 ? 0 : r;
+}
+
+/** The difference the card prints: round(late mean) - round(early mean), so the sentence adds up on screen. 0 when either mean is missing. */
+export function shownDiff(m: { early: { mean: number | null }; late: { mean: number | null } }): number {
+  if (m.early.mean === null || m.late.mean === null) return 0;
+  return roundInt(m.late.mean) - roundInt(m.early.mean);
 }
 
 function plural(n: number, one: string, many: string): string {
@@ -195,7 +202,7 @@ function buildMetric(id: MetricId, years: YearValue[], unavailableReason?: strin
     const clear = se === 0 ? diff !== 0 : Math.abs(diff) > CLEAR_CHANGE_SE_MULTIPLE * se;
     // The displayed number must agree with the verdict: a gap that rounds to zero is never "clear".
     // Text shows round(late mean) - round(early mean) so the sentence adds up on screen; the guard uses that same number.
-    shown = roundInt(late.mean) - roundInt(early.mean);
+    shown = shownDiff({ early, late });
     verdict = clear && shown !== 0 ? (diff > 0 ? "increase" : "decrease") : "no-clear-change";
   }
 
@@ -220,12 +227,6 @@ function buildMetric(id: MetricId, years: YearValue[], unavailableReason?: strin
 }
 
 // ---------- overall ----------
-
-const CLEAR_PHRASE: Record<MetricId, { increase: string; decrease: string }> = {
-  hotDays: { increase: "more days over 35 °C", decrease: "fewer days over 35 °C" },
-  et0: { increase: "higher crop water demand", decrease: "lower crop water demand" },
-  precip: { increase: "more rain", decrease: "less rain" },
-};
 
 function joinList(items: string[], conj: "and" | "or" = "and"): string {
   if (items.length <= 1) return items.join("");
@@ -259,11 +260,19 @@ function overall(metrics: Record<MetricId, MetricShift>): { headline: string; de
       detail: `There is not enough complete data to compare ${e} with ${l}.${tailText}`,
     };
   }
+  if (lacking.length) {
+    // Never say "no clear shift" when a measure could not be compared: say what could not be compared, from the computed result.
+    const lackingText = joinList(lacking.map((id) => META[id].noun), "or");
+    return {
+      headline: `Not enough complete data to compare ${lackingText} between ${e} and ${l}`,
+      detail:
+        `Not enough complete data to compare ${lackingText}. For the ${steady.length === 1 ? "measure" : "measures"} we could compare (${joinList(steady.map((id) => META[id].noun))}), ` +
+        `${steady.length === 1 ? "it" : "none"} did not change by more than normal year-to-year swings, but that does not cover the whole picture.`,
+    };
+  }
   return {
     headline: `No clear shift in this field's regional climate between ${e} and ${l}`,
-    detail:
-      `Comparing ${e} with ${l}, none of the measures we could compare changed by more than normal year-to-year swings.` +
-      (lacking.length ? ` Not enough complete data to compare ${joinList(lacking.map((id) => META[id].noun), "or")}.` : ""),
+    detail: `Comparing ${e} with ${l}, none of the measures changed by more than normal year-to-year swings.`,
   };
 }
 

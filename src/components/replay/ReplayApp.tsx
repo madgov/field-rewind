@@ -3,10 +3,12 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Crop } from "@/lib/crops/types";
 import { replayFromSeasonTable, type SeasonTable } from "@/lib/replay/assemble";
-import { EXAMPLE_SUPPLY_MM, EXAMPLE_SUPPLY_NOTE } from "@/lib/replay/examples";
+import { EXAMPLE_LABEL, EXAMPLE_SUPPLY_MM, EXAMPLE_SUPPLY_NOTE } from "@/lib/replay/examples";
 import { FIRST_SEASON, LAST_SEASON, type ReplayOk, type ReplayResult } from "@/lib/replay/types";
 import type { PowerResult } from "@/lib/types";
+import type { CropRegionNotice } from "@/lib/crops/region";
 import { cropAbbreviations } from "./cells";
+import { EXAMPLE_FARM_PARAM } from "./exampleFarm";
 import Gauge from "./Gauge";
 import PrintReport, { usePrintMeta } from "./PrintReport";
 import { ReplayRotationsProvider } from "../howweknow/ReplayInputsContext";
@@ -33,6 +35,12 @@ type Props = {
   supplyMaxMm: number;
   initial: ReplayState;
   notes: string[];
+  /** True when opened with "Load example farm (Brentwood)": weather is the saved Brentwood response. */
+  exampleFarm?: boolean;
+  /** The one provenance sentence for the weather, e.g. "Saved response from 14 Nov 2026, 10:00 UTC." */
+  originLine?: string;
+  /** Which region the crop values are for, and a warning when the pin is outside it. Computed on the server. */
+  region: CropRegionNotice;
 };
 
 export default function ReplayApp(props: Props) {
@@ -44,7 +52,8 @@ export default function ReplayApp(props: Props) {
   const [dismissedNotes, setDismissedNotes] = useState(false);
 
   const [printMeta, capturePrintMeta] = usePrintMeta();
-  const isExample = rotationsAreExample(rotations);
+  const exampleRotationsOn = rotationsAreExample(rotations);
+  const exampleSupplyOn = supplyMm === EXAMPLE_SUPPLY_MM;
   const abbr = useMemo(() => cropAbbreviations(crops), [crops]);
 
   // The engine does all the work: the season table (from the server) + these inputs. No rule is applied in this file.
@@ -72,14 +81,14 @@ export default function ReplayApp(props: Props) {
     const t = setTimeout(() => {
       try {
         const qs = encodeState({ rotations, supplyMm, year });
-        const url = `${window.location.pathname}?lat=${props.lat.toFixed(4)}&lon=${props.lon.toFixed(4)}&${qs}${window.location.hash}`; // keep #how-we-know
+        const url = `${window.location.pathname}?lat=${props.lat.toFixed(4)}&lon=${props.lon.toFixed(4)}${props.exampleFarm ? `&${EXAMPLE_FARM_PARAM}=1` : ""}&${qs}${window.location.hash}`; // keep #how-we-know
         window.history.replaceState(window.history.state, "", url);
       } catch {
         /* a blocked history API only means the link is not updated */
       }
     }, URL_WRITE_MS);
     return () => clearTimeout(t);
-  }, [rotations, supplyMm, year, props.lat, props.lon]);
+  }, [rotations, supplyMm, year, props.lat, props.lon, props.exampleFarm]);
 
   // ---- Autoplay: steps one season per tick and stops by itself at the last season.
   const running = playing && year < LAST_SEASON;
@@ -146,21 +155,36 @@ export default function ReplayApp(props: Props) {
         </section>
       )}
 
+      {props.exampleFarm && (
+        <section className="rp-examplefarm" aria-label="About the example farm" data-testid="example-farm-banner">
+          <p>
+            <strong>Example farm (Brentwood).</strong> Weather: {props.originLine ?? "saved response"} Rotations and water supply: {EXAMPLE_LABEL.charAt(0).toLowerCase() + EXAMPLE_LABEL.slice(1)}
+          </p>
+        </section>
+      )}
+
+      {props.region.warning && (
+        <section className="rp-regionwarn" role="note" aria-label="Crop values are from California" data-testid="region-warning">
+          <p><strong>Heads up.</strong> {props.region.warning}</p>
+        </section>
+      )}
+
       <section aria-labelledby="rp-in-h" className="rp-sec">
         <h2 id="rp-in-h" className="sh-h2"><span className="rp-step">1</span> Your rotations</h2>
         <p className="sh-lede">A rotation is the crops you grow in turn, one crop per season. Pick 1 to 3 crops for each of 2 or 3 rotations.</p>
         <RotationBuilder
           rotations={rotations}
           crops={crops}
-          isExample={isExample}
+          isExample={exampleRotationsOn}
           problemsByRotation={problemsByRotation}
           warningsByRotation={warningsByRotation}
           general={general}
           onChange={setRotations}
           onLoadExample={loadExample}
         />
+        <p className="rp-region" data-testid="crop-region">Crop values (planting dates, stage lengths, crop factors): {props.region.region}.</p>
         <h3 className="rp-sub">Your water supply</h3>
-        <SupplyNote maxMm={props.supplyMaxMm} exampleNote={isExample && supplyMm === EXAMPLE_SUPPLY_MM ? EXAMPLE_SUPPLY_NOTE : null} />
+        <SupplyNote maxMm={props.supplyMaxMm} exampleNote={exampleRotationsOn && exampleSupplyOn ? EXAMPLE_SUPPLY_NOTE : null} />
       </section>
 
       <section aria-labelledby="rp-supply-h" className="rp-sec rp-sec--supply">
@@ -224,7 +248,7 @@ export default function ReplayApp(props: Props) {
         {!ok && <p className="rp-print-note">The report prints once the replay can run with the rotations above.</p>}
       </section>
 
-      {ok && <PrintReport result={ok} place={props.place} gridText={props.gridText} header={props.header} isExample={isExample} abbr={abbr} usedCrops={usedCrops} meta={printMeta} />}
+      {ok && <PrintReport result={ok} place={props.place} gridText={props.gridText} header={props.header} exampleRotations={exampleRotationsOn} exampleSupply={exampleSupplyOn} region={props.region} abbr={abbr} usedCrops={usedCrops} meta={printMeta} />}
 
       <div className="sr-only" aria-live="polite" aria-atomic="true" data-testid="live-season">{saidSeason}</div>
       <div className="sr-only" aria-live="polite" aria-atomic="true" data-testid="live-headline">{saidHeadline}</div>

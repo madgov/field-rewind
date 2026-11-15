@@ -251,3 +251,36 @@ a { color: var(--leaf); }
 }
 .panel__link:hover { background: var(--wheat-deep); }
 .panel__link:active { transform: scale(0.98); }
+
+/* ---------- Example farm shortcut (home) ---------- */
+.examplefarm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+  margin-bottom: 24px;
+  padding: 16px 18px;
+  border: 2px solid var(--leaf);
+  border-radius: 14px;
+  background: var(--paper);
+}
+.examplefarm__title { margin: 0 0 4px; font-size: 1.1rem; }
+.examplefarm__text { margin: 0; max-width: 60ch; }
+.examplefarm__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--leaf);
+  color: var(--paper);
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.examplefarm__btn:hover { background: #17381f; }
+.examplefarm__btn:active { transform: scale(0.98); }
+@media (max-width: 560px) { .examplefarm__btn { width: 100%; } }

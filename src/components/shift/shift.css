@@ -247,3 +247,11 @@
 .sh-cta__btn { text-align: center; min-height: 54px; transition: background 0.2s, transform 0.15s; }
 .sh-cta__btn:active { transform: scale(0.98); }
 @media (min-width: 760px) { .sh-cta { grid-template-columns: minmax(0, 1fr) auto; } }
+
+/* Partial-data notice and example-farm control */
+.partial-notice { background: var(--paper); border: 2px solid var(--sun); border-left-width: 8px; border-radius: 12px; padding: 14px 16px; }
+.partial-notice p { margin: 0 0 8px; overflow-wrap: anywhere; }
+.partial-notice__title { margin: 0 0 8px; font-size: 1.1rem; }
+.rp-partial { max-width: 1100px; margin: 0 auto; padding: 20px 16px 0; }
+.chip--saved { background: var(--sun); color: var(--leaf); border-color: var(--sun); font-weight: 700; }
+.example-farm-link { text-align: center; }

@@ -6,7 +6,6 @@
  * Pure and browser-safe: no node: imports, no I/O, no climate arrays. It only needs the season table.
  */
 import type { Crop } from "../crops/types";
-import type { PowerResult } from "../types";
 import { judgeSeason, resolveCropCached, validateSupply } from "./evaluate";
 import { checkSpansNewYear, seasonDates, validateSeasonYears } from "./season";
 import {
@@ -111,11 +110,7 @@ function overlapsAndWarnings(seq: ResolvedCrop[]): { overlaps: RotationOverlap[]
   return { overlaps, warnings };
 }
 
-export function powerDataLabel(power: Pick<PowerResult, "fetchedAt" | "origin">): string {
-  const date = power.fetchedAt.slice(0, 10);
-  if (power.origin === "live") return `NASA POWER regional climate, about 50 km grid, fetched ${date}`;
-  return `saved response from ${date} (NASA POWER regional climate, about 50 km grid)`;
-}
+export { powerDataLabel } from "../power/label";
 
 /** Looks up the supply-independent evaluation of one crop-season. */
 export type NeedLookup = (crop: ResolvedCrop, year: number) => SeasonNeed | undefined;

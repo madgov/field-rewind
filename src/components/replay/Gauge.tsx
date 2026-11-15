@@ -1,5 +1,5 @@
 import type { SeasonResult } from "@/lib/replay/types";
-import { describeSeason } from "@/lib/replay/wording";
+import { describeSeason, displayedFigures } from "@/lib/replay/wording";
 import { formatMm, formatTempC, formatTempF } from "@/lib/shift/units";
 import { SUPPLY_LINE_PCT, cellKind, formatIsoDate, gaugeShape, mmWithInches, plantedYearBefore } from "./cells";
 
@@ -12,6 +12,7 @@ export default function Gauge({ name, s }: { name: string; s: SeasonResult }) {
   const kind = cellKind(s);
   const shape = gaugeShape(s);
   const grey = kind === "grey";
+  const fig = displayedFigures(s);
   const missingBits: string[] = [];
   if (s.missingEt0Days > 0) missingBits.push(`${s.missingEt0Days} with no crop water demand value`);
   if (s.missingPrecipSeasonDays > 0) missingBits.push(`${s.missingPrecipSeasonDays} with no rain value`);
@@ -19,7 +20,7 @@ export default function Gauge({ name, s }: { name: string; s: SeasonResult }) {
 
   const label = grey
     ? `${name}, ${s.year}: not enough data to judge`
-    : `${name}, ${s.year}: need ${formatMm(s.needMm ?? 0)} against a supply of ${formatMm(s.supplyMm)}, ${kind === "short" ? "short" : "covered"}`;
+    : `${name}, ${s.year}: need ${formatMm(fig?.needMm ?? 0)} against a supply of ${formatMm(s.supplyMm)}, ${kind === "short" ? "short" : "covered"}`;
 
   return (
     <figure className={`gauge gauge--${kind}`}>
@@ -57,9 +58,9 @@ export default function Gauge({ name, s }: { name: string; s: SeasonResult }) {
             <p className="gauge__reason">{s.reason}</p>
           ) : (
             <dl className="gauge__list">
-              <div><dt>Crop water demand</dt><dd>{mmWithInches(s.etcMm ?? 0)}</dd></div>
-              <div><dt>Rain that counted</dt><dd>{mmWithInches(s.effectiveRainMm ?? 0)}</dd></div>
-              <div className="gauge__need"><dt>Need beyond rain</dt><dd>{mmWithInches(s.needMm ?? 0)}</dd></div>
+              <div><dt>Crop water demand</dt><dd>{mmWithInches(fig?.etcMm ?? 0)}</dd></div>
+              <div><dt>Rain that counted</dt><dd>{mmWithInches(fig?.rainMm ?? 0)}</dd></div>
+              <div className="gauge__need"><dt>Need beyond rain</dt><dd>{mmWithInches(fig?.needMm ?? 0)}</dd></div>
               <div><dt>Your supply</dt><dd>{mmWithInches(s.supplyMm)}</dd></div>
             </dl>
           )}
@@ -72,6 +73,9 @@ export default function Gauge({ name, s }: { name: string; s: SeasonResult }) {
       )}
       {missingBits.length > 0 && !grey && (
         <p className="gauge__missing">Days without data this season: {missingBits.join("; ")}. Nothing was filled in.</p>
+      )}
+      {kind === "short" && shape.minimumApplied && (
+        <p className="gauge__note" data-testid="gauge-min-note">The red part above the line is drawn at least a small, fixed height so a near miss stays visible. It is not to scale; the numbers above are exact.</p>
       )}
       <p className="gauge__caption">{describeSeason(s)}</p>
     </figure>

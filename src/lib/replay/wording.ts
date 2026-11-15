@@ -93,12 +93,26 @@ export function rotationSentence(first: DecadeCount, last: DecadeCount): string 
   return body + tail;
 }
 
+/**
+ * The three season figures exactly as displayed, so they always add up on screen. Rule (documented in docs/replay-method.md):
+ * crop water use and effective rain are each rounded to a whole mm, and the need shown is max(0, rounded water use - rounded
+ * rain). It can differ by 1 mm from the unrounded need; the red/green outcome is always decided on the unrounded need.
+ * Inches are derived from these same whole-mm numbers. null for a season that could not be judged.
+ */
+export function displayedFigures(r: Pick<SeasonResult, "etcMm" | "effectiveRainMm" | "needMm">): { etcMm: number; rainMm: number; needMm: number } | null {
+  if (r.etcMm === null || r.effectiveRainMm === null || r.needMm === null) return null;
+  const etcMm = roundInt(r.etcMm);
+  const rainMm = roundInt(r.effectiveRainMm);
+  return { etcMm, rainMm, needMm: Math.max(0, etcMm - rainMm) };
+}
+
 /** One-sentence description of a season for the scrubber caption. Differences are differences of the rounded numbers shown. */
 export function describeSeason(r: SeasonResult): string {
   if (r.outcome === null || r.needMm === null) {
     return `${r.year}: could not be judged. ${r.reason ?? "Not enough data."}`;
   }
-  const need = roundInt(r.needMm);
+  const shown = displayedFigures(r);
+  const need = shown ? shown.needMm : roundInt(r.needMm);
   const supply = roundInt(r.supplyMm);
   if (need === 0 && r.needMm === 0) {
     return `${r.year}: ${r.cropName} needed no irrigation water; rain covered its demand. The supply of ${n(r.supplyMm)} mm was not needed.`;
@@ -106,9 +120,9 @@ export function describeSeason(r: SeasonResult): string {
   if (r.outcome === "short") {
     const gap = need - supply;
     const how = gap > 0 ? `short by ${n(gap)} mm` : `just short (by less than 1 mm)`;
-    return `${r.year}: ${r.cropName} needed about ${n(r.needMm)} mm of irrigation water. A supply of ${n(r.supplyMm)} mm was ${how}.`;
+    return `${r.year}: ${r.cropName} needed about ${n(need)} mm of irrigation water. A supply of ${n(r.supplyMm)} mm was ${how}.`;
   }
   const spare = supply - need;
   const how = spare > 0 ? `covered it with ${n(spare)} mm to spare` : `just covered it`;
-  return `${r.year}: ${r.cropName} needed about ${n(r.needMm)} mm of irrigation water. A supply of ${n(r.supplyMm)} mm ${how}.`;
+  return `${r.year}: ${r.cropName} needed about ${n(need)} mm of irrigation water. A supply of ${n(r.supplyMm)} mm ${how}.`;
 }

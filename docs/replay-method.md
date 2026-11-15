@@ -22,12 +22,13 @@ Code: `src/lib/replay/` (pure functions; take a NASA POWER `PowerResult` plus pl
 
 ## Irrigation need and the red/green result
 - Irrigation need = max(0, ETc - effective rainfall), in mm.
+- Displayed figures: crop water use and effective rain are each rounded to whole mm, and the "need beyond rain" shown is max(0, rounded water use - rounded rain), so the three numbers add up on screen (it can differ by 1 mm from the unrounded need). Inches are derived from those same whole-mm numbers. The red/green result is always decided on the unrounded need (`displayedFigures` in `src/lib/replay/wording.ts`).
 - Short (red) when need is greater than the supply; otherwise OK (green). Margin = supply - need. The gauge value is need / supply (above 1 means short; none when the supply is 0).
 - Days with daily maximum temperature above the crop's heat threshold are counted for information only. They do not change red or green.
 
 ## Missing data
 - No filling. Days with no ET0 add nothing to ETc, so the need is then a slight under-count; the missing-day count is carried on the season.
-- A season is grey ("insufficient-data") if more than 10 of its days have no ET0, or if it is not fully inside the record. Missing precipitation does not by itself turn a season grey (it is counted and reported).
+- A season is grey ("insufficient-data") if more than 10 of its days have no ET0, or more than 10 of its days have no precipitation value, or if it is not fully inside the record. Up to 10 missing precipitation days add 0 mm of rain (so the rain is slightly undercounted and the need slightly overstated); up to 10 missing ET0 days add 0 to ETc (the need is slightly understated). Both counts are carried on the season and shown on the gauge.
 - If POWER returned an error, no coverage, no days, or no elevation, the whole replay is unavailable with a reason and a next step.
 
 ## Rotations, decades, wording
@@ -46,7 +47,7 @@ Code: `src/lib/replay/` (pure functions; take a NASA POWER `PowerResult` plus pl
 - Tabulated Kc without the Eq. 62 climate adjustment.
 - Fixed planting date and stage lengths every year.
 - ET0 comes from ~50 km reanalysis, which may read high compared with an irrigated station.
-- Pro-rated monthly effective rainfall is an approximation; the USDA-SC formula tends to give lower effective rain than some other methods.
+- Pro-rated monthly effective rainfall is an approximation; the formula was verified from a secondary source (see above), not an FAO page.
 - Heat days are informational only.
 - Decade counts are small samples.
 
@@ -57,3 +58,6 @@ Code: `src/lib/replay/` (pure functions; take a NASA POWER `PowerResult` plus pl
 day is missing. Every other month is `null` (never 0, never a partial sum). Months outside every season are not listed at all.
 Reason: a fallow month's real water use is not zero (OpenET measures it), and a part-month sum compared with a whole-month
 satellite value would make the model look low for reasons unrelated to the crop. These months are simply not compared.
+
+## Crop region
+The crop catalog holds California values (`data/crops/catalog.json` region: California Delta / Central Valley). The replay page and the printed report print that region next to the crops. When the pin is outside California a visible warning says planting dates and stage lengths are California values and may not match local practice. "Outside California" comes from `isApproxInCalifornia` in `src/lib/crops/region.ts`: a bounding box with two straight lines for the Nevada border. It is approximate (no real borders, no land/ocean check).

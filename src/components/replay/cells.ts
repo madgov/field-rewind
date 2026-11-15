@@ -51,10 +51,12 @@ export type GaugeShape = {
   overPct: number;
   /** true when the need is larger than the vessel can draw */
   clipped: boolean;
+  /** true when the red part was drawn taller than its true size so a near miss stays visible */
+  minimumApplied: boolean;
 };
 
 export function gaugeShape(s: Pick<SeasonResult, "needMm" | "supplyMm" | "needFractionOfSupply" | "outcome">): GaugeShape {
-  if (s.outcome === null || s.needMm === null) return { fillPct: 0, basePct: 0, overPct: 0, clipped: false };
+  if (s.outcome === null || s.needMm === null) return { fillPct: 0, basePct: 0, overPct: 0, clipped: false, minimumApplied: false };
   // Supply 0: the engine gives no fraction. Any need at all overflows the (empty) line; no need leaves it empty.
   const f = s.needFractionOfSupply ?? (s.needMm > 0 ? MAX_FRACTION : 0);
   const clipped = f > MAX_FRACTION;
@@ -63,10 +65,14 @@ export function gaugeShape(s: Pick<SeasonResult, "needMm" | "supplyMm" | "needFr
   const basePct = Math.min(fillPct, SUPPLY_LINE_PCT);
   const over = Math.max(0, fillPct - SUPPLY_LINE_PCT);
   const overPct = s.outcome === "short" ? Math.max(over, MIN_VISIBLE_OVER_PCT) : over;
-  return { fillPct: basePct + overPct, basePct, overPct, clipped };
+  return { fillPct: basePct + overPct, basePct, overPct, clipped, minimumApplied: s.outcome === "short" && over < MIN_VISIBLE_OVER_PCT };
 }
 
-export const mmWithInches = (mm: number) => `${formatMm(mm)} (${formatInches(mm)})`;
+/** Whole mm with inches derived from that same whole-mm number, so the two always agree. */
+export const mmWithInches = (mm: number) => {
+  const whole = Math.round(mm);
+  return `${formatMm(whole)} (${formatInches(whole)})`;
+};
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 /** "2025-10-15" -> "15 Oct 2025" (no time zones involved). */

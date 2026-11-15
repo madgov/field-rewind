@@ -3,6 +3,7 @@ import Link from "next/link";
 import { cacheLife } from "next/cache";
 import { DEMO_PINS, type DemoPin } from "@/lib/demoPins";
 import { loadSavedDemoPin } from "@/lib/power";
+import { powerOriginLine } from "@/lib/power/label";
 import { summarizeAnnual, type AnnualSummary, type QuantityMean } from "@/lib/summary/annual";
 import type { PowerField, PowerResult } from "@/lib/types";
 import "./dev.css";
@@ -23,15 +24,6 @@ const FIELD_LABELS: Record<PowerField, string> = {
 const FIELD_ORDER = Object.keys(FIELD_LABELS) as PowerField[];
 
 const nf0 = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
-
-/** "15 Nov 2026, 06:33 UTC" */
-function formatUtc(iso: string): string {
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return `${iso} (unreadable date)`;
-  const date = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(d);
-  const time = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hourCycle: "h23", timeZone: "UTC" }).format(d);
-  return `${date}, ${time} UTC`;
-}
 
 function lat(v: number) {
   return `${Math.abs(v).toFixed(2)}° ${v >= 0 ? "N" : "S"}`;
@@ -79,7 +71,6 @@ function Mean({ label, q, unit }: { label: string; q: QuantityMean; unit: string
 }
 
 function PinCard({ pin, result, summary }: { pin: DemoPin; result: PowerHeader; summary: AnnualSummary }) {
-  const savedLabel = result.origin === "saved" ? "Saved response from" : `Not a saved response (origin: ${result.origin}), fetched`;
   return (
     <article className="devpin panel" aria-labelledby={`pin-${pin.id}`}>
       <header className="devpin__head">
@@ -162,7 +153,7 @@ function PinCard({ pin, result, summary }: { pin: DemoPin; result: PowerHeader; 
       <h3 className="devpin__h3">Where this came from</h3>
       <p className="devpin__prov">
         <strong>
-          {savedLabel} {formatUtc(result.fetchedAt)}.
+          {powerOriginLine(result)}
         </strong>{" "}
         These numbers are NASA POWER reanalysis (a computer model of the atmosphere fed by satellites), not a sensor in a field.
       </p>

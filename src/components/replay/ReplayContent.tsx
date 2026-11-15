@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { usableCrops } from "@/lib/crops/catalog";
-import { getPowerData } from "@/lib/power";
+import { cropRegionNotice } from "@/lib/crops/region";
+import { getPowerData, loadSavedDemoPin } from "@/lib/power";
 import { validateCoordinates } from "@/lib/power/grid";
 import { buildSeasonTable } from "@/lib/replay";
 import HowWeKnow from "../howweknow/HowWeKnow";
-import { LoadingState, Problem } from "../shift/States";
-import { demoNameFor, latText, lonText } from "../shift/format";
+import { LoadingState, PartialNotice, Problem, powerProblemScreen } from "../shift/States";
+import { demoNameFor, latText, lonText, powerOriginLine } from "../shift/format";
+import { EXAMPLE_FARM_PARAM, exampleFarmHref, exampleFarmPin } from "./exampleFarm";
 import ReplayApp from "./ReplayApp";
 import { parseState } from "./urlState";
 
@@ -22,8 +24,10 @@ function parse(v: string | string[] | undefined): number {
 
 export default async function ReplayContent({ searchParams }: { searchParams: Promise<Params> }) {
   const sp = await searchParams;
-  const lat = parse(sp.lat);
-  const lon = parse(sp.lon);
+  // Example farm: the committed saved Brentwood response only. It never goes through the live path, so it cannot contact NASA.
+  const exampleFarm = sp[EXAMPLE_FARM_PARAM] === "1";
+  const lat = exampleFarm ? exampleFarmPin().lat : parse(sp.lat);
+  const lon = exampleFarm ? exampleFarmPin().lon : parse(sp.lon);
   const bad = validateCoordinates(lat, lon);
   if (bad) {
     const missing = sp.lat === undefined || sp.lon === undefined;
@@ -40,32 +44,11 @@ export default async function ReplayContent({ searchParams }: { searchParams: Pr
     );
   }
 
-  const power = await getPowerData(lat, lon);
-  const retryHref = `/replay?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`;
+  const power = exampleFarm ? await loadSavedDemoPin(exampleFarmPin().id) : await getPowerData(lat, lon);
+  const retryHref = exampleFarm ? exampleFarmHref() : `/replay?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`;
 
-  if (power.status === "error") {
-    return (
-      <Problem
-        basePath="/replay"
-        title="NASA POWER could not give us the weather history"
-        lines={["No replay is shown, because the app never fills the gap with made-up numbers."]}
-        exact={power.message ?? "NASA POWER returned an error with no message."}
-        nextStep="Try again in a moment, or try one of the example places, which use a saved response."
-        retryHref={retryHref}
-      />
-    );
-  }
-  if (power.status === "no-coverage") {
-    return (
-      <Problem
-        basePath="/replay"
-        title="NASA POWER has no data for this spot"
-        lines={["NASA POWER returned no daily values for this location."]}
-        exact={power.message ?? undefined}
-        nextStep="Pick a spot on land, or try one of the example places."
-      />
-    );
-  }
+  const problem = powerProblemScreen(power, { basePath: "/replay", retryHref, what: "replay" });
+  if (problem) return problem;
 
   const crops = usableCrops();
   const built = buildSeasonTable(power, crops);
@@ -102,12 +85,16 @@ export default async function ReplayContent({ searchParams }: { searchParams: Pr
           <p className="sh-hero__sub">Choose 2 or 3 crop rotations and a water supply. Every season from 1986 to 2025 is replayed against the weather record for this spot.</p>
           <ul className="sh-hero__chips">
             <li className="chip chip--strong">Regional climate, about 50 km grid</li>
-            <li className="chip">{built.table.dataLabel}</li>
+            <li className={`chip ${power.origin === "saved" ? "chip--saved" : ""}`} data-testid="origin-chip">{powerOriginLine(power)}</li>
             <li className="chip">{gridText}</li>
           </ul>
         </div>
       </header>
+      {power.status === "partial" && <div className="rp-partial"><PartialNotice power={power} mode="replay" /></div>}
       <ReplayApp
+        exampleFarm={exampleFarm}
+        originLine={powerOriginLine(power)}
+        region={cropRegionNotice(lat, lon)}
         key={`${lat}|${lon}`}
         table={built.table}
         crops={usable}

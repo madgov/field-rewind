@@ -259,7 +259,7 @@ describe("wording agrees with numbers across a grid", () => {
           const verdicts = Object.values(r.metrics).map((m) => m.verdict);
           const anyClear = verdicts.some((v) => v === "increase" || v === "decrease");
           if (anyClear) expect(r.overallHeadline).toMatch(/shifted/);
-          else expect(r.overallHeadline).toMatch(/No clear shift/);
+          else expect(r.overallHeadline).toMatch(/No clear shift/); // no insufficient metric in this grid
           expect(r.overallHeadline + r.overallDetail).not.toMatch(forbidden);
         });
       }
@@ -351,9 +351,29 @@ describe("overall wording by number of clear metrics", () => {
   });
   it("0 clear plus one insufficient metric", () => {
     const r = ok(computeShift(makePower(1985, 2025, () => ({}), { elevationM: null })));
-    expect(r.overallHeadline).toMatch(/^No clear shift/);
-    expect(r.overallDetail).toMatch(/none of the measures we could compare changed/);
+    expect(r.overallHeadline).not.toMatch(/No clear shift/i);
+    expect(r.overallHeadline).toMatch(/^Not enough complete data to compare crop water demand \(ET0\)/);
     expect(r.overallDetail).toMatch(/Not enough complete data to compare crop water demand \(ET0\)\./);
+    expect(r.overallDetail).toMatch(/days over 35 °C and rainfall/);
+  });
+  it("0 clear plus fewer than 15 usable years in one metric: headline says not enough data and names it, never 'no clear shift'", () => {
+    const g: Gen = (y, d) => (y >= 1990 && y <= 1995 && d <= 11 ? { precipMm: null } : {}); // 14 usable early years for rainfall
+    const r = ok(computeShift(makePower(1985, 2025, g)));
+    expect(r.metrics.precip.verdict).toBe("insufficient-data");
+    expect(r.metrics.hotDays.verdict).toBe("no-clear-change");
+    expect(r.overallHeadline).toMatch(/^Not enough complete data to compare rainfall/);
+    expect(r.overallHeadline).not.toMatch(/no clear shift/i);
+    expect(r.overallDetail).toMatch(/Not enough complete data to compare rainfall\./);
+  });
+  it("0 clear and nothing insufficient still says no clear shift", () => {
+    const r = ok(computeShift(makePower(1985, 2025)));
+    expect(r.overallHeadline).toMatch(/^No clear shift/);
+  });
+  it("a clear shift plus one insufficient metric still reports the shift and says what could not be compared", () => {
+    const g: Gen = (y, d) => ({ ...(y >= 1990 && y <= 1995 && d <= 11 ? { precipMm: null } : {}), tMaxC: d <= (y <= 2004 ? 20 : 40) ? 40 : 25 });
+    const r = ok(computeShift(makePower(1985, 2025, g)));
+    expect(r.overallHeadline).toMatch(/shifted/);
+    expect(r.overallDetail).toMatch(/Not enough complete data to compare rainfall/);
   });
   it("all insufficient", () => {
     const r = ok(computeShift(makePower(2000, 2010)));
@@ -409,3 +429,23 @@ describe("real saved demo pins", () => {
 
 // keep type import used
 export type _Unused = MetricId;
+
+describe("direction text and shown difference", () => {
+  it("directionText is factual per metric and null without a clear change", async () => {
+    const { directionText } = await import("./direction");
+    expect(directionText("hotDays", "increase")).toBe("More days over 35 °C");
+    expect(directionText("hotDays", "decrease")).toBe("Fewer days over 35 °C");
+    expect(directionText("et0", "increase")).toBe("Higher crop water demand");
+    expect(directionText("et0", "decrease")).toBe("Lower crop water demand");
+    expect(directionText("precip", "increase")).toBe("More rain");
+    expect(directionText("precip", "decrease")).toBe("Less rain");
+    expect(directionText("precip", "no-clear-change")).toBeNull();
+    expect(directionText("precip", "insufficient-data")).toBeNull();
+    for (const id of ["hotDays", "et0", "precip"] as const) expect(directionText(id, "increase")).not.toMatch(/strain/i);
+  });
+  it("shownDiff is round(late) minus round(early), so inches derive from the printed mm", async () => {
+    const { shownDiff } = await import("./compute");
+    expect(shownDiff({ early: { mean: 100.4 }, late: { mean: 200.6 } })).toBe(101); // 201 - 100; unrounded gap is 100.2
+    expect(shownDiff({ early: { mean: null }, late: { mean: 5 } })).toBe(0);
+  });
+});

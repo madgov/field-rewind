@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { describeSeason, rotationHeadline, rotationSentence } from "./wording";
+import { describeSeason, displayedFigures, rotationHeadline, rotationSentence } from "./wording";
 import type { DecadeCount, SeasonResult } from "./types";
 
 function dec(label: string, short: number, evaluable: number): DecadeCount {
@@ -104,15 +104,40 @@ describe("season sentence", () => {
     expect(t).toContain("covered it with 88 mm to spare");
   });
   it("just short: need above supply by less than the rounding step", () => {
-    const t = describeSeason({ ...base, needMm: 500.3, supplyMm: 500, outcome: "short" });
+    const t = describeSeason({ ...base, etcMm: 588.4, effectiveRainMm: 88.1, needMm: 500.3, supplyMm: 500, outcome: "short" });
     expect(t).toContain("just short");
   });
   it("zero need", () => {
-    expect(describeSeason({ ...base, needMm: 0, outcome: "ok" })).toContain("needed no irrigation water");
+    expect(describeSeason({ ...base, etcMm: 80, effectiveRainMm: 90, needMm: 0, outcome: "ok" })).toContain("needed no irrigation water");
   });
   it("grey season", () => {
     expect(describeSeason({ ...base, status: "insufficient-data", outcome: null, needMm: null, reason: "Too many gaps." })).toBe(
       "2003: could not be judged. Too many gaps.",
     );
+  });
+});
+
+describe("displayed figures add up", () => {
+  it("need shown = rounded water use minus rounded rain, floored at 0; may differ from round(unrounded need) by 1", () => {
+    // 600.5 -> 601, 200.5 -> 201 (Math.round), unrounded need 400.0 -> would print 400, but shown arithmetic is 601 - 201 = 400 here
+    expect(displayedFigures({ etcMm: 600.4, effectiveRainMm: 200.4, needMm: 400 })).toEqual({ etcMm: 600, rainMm: 200, needMm: 400 });
+    // unrounded need 400.4 rounds to 400, but 600.5 - 200.1 rounds to 601 - 200 = 401: the shown figures stay consistent with each other
+    expect(displayedFigures({ etcMm: 600.5, effectiveRainMm: 200.1, needMm: 400.4 })).toEqual({ etcMm: 601, rainMm: 200, needMm: 401 });
+    const f = displayedFigures({ etcMm: 600.5, effectiveRainMm: 200.1, needMm: 400.4 })!;
+    expect(f.etcMm - f.rainMm).toBe(f.needMm);
+  });
+  it("floors at 0 and is null for grey seasons", () => {
+    expect(displayedFigures({ etcMm: 80.2, effectiveRainMm: 90.4, needMm: 0 })!.needMm).toBe(0);
+    expect(displayedFigures({ etcMm: null, effectiveRainMm: null, needMm: null })).toBeNull();
+  });
+  it("the caption uses the same need as the gauge list", () => {
+    const base: SeasonResult = {
+      year: 2003, cropId: "x", cropName: "Tomato", status: "evaluated", plantingDate: "2003-04-01", endDate: "2003-08-01",
+      lengthDays: 123, etcMm: 600.5, effectiveRainMm: 200.1, needMm: 400.4, heatDays: 3, heatThresholdC: 35,
+      missingEt0Days: 0, missingPrecipSeasonDays: 0, missingPrecipMonthDays: 0, missingTMaxDays: 0,
+      supplyMm: 500, outcome: "ok", marginMm: 99.6, needFractionOfSupply: 0.8,
+    };
+    expect(describeSeason(base)).toContain("needed about 401 mm");
+    expect(describeSeason(base)).toContain("99 mm to spare");
   });
 });

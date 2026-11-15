@@ -10,7 +10,7 @@ import MetricCard from "./MetricCard";
 import Provenance from "./Provenance";
 import Stripes from "./Stripes";
 import { buildStripeProps } from "./stripeData";
-import { LoadingState, PlaceLinks, Problem } from "./States";
+import { LoadingState, PartialNotice, PlaceLinks, Problem, powerProblemScreen } from "./States";
 import { demoNameFor, latText, lonText } from "./format";
 
 export { LoadingState };
@@ -46,27 +46,8 @@ export default async function ShiftContent({ searchParams }: { searchParams: Pro
   const power = await getPowerData(lat, lon);
   const retryHref = `/shift?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`;
 
-  if (power.status === "error") {
-    return (
-      <Problem
-        title="NASA POWER could not give us the weather history"
-        lines={["No result is shown, because the app never fills the gap with made-up numbers."]}
-        exact={power.message ?? "NASA POWER returned an error with no message."}
-        nextStep="Try again in a moment, or try one of the example places, which use a saved response."
-        retryHref={retryHref}
-      />
-    );
-  }
-  if (power.status === "no-coverage") {
-    return (
-      <Problem
-        title="NASA POWER has no data for this spot"
-        lines={["NASA POWER returned no daily values for this location."]}
-        exact={power.message ?? undefined}
-        nextStep="Pick a spot on land, or try one of the example places."
-      />
-    );
-  }
+  const problem = powerProblemScreen(power, { retryHref, what: "result" });
+  if (problem) return problem;
 
   const shift = computeShift(power);
   if (shift.status === "unavailable") {
@@ -85,6 +66,7 @@ export default async function ShiftContent({ searchParams }: { searchParams: Pro
     <>
       <Hero tone={heroTone(metrics)} place={place} gridText={gridText} headline={shift.overallHeadline} detail={shift.overallDetail} />
       <main className="sh-main">
+        {power.status === "partial" && <PartialNotice power={power} mode="shift" />}
         <aside className="sh-cta" aria-labelledby="cta-h">
           <div>
             <h2 id="cta-h" className="sh-cta__title">Would your crops have coped?</h2>

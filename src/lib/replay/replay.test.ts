@@ -142,7 +142,7 @@ describe("input validation and unavailable results", () => {
     expect(replay(empty, crops, { supplyMm: 100, rotations: rots }).status).toBe("unavailable");
   });
   it("labels saved data as a saved response with its date", () => {
-    expect(ok(replay(power, crops, { supplyMm: 100, rotations: rots })).dataLabel).toMatch(/^saved response from 2026-02-03/);
+    expect(ok(replay(power, crops, { supplyMm: 100, rotations: rots })).dataLabel).toMatch(/^Saved response from 3 Feb 2026/);
   });
 });
 

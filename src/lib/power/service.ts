@@ -6,6 +6,7 @@ import { DiskCache } from "./cache";
 import { fetchPowerRaw, PowerFetchError, type ClientOptions } from "./client";
 import { DEFAULT_END, DEFAULT_START } from "./constants";
 import { gridCell, validateCoordinates } from "./grid";
+import { OFFLINE_MESSAGE, offlineFromEnv } from "./offline";
 import { errorResult, normalizePower } from "./normalize";
 import type { PowerSavedFile } from "./rawTypes";
 
@@ -19,6 +20,11 @@ export type PowerServiceDeps = {
   cacheFallbackDir?: string;
   start?: string;
   end?: string;
+  /**
+   * Offline switch. When true, the service makes NO network call and ignores the runtime cache: only committed saved
+   * responses are served, and anything else returns a structured "error" result. Default: read FIELD_REWIND_OFFLINE.
+   */
+  offline?: boolean | (() => boolean);
 };
 
 export function createPowerService(deps: PowerServiceDeps = {}) {
@@ -28,6 +34,7 @@ export function createPowerService(deps: PowerServiceDeps = {}) {
   const disk = new DiskCache(deps.cacheDir ?? path.join(process.cwd(), ".cache", "power"), deps.cacheFallbackDir);
   const mem = new Map<string, PowerSavedFile>();
   const inflight = new Map<string, Promise<PowerResult>>();
+  const isOffline = () => (typeof deps.offline === "function" ? deps.offline() : (deps.offline ?? offlineFromEnv()));
 
   /** Normalize a stored/fetched wrapper for the requested point, noting cell sharing when points differ. */
   function build(saved: PowerSavedFile, lat: number, lon: number, origin: PowerResult["origin"]): PowerResult {
@@ -74,6 +81,7 @@ export function createPowerService(deps: PowerServiceDeps = {}) {
     if (bad) return errorResult({ lat, lon, start, end, message: bad, coordsValid: false });
     const cell = gridCell(lat, lon);
 
+    const offline = isOffline();
     if (!opts.fresh) {
       // (a) committed saved response of a demo pin in the same cell
       const pin = DEMO_PINS.find((p) => gridCell(p.lat, p.lon).key === cell.key);
@@ -84,10 +92,10 @@ export function createPowerService(deps: PowerServiceDeps = {}) {
           if (r.status !== "error") return r;
         }
       }
-      // (b) runtime cache: memory, then disk
-      const m = mem.get(cell.key);
+      // (b) runtime cache: memory, then disk (skipped offline: it holds earlier live fetches, not saved responses)
+      const m = offline ? undefined : mem.get(cell.key);
       if (m) return build(m, lat, lon, "cache");
-      const d = await disk.read(cell.key);
+      const d = offline ? null : await disk.read(cell.key);
       if (d) {
         const r = build(d, lat, lon, "cache");
         if (r.status !== "error") {
@@ -95,6 +103,10 @@ export function createPowerService(deps: PowerServiceDeps = {}) {
           return r;
         }
       }
+    }
+
+    if (offline) {
+      return errorResult({ lat, lon, start, end, message: OFFLINE_MESSAGE, origin: "live" });
     }
 
     // (c) live fetch at the exact requested point (deduplicated per cell)

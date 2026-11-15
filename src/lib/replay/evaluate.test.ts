@@ -97,6 +97,20 @@ describe("season evaluation", () => {
     expect(eleven.reason).toMatch(/11 of the season's 40 days/);
   });
 
+  it("10 missing precipitation days still evaluates (rain undercounted, count carried); 11 is grey", () => {
+    const start = dayNum(2000, 6, 1);
+    const missing = (n: number) => (d: number) => (d >= start && d < start + n ? null : 2);
+    const ten = evaluateSeason(makeClimate({ et0: () => 5, precip: missing(MAX_MISSING_SEASON_DAYS) }), flat, 2000, 1000);
+    expect(ten.status).toBe("evaluated");
+    expect(ten.missingPrecipSeasonDays).toBe(10);
+    const eleven = evaluateSeason(makeClimate({ et0: () => 5, precip: missing(11) }), flat, 2000, 1000);
+    expect(eleven.status).toBe("insufficient-data");
+    expect(eleven.outcome).toBeNull();
+    expect(eleven.needMm).toBeNull();
+    expect(eleven.missingPrecipSeasonDays).toBe(11);
+    expect(eleven.reason).toMatch(/11 of the season's 40 days have no rainfall value/);
+  });
+
   it("a season not fully inside the record is grey", () => {
     const winter = fixtureCrop({ id: "w", kc: [1, 1, 1], days: [30, 60, 80, 40], plant: "10-20", spans: true });
     const c = makeClimate({ start: "1986-01-01" });

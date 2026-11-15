@@ -3,6 +3,7 @@ import { createPowerService } from "./service";
 
 export { createPowerService } from "./service";
 export type { PowerServiceDeps } from "./service";
+export { OFFLINE_ENV, OFFLINE_MESSAGE, offlineFromEnv } from "./offline";
 export { gridCell, validateCoordinates, roundToHalf } from "./grid";
 export { normalizePower, errorResult } from "./normalize";
 export { fetchPowerRaw, fetchPowerUrl, buildPowerUrl, PowerFetchError } from "./client";

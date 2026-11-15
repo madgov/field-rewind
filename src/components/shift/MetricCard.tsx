@@ -1,3 +1,5 @@
+import { shownDiff } from "@/lib/shift/compute";
+import { directionText } from "@/lib/shift/direction";
 import type { MetricShift } from "@/lib/shift/types";
 import { formatInches } from "@/lib/shift/units";
 import { fmtValue, metricTone } from "./colors";
@@ -53,14 +55,14 @@ export default function MetricCard({ metric, index, thresholdNote }: { metric: M
         </span>
       </header>
       {(tone === "pressure" || tone === "relief") && (
-        <p className="mcard__tone">{tone === "pressure" ? "More strain on the field" : "Less strain on the field"}</p>
+        <p className="mcard__tone" data-testid="direction-text">{directionText(metric.id, metric.verdict)}</p>
       )}
       {thresholdNote && <p className="mcard__thresh">{thresholdNote}</p>}
       <p className="mcard__big">
         <CountUp key={metric.headline} text={metric.headline} delayMs={250 + index * 120} />
       </p>
       {metric.unit === "mm per year" && metric.diff !== null && metric.verdict !== "no-clear-change" && (
-        <p className="mcard__alt">about {formatInches(Math.abs(metric.diff)).replace(/ in$/, " inches")} a year</p>
+        <p className="mcard__alt">about {formatInches(Math.abs(shownDiff(metric))).replace(/ in$/, " inches")} a year</p>
       )}
       <dl className="means">
         <Mean stats={metric.early} metric={metric} which="early" />
