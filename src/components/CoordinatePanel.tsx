@@ -20,6 +20,9 @@ export default function CoordinatePanel({ pin }: { pin: Pin | null }) {
       <Link className="panel__cta" href={`/shift?lat=${pin.lat.toFixed(4)}&lon=${pin.lon.toFixed(4)}`}>
         See how this field has shifted
       </Link>
+      <Link className="panel__link" href={`/replay?lat=${pin.lat.toFixed(4)}&lon=${pin.lon.toFixed(4)}`}>
+        Replay 40 seasons with your crops and water
+      </Link>
       <dl className="panel__list">
         <div>
           <dt>Latitude</dt>

@@ -5,14 +5,14 @@ const BackArrow = () => (
   <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
 );
 
-export function PlaceLinks({ label = "Try an example place" }: { label?: string }) {
+export function PlaceLinks({ label = "Try an example place", basePath = "/shift" }: { label?: string; basePath?: string }) {
   return (
     <nav className="places" aria-label={label}>
       <p className="places__label">{label}</p>
       <ul>
         {DEMO_PINS.map((d) => (
           <li key={d.id}>
-            <Link className="demo-link" href={`/shift?lat=${d.lat.toFixed(4)}&lon=${d.lon.toFixed(4)}`}>{d.name}</Link>
+            <Link className="demo-link" href={`${basePath}?lat=${d.lat.toFixed(4)}&lon=${d.lon.toFixed(4)}`}>{d.name}</Link>
           </li>
         ))}
       </ul>
@@ -32,7 +32,7 @@ export function PageTop({ title }: { title: string }) {
 }
 
 /** Plain message state with a next step. `retryHref` renders a plain anchor so the page really reloads. */
-export function Problem(props: { title: string; lines: string[]; exact?: string; nextStep?: string; retryHref?: string }) {
+export function Problem(props: { title: string; lines: string[]; exact?: string; nextStep?: string; retryHref?: string; basePath?: string }) {
   return (
     <>
       <PageTop title={props.title} />
@@ -58,7 +58,7 @@ export function Problem(props: { title: string; lines: string[]; exact?: string;
             <Link className="btn btn--ghost" href="/">Back to the map</Link>
           </div>
         </section>
-        <PlaceLinks />
+        <PlaceLinks basePath={props.basePath} />
       </main>
     </>
   );

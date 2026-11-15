@@ -84,6 +84,16 @@ export default async function ShiftContent({ searchParams }: { searchParams: Pro
     <>
       <Hero tone={heroTone(metrics)} place={place} gridText={gridText} headline={shift.overallHeadline} detail={shift.overallDetail} />
       <main className="sh-main">
+        <aside className="sh-cta" aria-labelledby="cta-h">
+          <div>
+            <h2 id="cta-h" className="sh-cta__title">Would your crops have coped?</h2>
+            <p className="sh-cta__text">Pick your crop rotations and a water supply, then replay every season from 1986 to 2025.</p>
+          </div>
+          <Link className="btn btn--primary sh-cta__btn" href={`/replay?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`}>
+            Replay 40 seasons with your crops and water
+          </Link>
+        </aside>
+
         <section aria-labelledby="nums-h">
           <h2 id="nums-h" className="sh-h2">Three numbers, compared across two periods</h2>
           <div className="mcards">

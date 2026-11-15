@@ -239,3 +239,11 @@
   .legend__high { grid-column: 2; grid-row: 2; order: 0; text-align: right; align-items: flex-end; }
 }
 .mcard__tone { margin: 6px 0 0; font-size: 0.9rem; font-weight: 700; color: var(--accent); }
+
+/* ---------- Entry to the 40-season replay ---------- */
+.sh-cta { display: grid; gap: 14px; align-items: center; padding: 18px; border: 2px solid var(--leaf); border-radius: 14px; background: var(--paper); box-shadow: 6px 6px 0 var(--wheat-deep); animation: rise 0.6s 0.1s both ease-out; }
+.sh-cta__title { margin: 0 0 4px; font-family: Georgia, "Iowan Old Style", serif; font-size: 1.35rem; }
+.sh-cta__text { margin: 0; color: var(--soil-soft); }
+.sh-cta__btn { text-align: center; min-height: 54px; transition: background 0.2s, transform 0.15s; }
+.sh-cta__btn:active { transform: scale(0.98); }
+@media (min-width: 760px) { .sh-cta { grid-template-columns: minmax(0, 1fr) auto; } }

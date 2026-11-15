@@ -1,0 +1,592 @@
+{
+  "compiledOn": "2026-11-14",
+  "region": "California Delta / Central Valley, USA (FAO-56 rows for California; NASS California state-level planting dates)",
+  "crops": [
+    {
+      "id": "winter-wheat",
+      "name": "Winter wheat",
+      "kc": {
+        "ini": {
+          "value": 0.7,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Winter Wheat - with non-frozen soils', column Kc ini",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Winter Wheat is split into 'with frozen soils' (Kc ini 0.4) and 'with non-frozen soils' (0.7). Non-frozen row used because Central Valley soils do not freeze in winter."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Winter Wheat - with non-frozen soils', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Winter Wheat - with non-frozen soils', column Kc end (printed '0.25-0.4', footnote 10)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed range 0.25-0.4. Footnote 10: 'The higher value is for hand-harvested crops.' The lower value 0.25 is used for machine-harvested grain."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Winter Wheat', region 'Calif., USA', plant date 'December', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed as '20' with footnote 2: periods for winter wheat lengthen in frozen climates; not applicable to non-frozen California. Row prints 20/60/70/30, total 180."
+        },
+        "dev": {
+          "value": 60,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Winter Wheat', region 'Calif., USA', plant date 'December', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed '60' with footnote 2."
+        },
+        "mid": {
+          "value": 70,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Winter Wheat', region 'Calif., USA', plant date 'December', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Winter Wheat', region 'Calif., USA', plant date 'December', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "09-25",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Wheat, winter', column 'Usual planting dates - Begin (printed 'Sep 25')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "windowEnd": {
+          "value": "02-01",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Wheat, winter', column 'Usual planting dates - End (printed 'Feb 1')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window wraps the year end (Sep 25 to Feb 1). Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "defaultDate": {
+          "value": "12-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11; footnote 2 of Table 11",
+          "page": "Row 'Winter Wheat', region 'Calif., USA', plant date column prints 'December'; footnote 2 names 'December 1' as the presumed fall planting date in the absence of local data",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 prints only the month 'December'; the day 01 is taken from footnote 2 ('December 1 or when the 10-day running average of mean daily air temperature decreases to 17 C, whichever comes first', stated there for northern temperate climates). Lies inside NASS most-active range Oct 20 - Jan 1."
+        }
+      },
+      "heatThresholdC": {
+        "value": 35,
+        "source": "Luo Q. (2011), Temperature thresholds and crop production: a review. Climatic Change 109:583-598, doi:10.1007/s10584-011-0028-6",
+        "page": "p. 592 (section 3.1, Wheat); also Table 1 p. 586",
+        "url": "https://doi.org/10.1007/s10584-011-0028-6",
+        "note": "Text: 'a critical temperature of 35 C for a short period around anthesis had severe yield reducing effects (Porter and Semenov 2005)'. Applies to a short exposure around anthesis (flowering), not the whole season. Other value in the same paper: Table 1 (Porter and Gawith 1999) lists a cardinal Tmax of 31.0 C for the anthesis phase and 35.4 C for grain filling; those are development-rate limits, not failure thresholds. Luo is a review quoting other studies; value was read from the PDF copy at pagesperso.locean-ipsl.upmc.fr/escape/luo2011.climaticchange.pdf."
+      },
+      "spansNewYear": true
+    },
+    {
+      "id": "maize-grain",
+      "name": "Maize (grain corn)",
+      "kc": {
+        "ini": {
+          "value": 0.3,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Maize, Field (grain) (field corn)', Kc ini inherited from group header 'i. Cereals'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'i. Cereals' (0.3); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.2,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Maize, Field (grain) (field corn)', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.6,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Maize, Field (grain) (field corn)', column Kc end (printed '0.60-0.35', footnote 11)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed range 0.60-0.35. Footnote 11: the first value (0.60) is for harvest at high grain moisture, the second (0.35) for harvest after complete field drying to about 18 percent moisture. 0.60 (the first printed value, higher water use) is used because no source on California field-drying practice was read; 0.35 would apply to fully field-dried grain."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (grain)', region 'Spain (spr, sum.); Calif.', plant date 'April', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Region cell prints 'Spain (spr, sum.); Calif.'. Row prints 30/40/50/30, total 150."
+        },
+        "dev": {
+          "value": 40,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (grain)', region 'Spain (spr, sum.); Calif.', plant date 'April', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 50,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (grain)', region 'Spain (spr, sum.); Calif.', plant date 'April', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (grain)', region 'Spain (spr, sum.); Calif.', plant date 'April', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "03-15",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Corn for grain', column 'Usual planting dates - Begin (printed 'Mar 15')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "windowEnd": {
+          "value": "07-15",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Corn for grain', column 'Usual planting dates - End (printed 'Jul 15')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "defaultDate": {
+          "value": "04-01",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Corn for grain', column 'Usual planting dates - Most active, start (printed 'Apr 1 - Jul 1')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Chosen to match the FAO-56 Table 11 row used, whose plant date is 'April'. Day taken from the NASS most-active start."
+        }
+      },
+      "heatThresholdC": {
+        "value": 35,
+        "source": "Luo Q. (2011), Temperature thresholds and crop production: a review. Climatic Change 109:583-598, doi:10.1007/s10584-011-0028-6",
+        "page": "p. 585 (section 2.1, Maize); also Table 2 p. 589",
+        "url": "https://doi.org/10.1007/s10584-011-0028-6",
+        "note": "Text: 'temperatures of above 35 C are lethal to maize pollen viability' (citing Herrero and Johnson 1980; Schoper et al. 1987; Dupuis and Dumas 1990). It is a pollen-viability threshold, i.e. relevant at silking/tasseling. Other value in the same paper (p. 592): temperatures above 30 C increasingly impair kernel cell division (Commuri and Jones 2001), and 35 C vs 30 C during 8-10 days after anthesis dramatically reduced kernel growth (Jones et al. 1984)."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "cotton",
+      "name": "Cotton",
+      "kc": {
+        "ini": {
+          "value": 0.35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Cotton', Kc ini inherited from group header 'g. Fibre Crops'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'g. Fibre Crops' (0.35); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.2,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Cotton', column Kc mid (printed '1.15-1.20')",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed range 1.15-1.20 with no stated condition; the upper value 1.20 is used (higher water demand). 1.15 is the lower printed value."
+        },
+        "end": {
+          "value": 0.7,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Cotton', column Kc end (printed '0.70-0.50')",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed range 0.70-0.50 with no stated condition; the first (higher) value 0.70 is used. 0.50 is the other printed value."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cotton', region 'Egypt; Pakistan; Calif.', plant date 'Mar-May', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Region cell prints 'Egypt; Pakistan; Calif.'. Row prints 30/50/60/55, total 195. The other California row, 'Calif. Desert, USA' (plant date Mar), prints 45/90/45/45 = 225 and was not used."
+        },
+        "dev": {
+          "value": 50,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cotton', region 'Egypt; Pakistan; Calif.', plant date 'Mar-May', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 60,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cotton', region 'Egypt; Pakistan; Calif.', plant date 'Mar-May', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 55,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cotton', region 'Egypt; Pakistan; Calif.', plant date 'Mar-May', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "04-01",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Cotton, all', column 'Usual planting dates - Begin (printed 'Apr 1')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "windowEnd": {
+          "value": "05-15",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Cotton, all', column 'Usual planting dates - End (printed 'May 15')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "defaultDate": {
+          "value": "04-10",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Cotton, all', column 'Usual planting dates - Most active, start (printed 'Apr 10 - May 5')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Table 11 prints the range 'Mar-May' for the row used, so the exact day is taken from the NASS most-active start, which lies inside Mar-May."
+        }
+      },
+      "heatThresholdC": {
+        "value": 35,
+        "source": "Luo Q. (2011), Temperature thresholds and crop production: a review. Climatic Change 109:583-598, doi:10.1007/s10584-011-0028-6",
+        "page": "Table 2 p. 590, row 'Cotton', column Tfp, entry '35 (yield)'; context p. 590-591",
+        "url": "https://doi.org/10.1007/s10584-011-0028-6",
+        "note": "Tfp = failure-point temperature, defined by Luo (p. 584) as the ceiling temperature at which grain (here boll) yield fails to zero (after Hatfield et al. 2008). Cited to Reddy et al. 1999 and 2005. Table gives it for 'yield' without stating day, night or mean temperature, so applying it to daily maximum air temperature is an approximation. Same table: Topt for yield 25 C; boll harvest index Tfp 33-34 C."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "rice",
+      "name": "Rice (paddy)",
+      "kc": {
+        "ini": {
+          "value": 1.05,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Rice', column Kc ini",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote-free printed value 1.05 for a sub-humid climate with calm to moderate wind and standing water; the text under Table 14 says Kc ini for paddy rice should be adjusted for local climate (not applied here)."
+        },
+        "mid": {
+          "value": 1.2,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Rice', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.9,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Rice', column Kc end (printed '0.90-0.60')",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed range 0.90-0.60 with no stated condition; the first (higher) value 0.90 is used. 0.60 is the other printed value."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Rice', first row, region cell 'Tropics; Mediterranean', plant date cell 'Dec; May', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 has NO California rice row. The closest printed row is the first Rice row, whose merged cells read plant date 'Dec; May' and region 'Tropics; Mediterranean'; it is read here as Mediterranean / May (150 days). That reading is an interpretation of a merged cell. The second Rice row (30/30/80/40 = 180, 'May', 'Tropics') was not used."
+        },
+        "dev": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Rice', first row ('Dec; May', 'Tropics; Mediterranean'), column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 60,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Rice', first row ('Dec; May', 'Tropics; Mediterranean'), column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Rice', first row ('Dec; May', 'Tropics; Mediterranean'), column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "04-20",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Rice, all', column 'Usual planting dates - Begin (printed 'Apr 20')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "windowEnd": {
+          "value": "06-10",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Rice, all', column 'Usual planting dates - End (printed 'Jun 10')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "defaultDate": {
+          "value": "05-01",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Rice, all', column 'Usual planting dates - Most active, start (printed 'May 1 - May 25')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Matches the 'May' planting month in the FAO-56 Table 11 row used."
+        }
+      },
+      "heatThresholdC": {
+        "value": 35,
+        "source": "Luo Q. (2011), Temperature thresholds and crop production: a review. Climatic Change 109:583-598, doi:10.1007/s10584-011-0028-6",
+        "page": "Table 2 p. 589, row 'Rice', column Tfp, entry '35 (yield)'; text p. 585 and p. 592",
+        "url": "https://doi.org/10.1007/s10584-011-0028-6",
+        "note": "Tfp ('35 (yield)') cited to Yoshida 1981: 'High percentages of rice spikelet sterility occur if temperatures exceed 35 C at anthesis and last for more than 1 h' (p. 585). Applies at anthesis/heading. Other values in the same paper: pollen viability and production begin to decline above a daytime maximum of 33 C and reach zero at 40 C (Kim et al. 1996, p. 592)."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "sunflower",
+      "name": "Sunflower",
+      "kc": {
+        "ini": {
+          "value": 0.35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sunflower', Kc ini inherited from group header 'h. Oil Crops'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'h. Oil Crops' (0.35); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sunflower', column Kc mid (printed '1.0-1.15', footnote 9)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed range 1.0-1.15. Footnote 9: 'The lower values are for rainfed crops having less dense plant populations.' The upper value 1.15 is used for an irrigated crop."
+        },
+        "end": {
+          "value": 0.35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sunflower', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sunflower', region 'Medit.; California', plant date 'April/May', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Row prints 25/35/45/25, total 130."
+        },
+        "dev": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sunflower', region 'Medit.; California', plant date 'April/May', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 45,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sunflower', region 'Medit.; California', plant date 'April/May', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sunflower', region 'Medit.; California', plant date 'April/May', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "03-21",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Sunflower, all', column 'Usual planting dates - Begin (printed 'Mar 21')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "windowEnd": {
+          "value": "08-01",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Sunflower, all', column 'Usual planting dates - End (printed 'Aug 1')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "defaultDate": {
+          "value": "04-01",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Sunflower, all', column 'Usual planting dates - Most active, start (printed 'Apr 1 - May 31')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Table 11 prints 'April/May'; day from NASS most-active start."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "Searched, not found: Luo (2011) Climatic Change 109:583-598 and Hatfield and Prueger (2015) Weather and Climate Extremes 10:4-10 were read in full; neither gives a heat threshold for sunflower",
+        "page": "n/a",
+        "note": "Unknown. Not available in the sources opened; see docs/crop-sources.md for the sources that could not be opened (Hatfield et al. 2011, Grotjahn commodity review, UC pages)."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "sugar-beet",
+      "name": "Sugar beet (autumn-planted)",
+      "kc": {
+        "ini": {
+          "value": 0.35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sugar Beet', column Kc ini",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 1.2,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sugar Beet', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.7,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sugar Beet', column Kc end (printed '0.70' with footnote 5)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 5: this Kc end is for no irrigation during the last month of the growing season; it is higher, up to 1.0, when irrigation or significant rain occurs during the last month."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sugarbeet', region 'Calif. Desert, USA', plant date 'Sept', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Row prints 25/65/100/65, total 255. The California rows 'Calif., USA' (March, 30/45/90/15 = 180; June, 25/30/90/10 = 155) were NOT used because their plant months fall outside the NASS California usual planting window (Aug 15 - Oct 30); the Calif. Desert Sept row is the only California row that matches. The Delta is not a desert, so this is a regional approximation."
+        },
+        "dev": {
+          "value": 65,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sugarbeet', region 'Calif. Desert, USA', plant date 'Sept', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 100,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sugarbeet', region 'Calif. Desert, USA', plant date 'Sept', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 65,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sugarbeet', region 'Calif. Desert, USA', plant date 'Sept', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "08-15",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Sugarbeets', column 'Usual planting dates - Begin (printed 'Aug 15')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "windowEnd": {
+          "value": "10-30",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Sugarbeets', column 'Usual planting dates - End (printed 'Oct 30')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Window = NASS 'Begin' (about 5 percent planted) to 'End' (about 95 percent planted) usual planting dates for California, 2009 data / 20-year progress estimates; not a farm-specific or Delta-specific window."
+        },
+        "defaultDate": {
+          "value": "09-15",
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Sugarbeets', column 'Usual planting dates - Most active, start (printed 'Sep 15 - Oct 15')'",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Table 11 prints 'Sept' for the row used; day from NASS most-active start."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "Searched, not found: Luo (2011) Climatic Change 109:583-598 and Hatfield and Prueger (2015) Weather and Climate Extremes 10:4-10 were read in full; neither gives a heat threshold for sugar beet",
+        "page": "n/a",
+        "note": "Unknown. Not available in the sources opened; see docs/crop-sources.md for the sources that could not be opened (Hatfield et al. 2011, Grotjahn commodity review, UC pages)."
+      },
+      "spansNewYear": true
+    },
+    {
+      "id": "dry-bean",
+      "name": "Dry bean",
+      "kc": {
+        "ini": {
+          "value": 0.4,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Beans, dry and Pulses', column Kc ini",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Beans, dry and Pulses', column Kc mid (printed '1.15' with footnote 2)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 2: for dry beans grown on stalks reaching 1.5-2 m, 1.20 should be taken; plain bush beans use 1.15."
+        },
+        "end": {
+          "value": 0.35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Beans, dry and Pulses', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Beans (dry)', region 'Pakistan, Calif.', plant date 'June', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Row prints 15/25/35/20, total 95."
+        },
+        "dev": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Beans (dry)', region 'Pakistan, Calif.', plant date 'June', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Beans (dry)', region 'Pakistan, Calif.', plant date 'June', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Beans (dry)', region 'Pakistan, Calif.', plant date 'June', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": null,
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36): no dry-bean row exists for California",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Unknown (window start). The NASS California table lists no dry edible beans. FAO-56 Table 11 prints only the month 'June' for the row used. UC IPM page https://ipm.ucanr.edu/agriculture/dry-beans/planting-to-stand-establishment was read and gives no planting dates; UC ANR Publication 8402 (Common Dry Bean Production in California) could not be opened."
+        },
+        "windowEnd": {
+          "value": null,
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36): no dry-bean row exists for California",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Unknown (window end). The NASS California table lists no dry edible beans. FAO-56 Table 11 prints only the month 'June' for the row used. UC IPM page https://ipm.ucanr.edu/agriculture/dry-beans/planting-to-stand-establishment was read and gives no planting dates; UC ANR Publication 8402 (Common Dry Bean Production in California) could not be opened."
+        },
+        "defaultDate": {
+          "value": null,
+          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36): no dry-bean row exists for California",
+          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
+          "note": "Unknown (default date; only the month 'June' is printed in Table 11). The NASS California table lists no dry edible beans. FAO-56 Table 11 prints only the month 'June' for the row used. UC IPM page https://ipm.ucanr.edu/agriculture/dry-beans/planting-to-stand-establishment was read and gives no planting dates; UC ANR Publication 8402 (Common Dry Bean Production in California) could not be opened."
+        }
+      },
+      "heatThresholdC": {
+        "value": 32,
+        "source": "Luo Q. (2011), Temperature thresholds and crop production: a review. Climatic Change 109:583-598, doi:10.1007/s10584-011-0028-6",
+        "page": "Table 2 p. 590, row 'Dry bean', column Tfp, entry '32 (yield)'; text p. 588 and p. 593",
+        "url": "https://doi.org/10.1007/s10584-011-0028-6",
+        "note": "Tfp = failure-point temperature at which yield fails to zero (Luo p. 584). Cited to Prasad et al. 2002 and Laing et al. 1984. Text p. 593: high temperature (32/27 C day/night) shortly before and at anthesis reduced pod set and seed set substantially (Gross and Kigel 1994); pollen production per flower reduced above 31/21 C and pollen viability dramatically reduced above 34/24 C (Prasad et al. 2002). Day vs mean basis of the 32 C is not stated in the table."
+      },
+      "spansNewYear": false
+    }
+  ]
+}

@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     "/api/power": ["./data/power/*.json"],
     "/dev": ["./data/power/*.json"],
     "/shift": ["./data/power/*.json"],
+    "/replay": ["./data/power/*.json"],
   },
 };
 
