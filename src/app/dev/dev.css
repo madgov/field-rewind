@@ -1,0 +1,49 @@
+.devhead {
+  background: linear-gradient(135deg, #17381f 0%, var(--leaf) 55%, #3b6b2c 100%);
+  color: var(--paper);
+  padding: 20px 16px 28px;
+}
+.devhead > * { max-width: 1100px; margin-left: auto; margin-right: auto; }
+.devhead__back { display: flex; align-items: center; min-height: 44px; color: var(--wheat); }
+.devhead__title { margin: 4px auto 0; font-family: Georgia, "Iowan Old Style", serif; font-size: clamp(1.9rem, 7vw, 3rem); line-height: 1.1; }
+.devhead__sub { margin-top: 8px; margin-bottom: 0; max-width: 40rem; color: var(--wheat); }
+
+.dev { display: grid; gap: 20px; }
+.devpin { min-width: 0; }
+.devpin__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.devpin__name { font-size: 1.5rem; margin: 0; }
+.devpin__where { margin: 6px 0 4px; overflow-wrap: anywhere; }
+.devpin__label { margin: 0 0 14px; font-weight: 700; color: var(--clay); }
+.devpin__h3 { margin: 20px 0 6px; font-size: 1rem; }
+.devpin__prov { overflow-wrap: anywhere; }
+.devpin--error { border-color: var(--clay); }
+.devpin code, .devmethod code { background: var(--wheat); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+
+.badge { display: inline-block; padding: 2px 12px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; background: var(--leaf); color: var(--paper); }
+.badge--partial { background: var(--sun); color: var(--soil); }
+.badge--error, .badge--no-coverage { background: var(--clay); }
+
+.stats { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 0; }
+.stat { background: var(--wheat); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+.stat dt { font-size: 0.85rem; color: var(--soil-soft); }
+.stat dd { margin: 0; }
+.stat__big { font-family: Georgia, serif; font-size: 2rem; font-weight: 700; color: var(--leaf); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.stat__unit { font-family: system-ui, sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--soil-soft); }
+.stat__sub { font-size: 0.85rem; color: var(--soil-soft); overflow-wrap: anywhere; }
+.stat--off .stat__big { color: var(--clay); font-size: 1.4rem; }
+
+.tablewrap { overflow-x: auto; max-width: 100%; }
+.tablewrap table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+.tablewrap th, .tablewrap td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.tablewrap thead th { font-size: 0.8rem; color: var(--soil-soft); }
+.tablewrap tbody th { font-weight: 500; }
+.tablewrap .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.srclist { margin: 0; padding-left: 20px; }
+.srclist li { overflow-wrap: anywhere; font-size: 0.9rem; }
+.devmethod p { overflow-wrap: anywhere; }
+
+@media (min-width: 720px) {
+  .stats { grid-template-columns: repeat(3, 1fr); }
+  .devpin__head { flex-wrap: nowrap; }
+}
