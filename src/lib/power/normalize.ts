@@ -17,6 +17,17 @@ export type NormalizeInput = {
   note?: string;
 };
 
+/** Plain-English names for the daily fields, used in messages shown to people. */
+const FIELD_LABEL: Record<PowerField, string> = {
+  tMaxC: "highest temperature",
+  tMinC: "lowest temperature",
+  rhPct: "humidity",
+  wind2mMs: "wind speed",
+  solarMJm2: "sunlight",
+  precipMm: "rainfall",
+};
+const n = (v: number) => v.toLocaleString("en-US");
+
 const blankUnits = (): Record<PowerField, string> => ({ tMaxC: "", tMinC: "", rhPct: "", wind2mMs: "", solarMJm2: "", precipMm: "" });
 const zeroMissing = (totalDays: number): PowerResult["missing"] => ({
   tMaxC: 0, tMinC: 0, rhPct: 0, wind2mMs: 0, solarMJm2: 0, precipMm: 0, anyField: 0, totalDays,
@@ -158,7 +169,7 @@ export function normalizePower(input: NormalizeInput): PowerResult {
     origin: input.origin,
     days,
   };
-  const perField = POWER_FIELDS.filter((f) => missing[f] > 0).map((f) => `${f} ${missing[f]}`).join(", ");
+  const perField = POWER_FIELDS.filter((f) => missing[f] > 0).map((f) => `${FIELD_LABEL[f]}: ${n(missing[f])} ${missing[f] === 1 ? "day" : "days"} missing`).join("; ");
   const notes = input.note ? ` ${input.note}` : "";
 
   if (anyValueCells === 0) {
@@ -168,7 +179,7 @@ export function normalizePower(input: NormalizeInput): PowerResult {
     return {
       status: "partial",
       ...common,
-      message: `${missing.anyField} of ${dates.length} days have at least one missing value. Missing days by field: ${perField}.${notes}`,
+      message: `${n(missing.anyField)} of ${n(dates.length)} days have at least one missing value, and missing values are never filled in. By measure: ${perField}.${notes}`,
     };
   }
   return { status: "ok", ...common, ...(input.note ? { message: input.note } : {}) };

@@ -211,3 +211,23 @@ a { color: var(--leaf); }
     transition: none !important;
   }
 }
+
+/* ---------- Primary action (Stage 2 entry point) ---------- */
+.panel__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  margin: 4px 0 14px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--leaf);
+  color: var(--paper);
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  animation: swap 0.4s ease-out;
+}
+.panel__cta:hover { background: #17381f; }
+.panel__cta:active { transform: scale(0.98); }

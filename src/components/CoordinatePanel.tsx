@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { formatLat, formatLon, formatSigned, gridCellCenter, type Pin } from "./geo";
 
 export default function CoordinatePanel({ pin }: { pin: Pin | null }) {
@@ -16,6 +17,9 @@ export default function CoordinatePanel({ pin }: { pin: Pin | null }) {
       <p className="panel__plain" key={`${pin.lat}|${pin.lon}`}>
         {formatLat(pin.lat)}, {formatLon(pin.lon)}
       </p>
+      <Link className="panel__cta" href={`/shift?lat=${pin.lat.toFixed(4)}&lon=${pin.lon.toFixed(4)}`}>
+        See how this field has shifted
+      </Link>
       <dl className="panel__list">
         <div>
           <dt>Latitude</dt>

@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/power": ["./data/power/*.json"],
     "/dev": ["./data/power/*.json"],
+    "/shift": ["./data/power/*.json"],
   },
 };
 

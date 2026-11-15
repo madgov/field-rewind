@@ -28,7 +28,18 @@ describe("normalizePower", () => {
     expect(r.days[1].tMinC).not.toBeNull();
     expect(r.missing).toMatchObject({ tMaxC: 1, rhPct: 1, wind2mMs: 1, tMinC: 0, anyField: 2, totalDays: 5 });
     expect(r.message).toMatch(/2 of 5 days/);
-    expect(r.message).toMatch(/tMaxC 1/);
+    expect(r.message).toMatch(/highest temperature: 1 day missing/);
+    expect(r.message).toMatch(/humidity: 1 day missing/);
+    expect(r.message).not.toMatch(/tMaxC|rhPct|solarMJm2/);
+  });
+
+  it("partial message uses thousands separators and plain names for a long range", () => {
+    const raw = makeRaw({ start: "1985-01-01", end: "2025-12-31", set: { "ALLSKY_SFC_SW_DWN|1990-01-01": -999 } });
+    const r = normalizePower({ ...base, start: "1985-01-01", end: "2025-12-31", responses: [raw] });
+    expect(r.status).toBe("partial");
+    expect(r.message).toMatch(/1 of 14,975 days/);
+    expect(r.message).toMatch(/sunlight: 1 day missing/);
+    expect(r.message).not.toMatch(/14975|solarMJm2/);
   });
 
   it("uses the header fill_value instead of -999 when different", () => {

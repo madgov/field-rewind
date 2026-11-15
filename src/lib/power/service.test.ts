@@ -51,7 +51,8 @@ describe("getPowerData", () => {
     expect(b.origin).toBe("cache");
     expect(b.fetchedAt).toBe(a.fetchedAt);
     expect(b.lat).toBe(41.6);
-    expect(b.message).toMatch(/shared by every point/);
+    expect(b.message).toMatch(/shared by every point in the same 0\.5-degree grid square/);
+    expect(b.message).toMatch(/41\.59° N, 93\.62° W/);
   });
 
   it("disk cache survives a new service instance (fresh process)", async () => {

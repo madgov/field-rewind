@@ -32,7 +32,7 @@ export function createPowerService(deps: PowerServiceDeps = {}) {
   /** Normalize a stored/fetched wrapper for the requested point, noting cell sharing when points differ. */
   function build(saved: PowerSavedFile, lat: number, lon: number, origin: PowerResult["origin"]): PowerResult {
     const same = saved.lat === lat && saved.lon === lon;
-    const note = same ? undefined : `Data was fetched for ${saved.lat}, ${saved.lon} and is shared by every point in this 0.5-degree cell.`;
+    const note = same ? undefined : `This weather history was fetched for ${Math.abs(saved.lat)}° ${saved.lat >= 0 ? "N" : "S"}, ${Math.abs(saved.lon)}° ${saved.lon >= 0 ? "E" : "W"} and is shared by every point in the same 0.5-degree grid square (about 50 km across).`;
     return normalizePower({ lat, lon, responses: saved.responses, fetchedAt: saved.fetchedAt, sourceUrls: saved.sourceUrls, origin, start, end, note });
   }
 
