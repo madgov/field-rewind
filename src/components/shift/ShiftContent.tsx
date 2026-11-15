@@ -4,6 +4,7 @@ import { validateCoordinates } from "@/lib/power/grid";
 import { computeShift } from "@/lib/shift/compute";
 import { formatTempC, formatTempF } from "@/lib/shift/units";
 import type { MetricId } from "@/lib/shift/types";
+import HowWeKnow from "../howweknow/HowWeKnow";
 import Hero, { heroTone } from "./Hero";
 import MetricCard from "./MetricCard";
 import Provenance from "./Provenance";
@@ -115,6 +116,7 @@ export default async function ShiftContent({ searchParams }: { searchParams: Pro
         </section>
 
         <Provenance power={header} rules={shift.rules} />
+        <HowWeKnow page="shift" power={power} place={place} />
         <PlaceLinks label="See another place" />
       </main>
       <footer className="footer sh-footer">

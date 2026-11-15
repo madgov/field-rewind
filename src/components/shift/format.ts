@@ -17,3 +17,13 @@ export function demoNameFor(lat: number, lon: number): string | null {
   const d = DEMO_PINS.find((p) => Math.abs(p.lat - lat) < 0.0005 && Math.abs(p.lon - lon) < 0.0005);
   return d ? d.name : null;
 }
+
+/** The one provenance sentence for NASA POWER data: saved / cached / just fetched. Used by every screen so they cannot disagree. */
+export function powerOriginLine(power: { origin: "live" | "cache" | "saved"; fetchedAt: string }): string {
+  const when = formatUtc(power.fetchedAt);
+  return power.origin === "saved"
+    ? `Saved response from ${when}.`
+    : power.origin === "cache"
+      ? `Fetched from NASA POWER on ${when} (cached).`
+      : `Fetched from NASA POWER just now, ${when}.`;
+}

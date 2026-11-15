@@ -1,22 +1,20 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Crop } from "@/lib/crops/types";
 import { replayFromSeasonTable, type SeasonTable } from "@/lib/replay/assemble";
 import { EXAMPLE_SUPPLY_MM, EXAMPLE_SUPPLY_NOTE } from "@/lib/replay/examples";
 import { FIRST_SEASON, LAST_SEASON, type ReplayOk, type ReplayResult } from "@/lib/replay/types";
 import type { PowerResult } from "@/lib/types";
 import { cropAbbreviations } from "./cells";
-import CropSources, { type ExcludedCrop } from "./CropSources";
 import Gauge from "./Gauge";
-import Method from "./Method";
+import PrintReport, { usePrintMeta } from "./PrintReport";
+import { ReplayRotationsProvider } from "../howweknow/ReplayInputsContext";
 import RotationBuilder from "./RotationBuilder";
 import Scrubber from "./Scrubber";
 import Strip, { StripLegend } from "./Strip";
 import SupplyControl, { SupplyNote } from "./SupplyControl";
 import { encodeState, exampleRotations, nameOrDefault, rotationsAreExample, type ReplayState, type RotationDraft } from "./urlState";
-
-export type { ExcludedCrop };
 
 const PLAY_STEP_MS = 1100;
 const URL_WRITE_MS = 250;
@@ -25,12 +23,14 @@ const SPEAK_DEBOUNCE_MS = 800;
 type Props = {
   table: SeasonTable;
   crops: Crop[];
-  excluded: ExcludedCrop[];
+  /** The server-rendered "How we know" panel. */
+  howWeKnow: ReactNode;
+  place: string;
+  gridText: string;
   header: Omit<PowerResult, "days">;
   lat: number;
   lon: number;
   supplyMaxMm: number;
-  compiledOn: string;
   initial: ReplayState;
   notes: string[];
 };
@@ -43,6 +43,7 @@ export default function ReplayApp(props: Props) {
   const [playing, setPlaying] = useState(false);
   const [dismissedNotes, setDismissedNotes] = useState(false);
 
+  const [printMeta, capturePrintMeta] = usePrintMeta();
   const isExample = rotationsAreExample(rotations);
   const abbr = useMemo(() => cropAbbreviations(crops), [crops]);
 
@@ -71,7 +72,7 @@ export default function ReplayApp(props: Props) {
     const t = setTimeout(() => {
       try {
         const qs = encodeState({ rotations, supplyMm, year });
-        const url = `${window.location.pathname}?lat=${props.lat.toFixed(4)}&lon=${props.lon.toFixed(4)}&${qs}`;
+        const url = `${window.location.pathname}?lat=${props.lat.toFixed(4)}&lon=${props.lon.toFixed(4)}&${qs}${window.location.hash}`; // keep #how-we-know
         window.history.replaceState(window.history.state, "", url);
       } catch {
         /* a blocked history API only means the link is not updated */
@@ -120,6 +121,16 @@ export default function ReplayApp(props: Props) {
     for (const r of rotations) for (const id of r.sequence) if (!seen.has(id)) seen.set(id, id);
     return crops.filter((c) => seen.has(c.id)).map((c) => ({ abbr: abbr[c.id], name: c.name }));
   }, [rotations, crops, abbr]);
+
+  const printReport = () => {
+    capturePrintMeta();
+    window.print();
+  };
+  const panelRotations = useMemo(
+    () => rotations.map((r, i) => ({ name: nameOrDefault(r.name, i), sequence: r.sequence, cropNames: r.sequence.map((id) => crops.find((c) => c.id === id)?.name ?? id) })),
+    [rotations, crops],
+  );
+  const usedCrops = useMemo(() => crops.filter((c) => rotations.some((r) => r.sequence.includes(c.id))), [crops, rotations]);
 
   const loadExample = () => {
     setRotations(exampleRotations());
@@ -186,6 +197,9 @@ export default function ReplayApp(props: Props) {
         ) : (
           <p className="rp-empty" role="status">The replay cannot run with the rotations as they are. The problems are listed next to each rotation above.</p>
         )}
+        {ok && ok.notes.length > 0 && (
+          <ul className="method__notes rp-runnotes">{ok.notes.map((n) => <li key={n}>{n}</li>)}</ul>
+        )}
       </section>
 
       <section aria-labelledby="rp-gauge-h" className="rp-sec">
@@ -201,15 +215,16 @@ export default function ReplayApp(props: Props) {
         )}
       </section>
 
-      <section aria-labelledby="rp-src-h" className="rp-sec">
-        <h2 id="rp-src-h" className="sh-h2">Where the crop numbers come from</h2>
-        <CropSources crops={crops} excluded={props.excluded} compiledOn={props.compiledOn} />
+      <ReplayRotationsProvider value={panelRotations}>{props.howWeKnow}</ReplayRotationsProvider>
+
+      <section aria-labelledby="rp-print-h" className="rp-sec rp-print-sec">
+        <h2 id="rp-print-h" className="sh-h2">Take it with you</h2>
+        <p className="sh-lede">Print one page, or save it as a PDF, for these rotations and this water supply.</p>
+        <button type="button" className="btn btn--primary" onClick={printReport} disabled={!ok}>Print report</button>
+        {!ok && <p className="rp-print-note">The report prints once the replay can run with the rotations above.</p>}
       </section>
 
-      <section aria-labelledby="rp-method-h" className="rp-sec">
-        <h2 id="rp-method-h" className="sh-h2">How we know</h2>
-        <Method header={props.header} dataLabel={table.dataLabel} notes={ok ? ok.notes : []} />
-      </section>
+      {ok && <PrintReport result={ok} place={props.place} gridText={props.gridText} header={props.header} isExample={isExample} abbr={abbr} usedCrops={usedCrops} meta={printMeta} />}
 
       <div className="sr-only" aria-live="polite" aria-atomic="true" data-testid="live-season">{saidSeason}</div>
       <div className="sr-only" aria-live="polite" aria-atomic="true" data-testid="live-headline">{saidHeadline}</div>

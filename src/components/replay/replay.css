@@ -265,3 +265,49 @@
   .rp-sec--supply { padding-top: 8px; padding-bottom: 2px; }
   .supply__range { margin-top: 0; }
 }
+
+/* ---------- Print: the one-page "Water Reality Check" ---------- */
+.rp-print-sec .btn { margin-top: 4px; }
+.rp-print-note { margin: 8px 0 0; color: var(--soil-soft); }
+.rp-runnotes { margin-top: 14px; }
+.pr { display: none; }
+
+@media print {
+  @page { size: auto; margin: 9mm 10mm; }
+  html, body { background: #fff !important; color: #000; min-height: 0; }
+  body { font-size: 8.6pt; line-height: 1.3; overflow: visible; }
+  /* Hide everything interactive or decorative; only the report block stays. */
+  .sh-hero, .footer, .sh-footer, .rp-main > :not(.pr), .hk-panel { display: none !important; }
+  .rp-main { display: block; max-width: none; margin: 0; padding: 0; }
+  a { color: #000; text-decoration: none; }
+  * { animation: none !important; transition: none !important; }
+
+  .pr { display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .pr p, .pr ul, .pr h1, .pr h2 { margin: 0; }
+  .pr-head { padding-bottom: 5pt; border-bottom: 1.5pt solid #000; }
+  .pr-title { font: 700 21pt Georgia, "Iowan Old Style", serif; line-height: 1.1; }
+  .pr-q { margin-top: 2pt; font-size: 9.5pt; }
+  .pr-pin, .pr-supply, .pr-flags { margin-top: 2pt; }
+  .pr-flags { padding: 2pt 4pt; border: 1pt solid #000; }
+  .pr-head + .pr-rot { border-top: 0; margin-top: 4pt; }
+  .pr-rot { margin-top: 7pt; padding-top: 5pt; border-top: 0.75pt solid #000; break-inside: avoid; }
+  .pr-rname { font: 700 10.5pt Georgia, serif; }
+  .pr-rcrops { font-weight: 400; }
+  .pr-headline { margin: 1pt 0 3pt; font: 700 10pt Georgia, serif; }
+  .pr-strip { display: block; width: 100%; max-width: 112mm; height: auto; }
+  .pr-dl { font: 700 9.5px system-ui, sans-serif; fill: #000; }
+  .pr-dc { font: 9px system-ui, sans-serif; fill: #000; }
+  .pr-yr { font: 6.5px system-ui, sans-serif; fill: #000; }
+  .pr-ok { fill: #dcefe0; stroke: #000; stroke-width: 1.1; }
+  .pr-tick { fill: none; stroke: #000; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .pr-short { fill: #3a0f06; stroke: #000; stroke-width: 1; }
+  .pr-cross { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+  .pr-grey { fill: url(#pr-hatch); stroke: #444; stroke-width: 1; }
+  .pr-legend { margin-top: 5pt; font-size: 7.6pt; }
+  .pr-notes { margin-top: 6pt; padding-top: 4pt; border-top: 0.75pt solid #000; font-size: 7.8pt; }
+  .pr-h { margin-top: 3pt; font: 700 9pt system-ui, sans-serif; }
+  .pr-notes ul { padding-left: 12pt; }
+  .pr-notes li { margin-top: 1pt; }
+  .pr-foot span:last-child { flex: none; white-space: nowrap; }
+  .pr-foot { display: flex; justify-content: space-between; gap: 12pt; margin-top: 6pt; padding-top: 3pt; border-top: 0.75pt solid #000; font-size: 7.4pt; overflow-wrap: anywhere; }
+}

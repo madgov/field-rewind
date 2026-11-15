@@ -27,6 +27,7 @@ import {
   RS_RSO_TOTAL_CLOUD,
   type Et0Input,
 } from "./fao56";
+import { EXAMPLE18, example18Chain, runExample18 } from "./example18";
 
 /**
  * Tolerance helper: asserts |actual - printed| < half a unit in the last digit FAO-56 prints.
@@ -36,30 +37,23 @@ const close = (actual: number, printed: number, decimals: number) =>
   expect(actual).toBeCloseTo(printed, decimals);
 
 describe("FAO-56 Example 18 (Uccle, Brussels, 6 July)", () => {
-  // Inputs, all from the document (Chapter 4, Example 18).
-  const latDeg = 50 + 48 / 60; // 50 deg 48' N = 50.80
-  const elevationM = 100;
-  const tMaxC = 21.5;
-  const tMinC = 12.3;
-  const rhMaxPct = 84;
-  const rhMinPct = 63;
-  const windKmhAt10m = 10;
-  const sunshineH = 9.25;
-  const doy = dayOfYear("2001-07-06");
-
-  // Chain: wind conversion -> Ra, N -> Rs from sunshine -> et0Daily.
-  const u2 = windAt2m(windKmhAt10m / 3.6, 10);
-  const ra = extraterrestrialRadiation(latDeg, doy);
-  const N = daylightHours(latDeg, doy);
-  const rs = solarFromSunshine(sunshineH, N, ra);
-  const input: Et0Input = {
-    tMaxC, tMinC, rhMaxPct, rhMinPct, wind2mMs: u2, solarMJm2: rs, latDeg, elevationM, dayOfYear: doy,
-  };
+  // Inputs live in example18.ts (shared with the "How we know" panel so they cannot drift).
+  const { latDeg, elevationM, tMaxC, tMinC, sunshineH } = EXAMPLE18;
+  const { doy, u2, ra, daylightH: N, rs, input } = example18Chain();
   const d = et0DailyDetailed(input);
 
   it("reproduces the published 3.9 mm/day within 0.1 (FAO computed 3.88)", () => {
-    expect(Math.abs(et0Daily(input) - 3.9)).toBeLessThan(0.1);
-    close(et0Daily(input), 3.88, 2);
+    expect(Math.abs(et0Daily(input) - EXAMPLE18.publishedMmPerDay)).toBeLessThan(EXAMPLE18.toleranceMmPerDay);
+    close(et0Daily(input), EXAMPLE18.faoWorkedMmPerDay, 2);
+  });
+
+  it("the panel's runExample18() agrees with the test and reports a pass", () => {
+    const r = runExample18();
+    expect(r.ourMmPerDay).toBeCloseTo(et0Daily(input), 12);
+    expect(r.pass).toBe(true);
+    expect(r.publishedMmPerDay).toBe(3.9);
+    expect(r.faoWorkedMmPerDay).toBe(3.88);
+    expect(r.differenceMmPerDay).toBeCloseTo(r.ourMmPerDay - 3.9, 12);
   });
 
   it("day of year J = 187", () => expect(doy).toBe(187));

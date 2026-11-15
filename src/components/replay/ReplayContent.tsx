@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { CROP_CATALOG, excludedCrops, usableCrops } from "@/lib/crops/catalog";
-import type { Crop } from "@/lib/crops/types";
+import { usableCrops } from "@/lib/crops/catalog";
 import { getPowerData } from "@/lib/power";
 import { validateCoordinates } from "@/lib/power/grid";
-import { buildSeasonTable, resolveCropCached } from "@/lib/replay";
+import { buildSeasonTable } from "@/lib/replay";
+import HowWeKnow from "../howweknow/HowWeKnow";
 import { LoadingState, Problem } from "../shift/States";
 import { demoNameFor, latText, lonText } from "../shift/format";
-import ReplayApp, { type ExcludedCrop } from "./ReplayApp";
+import ReplayApp from "./ReplayApp";
 import { parseState } from "./urlState";
 
 type Params = Record<string, string | string[] | undefined>;
@@ -18,27 +18,6 @@ export function ReplayLoading() {
 function parse(v: string | string[] | undefined): number {
   if (typeof v !== "string" || v.trim() === "") return NaN;
   return Number(v);
-}
-
-const FIELD_LABELS: Record<string, string> = {
-  "kc.ini": "crop factor, initial stage",
-  "kc.mid": "crop factor, mid-season",
-  "kc.end": "crop factor, end of season",
-  "stageDays.ini": "initial stage length",
-  "stageDays.dev": "development stage length",
-  "stageDays.mid": "mid-season length",
-  "stageDays.late": "late-season length",
-  "planting.windowStart": "planting window start",
-  "planting.windowEnd": "planting window end",
-  "planting.defaultDate": "default planting date",
-  heatThresholdC: "heat threshold",
-};
-
-function fieldOf(crop: Crop, path: string) {
-  const parts = path.split(".");
-  let cur: unknown = crop;
-  for (const p of parts) cur = (cur as Record<string, unknown>)[p];
-  return cur as { source: string; page: string; url?: string; note?: string };
 }
 
 export default async function ReplayContent({ searchParams }: { searchParams: Promise<Params> }) {
@@ -103,19 +82,6 @@ export default async function ReplayContent({ searchParams }: { searchParams: Pr
 
   const { state, notes } = parseState(sp, { validCropIds: new Set(usable.map((c) => c.id)), supplyMaxMm });
 
-  const excluded: ExcludedCrop[] = excludedCrops().map(({ crop, missing }) => {
-    const r = resolveCropCached(crop);
-    return {
-      id: crop.id,
-      name: crop.name,
-      reason: r.ok ? `${crop.name} is left out.` : r.reason,
-      fields: missing.map((path) => {
-        const f = fieldOf(crop, path);
-        return { label: FIELD_LABELS[path] ?? path, source: f.source, page: f.page, url: f.url ?? null, note: f.note ?? null };
-      }),
-    };
-  });
-
   const { days, ...header } = power;
   void days;
   const demo = demoNameFor(lat, lon);
@@ -145,12 +111,13 @@ export default async function ReplayContent({ searchParams }: { searchParams: Pr
         key={`${lat}|${lon}`}
         table={built.table}
         crops={usable}
-        excluded={excluded}
+        howWeKnow={<HowWeKnow page="replay" power={power} place={place} />}
+        place={place}
+        gridText={gridText}
         header={header}
         lat={lat}
         lon={lon}
         supplyMaxMm={supplyMaxMm}
-        compiledOn={CROP_CATALOG.compiledOn}
         initial={state}
         notes={notes}
       />

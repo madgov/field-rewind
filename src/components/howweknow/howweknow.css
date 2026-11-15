@@ -1,0 +1,88 @@
+/* Stage 4: the "How we know" panel. Uses tokens from globals.css, shift.css and replay.css. */
+.hk-panel { min-width: 0; padding: 18px 16px; border: 2px solid var(--line); border-radius: 14px; background: var(--paper); scroll-margin-top: 12px; }
+.hk-head { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between; }
+.hk-title { margin: 0 0 4px; }
+.hk-sub { margin: 0; max-width: 60ch; color: var(--soil-soft); }
+.hk-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; }
+.hk-chev { transition: transform 0.25s ease; }
+.hk-panel.is-open .hk-chev { transform: rotate(180deg); }
+.hk-body { display: grid; gap: 28px; margin-top: 20px; min-width: 0; }
+.hk-body[hidden] { display: none; }
+.hk-block { min-width: 0; padding-top: 20px; border-top: 2px solid var(--line); }
+.hk-block:first-child { padding-top: 0; border-top: 0; }
+.hk-h3 { margin: 0 0 8px; font-family: Georgia, "Iowan Old Style", serif; font-size: 1.25rem; line-height: 1.25; }
+.hk-h4 { margin: 18px 0 6px; font-size: 1rem; }
+.hk-plain { margin: 0 0 12px; max-width: 70ch; }
+.hk-note { margin: 10px 0 0; font-size: 0.9rem; color: var(--soil-soft); overflow-wrap: anywhere; }
+.hk-list { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 8px; max-width: 70ch; }
+.hk-summary { margin: 12px 0; padding: 12px 14px; border-left: 6px solid var(--leaf); border-radius: 4px; background: var(--wheat); font-size: 1.05rem; }
+.hk-provline { margin: 0 0 8px; }
+.hk-compared { margin: 8px 0; max-width: 70ch; }
+.hk-caveat { margin: 14px 0 0; padding: 12px 14px; border: 2px solid var(--sun); border-left-width: 8px; border-radius: 8px; background: var(--wheat); }
+.hk-card { padding: 14px 16px; border: 2px dashed var(--grey-line); border-radius: 12px; background: var(--wheat); overflow-wrap: anywhere; }
+.hk-card p { margin: 0 0 8px; }
+.hk-card p:last-child { margin-bottom: 0; }
+.hk-card__title { font-weight: 800; font-size: 1.05rem; }
+.hk-card code, .hk-note code { font-size: 0.88rem; }
+.hk-sources { margin: 0; padding: 0; list-style: none; display: grid; gap: 18px; }
+.hk-sources > li { min-width: 0; padding: 12px 14px; border-radius: 10px; background: var(--wheat); }
+.hk-sources .hk-h4 { margin-top: 0; }
+.hk-sources p { margin: 0 0 8px; }
+
+.hk-pill { display: inline-block; padding: 2px 12px; border-radius: 999px; font-weight: 800; border: 2px solid currentColor; }
+.hk-pill--ok { color: var(--ok); background: var(--ok-soft); }
+.hk-pill--bad { color: var(--short); background: var(--short-soft); }
+
+.hk-tablewrap { overflow-x: auto; max-height: 420px; margin-top: 8px; }
+.hk-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.hk-table th, .hk-table td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.hk-table thead th { position: sticky; top: 0; background: var(--paper); font-weight: 700; }
+.hk-table--kv { max-width: 560px; margin-top: 4px; }
+.hk-table--kv th { width: 46%; font-weight: 600; }
+.hk-table__skip td { color: var(--soil-soft); }
+.hk-sources .hk-table { background: var(--paper); }
+
+.hk-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin: 14px 0 0; }
+.hk-stats > div { padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); min-width: 0; }
+.hk-stats dt { font-size: 0.8rem; color: var(--soil-soft); }
+.hk-stats dd { margin: 2px 0 0; font-weight: 700; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+
+.hk-details { margin-top: 10px; }
+.hk-details > summary { min-height: 44px; display: flex; align-items: center; font-weight: 700; cursor: pointer; }
+
+.hk-pick { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin-bottom: 10px; }
+.hk-pick select { min-height: 44px; max-width: 100%; padding: 6px 10px; border: 2px solid var(--line); border-radius: 10px; background: #fff; color: var(--soil); font: inherit; }
+
+/* ---------- Charts (plain SVG) ---------- */
+.hk-fig { margin: 12px 0 0; min-width: 0; }
+.hk-svg { width: 100%; max-width: 520px; height: auto; overflow: visible; }
+.hk-svg--wide { max-width: none; width: auto; }
+.hk-scroll { overflow-x: auto; padding-bottom: 4px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+.hk-plotbg { fill: #fff; }
+.hk-frame { fill: none; stroke: var(--soil-soft); stroke-width: 1.2; }
+.hk-grid { stroke: #e4dcc4; stroke-width: 1; }
+.hk-axisline { stroke: var(--soil-soft); stroke-width: 1.2; }
+.hk-tick { fill: var(--soil-soft); font: 11px system-ui, sans-serif; }
+.hk-tick--small { font-size: 9.5px; }
+.hk-axis { fill: var(--soil); font: 600 12px system-ui, sans-serif; }
+.hk-dens { fill: var(--water-deep); }
+.hk-one { stroke: var(--soil); stroke-width: 1.6; stroke-dasharray: 6 5; }
+.hk-reg { stroke: var(--clay); stroke-width: 2.4; }
+.hk-bar--obs { fill: var(--water-deep); }
+.hk-bar--mod { fill: var(--sun); stroke: var(--soil); stroke-width: 0.8; }
+.hk-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 8px 0 0; font-size: 0.85rem; }
+.hk-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.hk-key { display: inline-block; width: 22px; height: 12px; border-radius: 2px; }
+.hk-key--dens { background: var(--water-deep); }
+.hk-key--one { height: 0; border-top: 3px dashed var(--soil); border-radius: 0; }
+.hk-key--reg { height: 0; border-top: 3px solid var(--clay); border-radius: 0; }
+.hk-key--obs { background: var(--water-deep); }
+.hk-key--mod { background: var(--sun); border: 1px solid var(--soil); }
+
+@media (min-width: 720px) {
+  .hk-panel { padding: 24px 26px; }
+}
+
+@media print {
+  .hk-panel { display: none !important; }
+}

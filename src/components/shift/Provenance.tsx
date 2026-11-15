@@ -1,19 +1,13 @@
 import type { PowerResult } from "@/lib/types";
 import type { ShiftResult } from "@/lib/shift/types";
 import { formatTempC, formatTempF } from "@/lib/shift/units";
-import { formatUtc } from "./format";
+import { powerOriginLine } from "./format";
 
 type Rules = Extract<ShiftResult, { status: "ok" }>["rules"];
 type Header = Omit<PowerResult, "days">;
 
 export default function Provenance({ power, rules }: { power: Header; rules?: Rules }) {
-  const when = formatUtc(power.fetchedAt);
-  const origin =
-    power.origin === "saved"
-      ? `Saved response from ${when}.`
-      : power.origin === "cache"
-        ? `Fetched from NASA POWER on ${when} (cached).`
-        : `Fetched from NASA POWER just now, ${when}.`;
+  const origin = powerOriginLine(power);
   return (
     <section className="prov" aria-labelledby="prov-h">
       <h2 id="prov-h" className="sh-h2">Where this came from</h2>

@@ -49,3 +49,11 @@ Code: `src/lib/replay/` (pure functions; take a NASA POWER `PowerResult` plus pl
 - Pro-rated monthly effective rainfall is an approximation; the USDA-SC formula tends to give lower effective rain than some other methods.
 - Heat days are informational only.
 - Decade counts are small samples.
+
+## Monthly modelled crop water use (Stage 4, OpenET comparison only)
+
+`src/lib/replay/monthly.ts` sums Kc x ET0 by calendar month for a rotation, using the engine's own `seasonDates`, `kcCurve` and
+`cropIndexForYear`. A month gets a number only if a season covers every day of it, no days overlap between seasons, and no ET0
+day is missing. Every other month is `null` (never 0, never a partial sum). Months outside every season are not listed at all.
+Reason: a fallow month's real water use is not zero (OpenET measures it), and a part-month sum compared with a whole-month
+satellite value would make the model look low for reasons unrelated to the crop. These months are simply not compared.
