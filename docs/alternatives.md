@@ -18,6 +18,6 @@ Code: `src/lib/alternatives/index.ts`, route `POST /api/alternatives`, UI `src/c
 - Ten seasons is a small sample: a difference of one or two seasons is not meaningful on its own.
 
 ## Growing-season groups
-- Crops are split by their catalog default planting month: "Cool season (planted Sep to Feb)" and "Warm season (planted Mar to Aug)". Ranking and headlines are within a group; the farmer's current crops' group is shown first.
+- Crops are split by their catalog default planting month: "Planted September to February" and "Planted March to August". The groups are named by planting month, not "cool season" or "warm season", because the planting month comes from the FAO-56 row and can differ from the crop's usual season (cantaloupe's California row is a January desert planting). Headlines name the top crop's planting month. Ranking and headlines are within a group; the farmer's current crops' group is shown first.
 - Each row shows the planting month and the FAO-56 Table 11 region row its stage lengths come from. Planting months may not match local practice.
 - When the median irrigation need is under 50 mm the line says rain covered the modelled need in most seasons when planted in that month. It never says a crop needs no water.

@@ -28,8 +28,8 @@ const MONTHS = ["January", "February", "March", "April", "May", "June", "July", 
 
 export type SeasonGroupId = "cool" | "warm";
 export const SEASON_GROUPS: Record<SeasonGroupId, string> = {
-  cool: "Cool season (planted Sep to Feb)",
-  warm: "Warm season (planted Mar to Aug)",
+  cool: "Planted September to February",
+  warm: "Planted March to August",
 };
 
 /** Month index 0-11 from a "MM-DD" default planting date, or null when missing. */
@@ -151,14 +151,14 @@ export function headlineFor(rows: AlternativeRow[], groupLabel = "crops"): strin
   const best = top.shortLastDecade.short;
   const current = ranked.filter((r) => r.current);
   if (current.length === 0) {
-    return `Among ${groupLabel}, ${top.name} fits your water most often: short in ${top.shortLastDecade.short} of the last ${top.shortLastDecade.evaluated} seasons.`;
+    return `Among ${groupLabel}, ${top.name} (planted in ${top.plantingMonth}, from its FAO table row) fits your water most often: short in ${top.shortLastDecade.short} of the last ${top.shortLastDecade.evaluated} seasons.`;
   }
   const bestCurrent = Math.min(...current.map((r) => r.shortLastDecade.short));
   if (bestCurrent <= best) {
     return `Among ${groupLabel}, none fits your water better than what you grow now over the last 10 seasons (fewest short seasons: ${best}).`;
   }
   const better = ranked.filter((r) => !r.current && r.shortLastDecade.short < bestCurrent).length;
-  return `Among ${groupLabel}, ${better} crop${better === 1 ? "" : "s"} would have been short of water less often than your current crops over the last 10 seasons. ${top.name} was short in ${of(top.shortLastDecade)}; your best current crop in ${bestCurrent}.`;
+  return `Among ${groupLabel}, ${better} crop${better === 1 ? "" : "s"} would have been short of water less often than your current crops over the last 10 seasons. ${top.name} (planted in ${top.plantingMonth}, from its FAO table row) was short in ${of(top.shortLastDecade)}; your best current crop in ${bestCurrent}.`;
 }
 
 export function rankAlternatives(power: PowerResult, supplyMm: number, crops: Crop[], currentIds: string[] = []): AlternativesResult {
@@ -228,7 +228,7 @@ export function rankAlternatives(power: PowerResult, supplyMm: number, crops: Cr
   const groups = order
     .map((id) => {
       const gr = rows.filter((r) => r.group === id);
-      const label = id === "cool" ? "cool-season crops" : "warm-season crops";
+      const label = id === "cool" ? "crops planted September to February" : "crops planted March to August";
       return { id, label: SEASON_GROUPS[id], headline: headlineFor(gr, label), rows: gr };
     })
     .filter((g) => g.rows.length > 0);
