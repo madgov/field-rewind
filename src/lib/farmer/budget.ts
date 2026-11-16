@@ -83,3 +83,12 @@ export function waterCostForNeed(needMm: number, input: Pick<BudgetInput, "units
 function round(v: number): number {
   return Math.round(v * 100) / 100;
 }
+
+/** 1 acre = 0.40468564224 hectare (exact by definition: the international acre is 4046.8564224 m2). */
+export const HECTARES_PER_ACRE = 0.40468564224;
+
+/** Yield typed per acre (us) or per hectare (metric), in the crop's own unit, as yield per acre. The unit itself (bushel, bale, ton) is never converted. */
+export function yieldPerAcre(value: number, units: "us" | "metric"): number | null {
+  if (!Number.isFinite(value) || value < 0) return null;
+  return units === "us" ? value : value * HECTARES_PER_ACRE;
+}

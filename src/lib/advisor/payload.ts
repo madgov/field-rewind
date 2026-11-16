@@ -83,13 +83,15 @@ export type ClimateSection = {
   label: string;
   originLine: string;
   /** Mean annual totals over complete calendar years. */
-  annualRainMm: { value: number | null; years: number; note: string } | NotAvailable;
-  annualEt0Mm: { value: number | null; years: number; note: string } | NotAvailable;
+  annualRainMm: { value: number | null; years: number; firstYear: number | null; lastYear: number | null; note: string } | NotAvailable;
+  annualEt0Mm: { value: number | null; years: number; firstYear: number | null; lastYear: number | null; note: string } | NotAvailable;
   julyMeanTmaxC: { value: number; years: number; firstYear: number; lastYear: number } | NotAvailable;
   shift: NotAvailable | {
     status: "ok";
     overallHeadline: string;
     overallDetail: string;
+    /** A day counts as hot when the daily maximum is above this, degrees C. */
+    hotDayThresholdC: number;
     metrics: { id: string; label: string; unit: string; earlyMean: number | null; lateMean: number | null; diff: number | null; verdict: string; detail: string }[];
     periods: { early: [number, number]; late: [number, number] };
   };
@@ -177,7 +179,7 @@ function climateSection(i: AdvisorInputs): ClimateSection {
   const mean = (q: AnnualSummary["precip"] | undefined, what: string): ClimateSection["annualRainMm"] => {
     if (!q) return na(`${what} summary was not provided.`);
     if (!q.available) return na(q.reason);
-    return { value: round(q.meanAnnualMm, 0), years: q.yearsUsedCount, note: `Mean of complete calendar years ${q.firstYearUsed ?? "?"} to ${q.lastYearUsed ?? "?"}.` };
+    return { value: round(q.meanAnnualMm, 0), years: q.yearsUsedCount, firstYear: q.firstYearUsed, lastYear: q.lastYearUsed, note: `Mean of complete calendar years ${q.firstYearUsed ?? "?"} to ${q.lastYearUsed ?? "?"}.` };
   };
   const s = i.shift;
   return {
@@ -197,6 +199,7 @@ function climateSection(i: AdvisorInputs): ClimateSection {
             status: "ok",
             overallHeadline: s.overallHeadline,
             overallDetail: s.overallDetail,
+            hotDayThresholdC: s.rules.hotDayThresholdC,
             periods: s.periods,
             metrics: Object.values(s.metrics).map((m) => ({
               id: m.id,

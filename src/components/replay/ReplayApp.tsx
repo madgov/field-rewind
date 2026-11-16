@@ -9,6 +9,7 @@ import type { PowerResult } from "@/lib/types";
 import type { CropRegionNotice } from "@/lib/crops/region";
 import { cropAbbreviations } from "./cells";
 import { EXAMPLE_FARM_PARAM } from "./exampleFarm";
+import FieldAdvisor from "./FieldAdvisor";
 import Gauge from "./Gauge";
 import PrintReport, { usePrintMeta } from "./PrintReport";
 import { ReplayRotationsProvider } from "../howweknow/ReplayInputsContext";
@@ -41,6 +42,8 @@ type Props = {
   originLine?: string;
   /** Which region the crop values are for, and a warning when the pin is outside it. Computed on the server. */
   region: CropRegionNotice;
+  /** Demo pin id when this spot is one of the three saved places, else null. Used only to pick local notes. */
+  pinId: string | null;
 };
 
 export default function ReplayApp(props: Props) {
@@ -238,6 +241,19 @@ export default function ReplayApp(props: Props) {
           </div>
         )}
       </section>
+
+      <FieldAdvisor
+        lat={props.lat}
+        lon={props.lon}
+        exampleFarm={props.exampleFarm === true}
+        pinId={props.pinId}
+        crops={crops}
+        rotations={engineRotations}
+        supplyMm={supplyMm}
+        supplyMaxMm={props.supplyMaxMm}
+        onApplySupply={setSupplyMm}
+        result={ok}
+      />
 
       <ReplayRotationsProvider value={panelRotations}>{props.howWeKnow}</ReplayRotationsProvider>
 

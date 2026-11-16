@@ -4,6 +4,7 @@ import { usableCrops } from "@/lib/crops/catalog";
 import { cropRegionNotice } from "@/lib/crops/region";
 import { getPowerData, loadSavedDemoPin } from "@/lib/power";
 import { validateCoordinates } from "@/lib/power/grid";
+import { matchDemoPin } from "@/lib/groundTruth/service";
 import { buildSeasonTable } from "@/lib/replay";
 import HowWeKnow from "../howweknow/HowWeKnow";
 import { LoadingState, PartialNotice, Problem, powerProblemScreen } from "../shift/States";
@@ -101,6 +102,7 @@ export default async function ReplayContent({ searchParams }: { searchParams: Pr
         exampleFarm={exampleFarm}
         originLine={powerOriginLine(power)}
         region={cropRegionNotice(lat, lon)}
+        pinId={matchDemoPin(lat, lon)}
         key={`${lat}|${lon}`}
         table={built.table}
         crops={usable}

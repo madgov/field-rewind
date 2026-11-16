@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { RotationResult } from "../replay/types";
 import { analyzeRotation } from "../soilhealth";
-import { budgetToSupplyMm, waterCostForNeed } from "./budget";
+import { HECTARES_PER_ACRE, budgetToSupplyMm, waterCostForNeed, yieldPerAcre } from "./budget";
 import { viewPriorities } from "./priorities";
 
 describe("budgetToSupplyMm", () => {
@@ -110,5 +110,17 @@ describe("viewPriorities", () => {
     const v = viewPriorities({ order: ["grow-more-crops"], rotations, nutrients: n3 })[0];
     expect(v.rows[0]).toMatchObject({ value: 2, note: "Same crop in two neighbouring seasons." });
     expect(v.best).toEqual(["A"]);
+  });
+});
+
+describe("yieldPerAcre", () => {
+  it("leaves US yields alone and converts per-hectare yields to per-acre", () => {
+    expect(yieldPerAcre(150, "us")).toBe(150);
+    expect(yieldPerAcre(100, "metric")).toBeCloseTo(100 * HECTARES_PER_ACRE, 9);
+    expect(yieldPerAcre(100, "metric")).toBeCloseTo(40.468564224, 9);
+  });
+  it("rejects negative and non-finite values", () => {
+    expect(yieldPerAcre(-1, "us")).toBeNull();
+    expect(yieldPerAcre(Number.NaN, "metric")).toBeNull();
   });
 });

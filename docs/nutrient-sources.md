@@ -50,5 +50,5 @@ Four word-for-word quotations (two from UC Cooperative Extension, Fresno County;
 The payload also carries the terrain caveat with the erosion indicator (a NASADEM surface model, so slope at a city point is not farm slope) and a land-cover section from the saved satellite record. When every year's class is non-crop (Fresno: Developed), a limit tells the model the point is not cropland and must not be called a field.
 Payload size is about 12 kB per pin.
 
-## Not done in Batch 1
-Nothing is wired into `/replay` yet: no budget form, priorities table or notes on the page. This batch is data and logic only, plus tests.
+## Wiring into /replay
+Done in Batch 2 (docs/advisor-method.md): the budget form, yields, priorities table, nutrient table with a per-figure source list, local notes with their gaps, and the AI summary are in section 4 of `/replay`. This document describes the Batch 1 data and logic.
