@@ -1,0 +1,884 @@
+{
+  "compiledOn": "2026-11-16",
+  "note": "Which layers this app uses, where each comes from, and what each can and cannot say. Layers are grouped by how the number is made, not ranked. Every row lists the documents it was written from.",
+  "sides": [
+    {
+      "id": "space-or-model",
+      "title": "From space, or built by computer models",
+      "blurb": "These cover everywhere and every year, but each number describes a grid square or a pixel, not your exact spot."
+    },
+    {
+      "id": "ground",
+      "title": "Measured or surveyed on the ground",
+      "blurb": "These start from people and instruments in the field. Each one is a point or a map area, so it can only speak for its own surroundings."
+    },
+    {
+      "id": "not-connected",
+      "title": "Not connected to this app",
+      "blurb": "These NASA layers are not shown and nothing is estimated in their place."
+    }
+  ],
+  "bothSides": [
+    {
+      "title": "Satellites and models cover everywhere",
+      "text": "NASA says its rain product IMERG is particularly valuable where there are no ground-based precipitation instruments. ECMWF notes that reanalyses are usually produced at lower resolution than current weather forecasts. So wide coverage comes with coarse squares.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "imerg",
+          "where": "Overview",
+          "quote": "IMERG is particularly valuable over areas of Earth's surface that lack ground-based precipitation-measuring instruments, including oceans and remote areas."
+        },
+        {
+          "kind": "web",
+          "source": "ecmwf-reanalysis",
+          "where": "Fact sheet",
+          "quote": "Reanalyses are usually produced at lower resolution than current weather forecasts, and they use the same modern data assimilation system and forecasting model throughout the reanalysis period."
+        }
+      ]
+    },
+    {
+      "title": "Ground measurements speak for one place",
+      "text": "A CIMIS station estimates evapotranspiration for the station location and its immediate surroundings. A well reading is a fact about that well. A CoCoRaHS gauge measures the rain one volunteer's gauge caught.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "cimis-dwr",
+          "where": "Dataset description",
+          "quote": "Most of the CIMIS stations produce estimates of reference evapotranspiration (ETo) for the station location and their immediate surroundings, often in agricultural areas."
+        },
+        {
+          "kind": "web",
+          "source": "cocorahs",
+          "where": "About page",
+          "quote": "CoCoRaHS is a unique, non-profit, community-based network of volunteers of all ages and backgrounds working together to measure and map precipitation (rain, hail, and snow)."
+        }
+      ]
+    },
+    {
+      "title": "Each side leans on the other",
+      "text": "The Cropland Data Layer is made from satellite images but trained with ground field records. Daymet is a map, but it is built from weather station observations. GLDAS takes in both satellite and ground observations.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "nass-cdl",
+          "where": "How it is created",
+          "quote": "Agricultural training and validation data are derived from the Farm Service Agency (FSA) Common Land Unit (CLU) Program."
+        },
+        {
+          "kind": "web",
+          "source": "daymet-overview",
+          "where": "Description",
+          "quote": "The Daymet approach to estimating daily surface weather parameters at locations lacking instrumentation is based on a combination of interpolation and extrapolation, using inputs from multiple instrumented sites and weights for each site that reflect the spatial and temporal relationships of the estimation location to the instrumental observations."
+        },
+        {
+          "kind": "web",
+          "source": "gldas",
+          "where": "Project goals",
+          "quote": "The goal of the Global Land Data Assimilation System (GLDAS) is to ingest satellite- and ground-based observational data products, using advanced land surface modeling and data assimilation techniques, in order to generate optimal fields of land surface states and fluxes"
+        }
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "id": "power",
+      "side": "space-or-model",
+      "name": "NASA POWER daily weather",
+      "kindLabel": "Weather model and satellite sunlight",
+      "plain": "Daily temperature, humidity, wind, sunlight and rain for any point on Earth. The weather comes from computer weather-model data and the sunlight from satellite observations.",
+      "resolution": "Weather: about half a degree of latitude by five-eighths of a degree of longitude (about 50 km). Sunlight: 1 degree by 1 degree. Daily.",
+      "coverage": "Worldwide. This app uses 1985 to 2025.",
+      "canSay": "How hot, dry, windy and sunny a region was on each day, the same way for every place and every year. It is what lets the app replay 40 seasons anywhere.",
+      "cannotSay": "What happened on your field. It is a model of a whole grid square, and it can read differently from a station (for example on rain, below).",
+      "status": "connected",
+      "statusText": "Saved for the three demo pins; fetched live elsewhere. Always labelled 'regional climate, about 50 km grid'.",
+      "links": [
+        {
+          "href": "/shift",
+          "label": "Your field has shifted"
+        },
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "power-method",
+          "where": "Resolution statement (Release 9)",
+          "quote": "½° latitude by ⅝° longitude for the meteorological data sets"
+        },
+        {
+          "kind": "web",
+          "source": "power-method",
+          "where": "Resolution statement (Release 9)",
+          "quote": "That resolution is 1.0° latitude by 1.0° longitude for the radiation data sets"
+        },
+        {
+          "kind": "web",
+          "source": "power-method",
+          "where": "Release 10 text",
+          "quote": "Meteorological parameters continue to be based upon MERRA-2 and GEOS FP-IT assimilation models."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/power-integration.md",
+          "where": "Sections 'Endpoint' and 'Approximation to disclose'"
+        }
+      ],
+      "finding": "rain-compare"
+    },
+    {
+      "id": "landsat-ndvi",
+      "side": "space-or-model",
+      "name": "Landsat greenness (NDVI)",
+      "kindLabel": "Satellite pictures",
+      "plain": "How green the ground looks from space, from the red and near-infrared light that plants reflect. The app follows the one 30 m pixel that contains your pin.",
+      "resolution": "30 m pixel. Landsat 8 repeats every 16 days (Landsat 9 is offset by 8 days). Clear days only.",
+      "coverage": "Worldwide. The saved series runs from 1985 (from late 1989 for Ludhiana, whose first scene is 1 Nov 1989).",
+      "canSay": "Whether a pixel was green or bare on a clear day, and how a pixel's greenness in a season compares with its own other years.",
+      "cannotSay": "Which crop was growing, the edge of your field, or why a value is low: crop stress, a different crop, an early harvest and haze all look alike. Cloudy days are missing, not zero.",
+      "status": "connected",
+      "statusText": "Saved for the three demo pins (1985 to 2025); live Landsat read elsewhere.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "nasa-ndvi",
+          "where": "'What is NDVI'",
+          "quote": "NDVI is calculated from the visible and near-infrared light reflected by vegetation."
+        },
+        {
+          "kind": "web",
+          "source": "usgs-landsat8",
+          "where": "Overview text",
+          "quote": "Landsat 8 images have 15-meter panchromatic and 30-meter multi-spectral spatial resolutions along a 185 km (115 mi) swath."
+        },
+        {
+          "kind": "web",
+          "source": "usgs-landsat8",
+          "where": "Overview text",
+          "quote": "Has a 16-day repeat cycle with an equatorial crossing time of 10:12 a.m. +/- 5 minutes"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ndvi.md",
+          "where": "Sections 'What it is, and what it is not' and 'Saved data'"
+        }
+      ],
+      "finding": "greenness"
+    },
+    {
+      "id": "modis-ndvi",
+      "side": "space-or-model",
+      "name": "MODIS greenness (NDVI), Brentwood only",
+      "kindLabel": "Satellite pictures",
+      "plain": "A second satellite greenness record, much coarser than Landsat but with a steady 16-day schedule.",
+      "resolution": "250 m pixel, one value per 16 days.",
+      "coverage": "Worldwide product. This app has saved MODIS only for Brentwood.",
+      "canSay": "A broad greenness pattern across an area.",
+      "cannotSay": "Anything about a single field smaller than a 250 m pixel.",
+      "status": "connected",
+      "statusText": "Brentwood only; other places show Landsat alone.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "modis-mod13q1",
+          "where": "Product description",
+          "quote": "are generated every 16 days at 250 meter (m) spatial resolution as a Level 3 product."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ndvi.md",
+          "where": "Section 'Sources' (MODIS, optional, Brentwood only)"
+        }
+      ],
+      "finding": null
+    },
+    {
+      "id": "nasadem",
+      "side": "space-or-model",
+      "name": "NASADEM ground height",
+      "kindLabel": "Space radar map",
+      "plain": "A worldwide map of ground height, made from data of NASA's Shuttle Radar Topography Mission, used here for slope.",
+      "resolution": "About 30 m (1 arc second).",
+      "coverage": "Worldwide.",
+      "canSay": "Whether the ground around a pin is flat or sloping, at a 30 m scale.",
+      "cannotSay": "Slope on built-up or wooded ground: radar bounces off roofs and treetops. Ditches and field edges smaller than 30 m are not seen.",
+      "status": "connected",
+      "statusText": "Saved for the three demo pins; fetched live elsewhere.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "nasadem",
+          "where": "Record description",
+          "quote": "NASADEM data products were derived from original telemetry data from the Shuttle Radar Topography Mission (SRTM)"
+        },
+        {
+          "kind": "web",
+          "source": "nasadem",
+          "where": "Metadata table",
+          "quote": "30 Meters x 30 Meters"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/landform.md",
+          "where": "Section 'Terrain: NASADEM' (it is a surface model; the Fresno pin is developed land)"
+        }
+      ],
+      "finding": null
+    },
+    {
+      "id": "cdl",
+      "side": "space-or-model",
+      "name": "USDA Cropland Data Layer",
+      "kindLabel": "Satellite classification trained on ground records",
+      "plain": "A yearly USDA map of the crop probably growing on each pixel. It is made from satellite images and trained and checked with the Farm Service Agency's field records.",
+      "resolution": "30 m pixels through 2023, 10 m from 2024. Yearly.",
+      "coverage": "Continental United States. This app uses 2008 to 2024.",
+      "canSay": "What the classification says a pixel was in each year, for example corn or developed land.",
+      "cannotSay": "Your own record. USDA gives 'generally 85% to 95%' producer's accuracy for the major crop categories, not for single pixels or field edges, and says pixel counts give biased area estimates.",
+      "status": "connected",
+      "statusText": "Saved for the three demo pins; Ludhiana is outside coverage.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "nass-cdl",
+          "where": "Page introduction",
+          "quote": "is an annual raster, geo-referenced, crop-specific land cover data layer produced using satellite imagery."
+        },
+        {
+          "kind": "web",
+          "source": "nass-cdl",
+          "where": "How it is created",
+          "quote": "Agricultural training and validation data are derived from the Farm Service Agency (FSA) Common Land Unit (CLU) Program."
+        },
+        {
+          "kind": "web",
+          "source": "nass-cdl",
+          "where": "Accuracy text",
+          "quote": "The Producer's Accuracy is generally 85% to 95% correct for the major crop-specific land cover categories."
+        },
+        {
+          "kind": "web",
+          "source": "nass-cdl-news",
+          "where": "Announcements",
+          "quote": "The CDL spatial resolution has been increased from 30-meter to 10-meter beginning in 2024."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Section 'USDA NASS Cropland Data Layer'"
+        }
+      ],
+      "finding": "land-records"
+    },
+    {
+      "id": "nlcd",
+      "side": "space-or-model",
+      "name": "NLCD land cover",
+      "kindLabel": "Satellite-based map",
+      "plain": "A national map of what covers the land (for example cropland, built-up, water), made from Landsat satellite images.",
+      "resolution": "30 m.",
+      "coverage": "United States. Ludhiana is outside coverage.",
+      "canSay": "The type of land cover at a point, for example that a pin is in a built-up class.",
+      "cannotSay": "Which crop, or how the land is managed.",
+      "status": "connected",
+      "statusText": "Saved for the three demo pins (NLCD 2021).",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "usgs-nlcd",
+          "where": "Overview text",
+          "quote": "The National Land Cover Database (NLCD) serves as the definitive Landsat-based, 30-meter resolution, land cover database for the Nation."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Section 'NLCD 2021 land cover (MRLC)'"
+        }
+      ],
+      "finding": "land-records"
+    },
+    {
+      "id": "openet",
+      "side": "space-or-model",
+      "name": "OpenET water use",
+      "kindLabel": "Satellite-based water use",
+      "plain": "A service that delivers satellite-based evapotranspiration (the water a real crop or ground cover uses) for a pixel.",
+      "resolution": "The documents read in this build give no explicit native pixel size, so none is stated here.",
+      "coverage": "Conterminous United States per the OpenET documents read in this build (docs/openet-check.md); the app's client refuses points outside it. Not run.",
+      "canSay": "What was actually growing and using water at the pixel, for comparison with the app's modelled crop.",
+      "cannotSay": "Whether the modelled crop is right: the pixel may hold a different crop, fallow land or not farmland.",
+      "status": "built-not-run",
+      "statusText": "Built but never run: no OpenET key is set, so no OpenET number appears in the app.",
+      "links": [],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "openet",
+          "where": "Home page",
+          "quote": "OpenET empowers water management from local to global scales by delivering transparent, scientifically rigorous satellite-based evapotranspiration (ET) data through accessible tools."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/openet-check.md",
+          "where": "Status line and 'What can and cannot be compared'"
+        }
+      ],
+      "finding": null
+    },
+    {
+      "id": "ssurgo",
+      "side": "ground",
+      "name": "SSURGO soil survey",
+      "kindLabel": "Ground survey (soil scientists)",
+      "plain": "The US national soil map database, collected by soil scientists over about a century. Each map area lists soil types and layers: sand, silt, clay, organic matter, pH and water capacity.",
+      "resolution": "Map scale between 1:12,000 and 1:63,360, so a map area, not a pixel.",
+      "coverage": "United States only. Ludhiana shows 'not available'.",
+      "canSay": "Typical soil texture, organic matter, water storage and erodibility for the soil type mapped at your pin.",
+      "cannotSay": "A test of your field. It has no plant-available nitrogen, phosphorus or potassium, and a map area mixes several soil types.",
+      "status": "connected",
+      "statusText": "Saved for the three demo pins; fetched live for other US places.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "ssurgo",
+          "where": "Description of SSURGO Database",
+          "quote": "The Soil Survey Geographic Database (SSURGO) contains information about soil as collected by the National Cooperative Soil Survey over the course of a century."
+        },
+        {
+          "kind": "web",
+          "source": "ssurgo",
+          "where": "Description of SSURGO Database",
+          "quote": "The information was collected at scales ranging from 1:12,000 to 1:63,360."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/landform.md",
+          "where": "Section 'Soil: SSURGO via Soil Data Access'"
+        }
+      ],
+      "finding": null
+    },
+    {
+      "id": "daymet",
+      "side": "ground",
+      "name": "Daymet weather grid",
+      "kindLabel": "Map made from weather station records",
+      "plain": "A daily weather map of North America made by interpolating and extrapolating from weather station observations onto a 1 km grid.",
+      "resolution": "1 km grid, daily. 1980 onward.",
+      "coverage": "North America, Hawaii and Puerto Rico. Ludhiana has none.",
+      "canSay": "A finer, station-based picture of daily rain and temperature, used here as a second opinion on NASA POWER.",
+      "cannotSay": "Which of the two is right. The app compares two gridded products with each other; neither is a measurement at your farm.",
+      "status": "connected",
+      "statusText": "Saved for Brentwood and Fresno; Ludhiana is outside coverage.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "daymet-overview",
+          "where": "Description",
+          "quote": "The Daymet approach to estimating daily surface weather parameters at locations lacking instrumentation is based on a combination of interpolation and extrapolation, using inputs from multiple instrumented sites and weights for each site that reflect the spatial and temporal relationships of the estimation location to the instrumental observations."
+        },
+        {
+          "kind": "web",
+          "source": "daymet-overview",
+          "where": "Description",
+          "quote": "produced on a 1 km x 1 km gridded surface"
+        },
+        {
+          "kind": "web",
+          "source": "daymet-earthdata",
+          "where": "Record description",
+          "quote": "gridded estimates of daily weather parameters for North America, Hawaii, and Puerto Rico"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Framing rule and section 'Daymet V4 R1 (ORNL DAAC)'"
+        }
+      ],
+      "finding": "rain-compare"
+    },
+    {
+      "id": "cocorahs",
+      "side": "ground",
+      "name": "CoCoRaHS volunteer rain gauge",
+      "kindLabel": "Ground instrument (volunteers)",
+      "plain": "A network of volunteers who measure and map rain, hail and snow. The app checks one nearby gauge on the days it reported.",
+      "resolution": "One gauge: a single point, several kilometres from the grid squares.",
+      "coverage": "Only places the app has configured (Brentwood and Fresno).",
+      "canSay": "How much rain one gauge caught on the days it reported, which shows how far the gridded products can stray.",
+      "cannotSay": "Your field's rain, or a fair score for either grid. One gauge is indicative only, and a day with no report is skipped, never counted as dry.",
+      "status": "connected",
+      "statusText": "Saved for Brentwood and Fresno. Ludhiana: no station configured.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "cocorahs",
+          "where": "About page",
+          "quote": "CoCoRaHS is a unique, non-profit, community-based network of volunteers of all ages and backgrounds working together to measure and map precipitation (rain, hail, and snow)."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Section 'CoCoRaHS (community rain gauges)'"
+        }
+      ],
+      "finding": "rain-compare"
+    },
+    {
+      "id": "usgs-wells",
+      "side": "ground",
+      "name": "USGS monitoring wells",
+      "kindLabel": "Ground instrument (wells)",
+      "plain": "Depth to water in monitoring wells, measured below the ground surface. The app shows the nearest well that has readings.",
+      "resolution": "One well: a single point.",
+      "coverage": "United States and territories. Ludhiana has none within about 22 km.",
+      "canSay": "How deep the water was in that well when it was read.",
+      "cannotSay": "Your field's water table. It is a fact about that one well, and the newest reading may be years old.",
+      "status": "connected",
+      "statusText": "Saved for the three demo pins.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "usgs-crn",
+          "where": "Overview of the network",
+          "quote": "Data provided by the CRN form the basis for assessments and models that characterize the connections between climate and groundwater levels (depth to water below land surface)."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Section 'USGS NWIS'"
+        }
+      ],
+      "finding": null
+    },
+    {
+      "id": "cimis",
+      "side": "ground",
+      "name": "CIMIS weather station 47 (Brentwood)",
+      "kindLabel": "Ground instrument (weather station)",
+      "plain": "California's network of automated weather stations. Station 47 at Brentwood reports hourly weather and an estimate of reference evapotranspiration for its own surroundings.",
+      "resolution": "One station: its own location and immediate surroundings.",
+      "coverage": "California.",
+      "canSay": "A real instrument's daily reference evapotranspiration, which the app would compare with its own value computed from NASA POWER.",
+      "cannotSay": "Anything yet: the comparison has never been run. A station over irrigated grass and a 50 km grid square differ by nature.",
+      "status": "built-not-run",
+      "statusText": "Built but never run: no CIMIS key is set, so no CIMIS number appears in the app.",
+      "links": [],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "cimis-dwr",
+          "where": "Dataset description",
+          "quote": "CIMIS stations provide hourly records of solar radiation, precipitation, air temperature, air humidity, and wind speed."
+        },
+        {
+          "kind": "web",
+          "source": "cimis-dwr",
+          "where": "Dataset description",
+          "quote": "Most of the CIMIS stations produce estimates of reference evapotranspiration (ETo) for the station location and their immediate surroundings, often in agricultural areas."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/cimis-check.md",
+          "where": "Status line: the comparison has NOT been run"
+        }
+      ],
+      "finding": null
+    },
+    {
+      "id": "smap",
+      "side": "not-connected",
+      "name": "SMAP soil moisture",
+      "kindLabel": "Satellite measurement",
+      "plain": "A NASA satellite that measures how much water is in the top layer of soil and produces global soil-moisture maps.",
+      "resolution": "Not stated here (not read in this build).",
+      "coverage": "Global (per NASA).",
+      "canSay": "Not used by this app.",
+      "cannotSay": "Not used by this app.",
+      "status": "not-connected",
+      "statusText": "Needs a free NASA Earthdata account and an access token, and this app has not been connected to one. No data are shown for it; nothing is estimated in its place.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "smap",
+          "where": "Mission overview",
+          "quote": "In ground that is not frozen or covered in water, SMAP measures how much water is in the top layer of soil, using this information to produce global maps of soil moisture."
+        },
+        {
+          "kind": "repo",
+          "path": "src/components/conditions/BlockedCard.tsx",
+          "where": "BLOCKED_DATASETS and its explanation"
+        }
+      ],
+      "finding": null
+    },
+    {
+      "id": "imerg",
+      "side": "not-connected",
+      "name": "GPM IMERG rainfall",
+      "kindLabel": "Satellite estimate",
+      "plain": "A NASA product that merges rain estimates from many satellites into one continuous record. NASA says it is especially valuable where there are no ground instruments.",
+      "resolution": "Not stated here (not read in this build).",
+      "coverage": "Global (per NASA).",
+      "canSay": "Not used by this app.",
+      "cannotSay": "Not used by this app.",
+      "status": "not-connected",
+      "statusText": "Needs a free NASA Earthdata account and an access token, and this app has not been connected to one. No data are shown for it; nothing is estimated in its place.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "imerg",
+          "where": "Overview",
+          "quote": "IMERG is particularly valuable over areas of Earth's surface that lack ground-based precipitation-measuring instruments, including oceans and remote areas."
+        },
+        {
+          "kind": "repo",
+          "path": "src/components/conditions/BlockedCard.tsx",
+          "where": "BLOCKED_DATASETS and its explanation"
+        }
+      ],
+      "finding": null
+    },
+    {
+      "id": "ecostress",
+      "side": "not-connected",
+      "name": "ECOSTRESS surface temperature and water stress",
+      "kindLabel": "Satellite instrument on the space station",
+      "plain": "An instrument that takes high-resolution temperature images of the Earth's surface. NASA says plants with enough water keep their temperature, and plants short of water get warmer, and ECOSTRESS can measure that rise.",
+      "resolution": "Not stated here (not read in this build).",
+      "coverage": "Not stated here (not read in this build).",
+      "canSay": "Not used by this app.",
+      "cannotSay": "Not used by this app.",
+      "status": "not-connected",
+      "statusText": "Needs a free NASA Earthdata account and an access token, and this app has not been connected to one. No data are shown for it; nothing is estimated in its place.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "ecostress",
+          "where": "Welcome page",
+          "quote": "ECOSTRESS acquires high resolution temperature and emissivity (composition) images of the Earth's surface."
+        },
+        {
+          "kind": "web",
+          "source": "ecostress",
+          "where": "Welcome page",
+          "quote": "If they have sufficient water they can maintain their temperature, but if there is insufficient water, their temperatures rise and this temperature rise can be measured with ECOSTRESS."
+        },
+        {
+          "kind": "repo",
+          "path": "src/components/conditions/BlockedCard.tsx",
+          "where": "BLOCKED_DATASETS and its explanation"
+        }
+      ],
+      "finding": null
+    },
+    {
+      "id": "gldas",
+      "side": "not-connected",
+      "name": "GLDAS / NLDAS land models",
+      "kindLabel": "Land-surface model fed by satellite and ground data",
+      "plain": "NASA's Global Land Data Assimilation System: a land-surface model that takes in satellite and ground observations to produce estimates of soil moisture, runoff and similar quantities.",
+      "resolution": "Not stated here (not read in this build).",
+      "coverage": "Global (GLDAS).",
+      "canSay": "Not used by this app.",
+      "cannotSay": "Not used by this app.",
+      "status": "not-connected",
+      "statusText": "Needs a free NASA Earthdata account and an access token, and this app has not been connected to one. No data are shown for it; nothing is estimated in its place.",
+      "links": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "cites": [
+        {
+          "kind": "web",
+          "source": "gldas",
+          "where": "Project goals",
+          "quote": "The goal of the Global Land Data Assimilation System (GLDAS) is to ingest satellite- and ground-based observational data products, using advanced land surface modeling and data assimilation techniques, in order to generate optimal fields of land surface states and fluxes"
+        },
+        {
+          "kind": "repo",
+          "path": "src/components/conditions/BlockedCard.tsx",
+          "where": "BLOCKED_DATASETS and its explanation"
+        }
+      ],
+      "finding": null
+    }
+  ],
+  "gaps": [
+    "OpenET's native pixel size is not stated: the documents read give no explicit native-resolution sentence (docs/openet-check.md).",
+    "SMAP, IMERG, ECOSTRESS and GLDAS resolutions are not stated: the pages read were not checked for a single clear figure, so none is quoted.",
+    "CoCoRaHS: the page read gives the network's purpose but not the instrument; the instrument is not described here.",
+    "CIMIS: the official CIMIS home page returned only its title and a UC Davis page returned an access-denied (HTTP 403) page, so the description comes from the California Department of Water Resources catalog record. It says 'over 145' active stations; older sources say over 120.",
+    "Daymet: its method description was read on the ORNL DAAC page. The app has not validated Daymet against anything; it only compares it with NASA POWER and one gauge.",
+    "NASA POWER's methodology page calls its weather data 'assimilation models' and does not use the word reanalysis; this app calls it reanalysis because MERRA-2, one of the models named, is described by NASA as a reanalysis.",
+    "NLCD: the exact citation of the 2021 dataset has not been confirmed from a page opened in this build (docs/ground-truth.md). The USGS page read also says part of it refers to the legacy NLCD.",
+    "Cropland Data Layer: pixels are 10 m from 2024, but the app samples a 3 by 3 block of points 30 m apart for every year. The app's own label and wording were corrected to say so on 2026-11-16; the saved data files still carry the older \"30 m\" source name.",
+    "Some quotations were copied from page text after the HTML tags were stripped, or from PDF text extraction (a line break was removed in one soil-column quote). Quotes were not re-checked against a second fetch."
+  ],
+  "sources": {
+    "fao56-ch1": {
+      "title": "FAO Irrigation and Drainage Paper 56, Chapter 1: Introduction to evapotranspiration",
+      "publisher": "FAO (Allen et al. 1998)",
+      "url": "https://www.fao.org/4/x0490e/x0490e04.htm",
+      "readOn": "2026-11-16"
+    },
+    "fao56-ch6": {
+      "title": "FAO Irrigation and Drainage Paper 56, Chapter 6: ETc, single crop coefficient (Kc)",
+      "publisher": "FAO (Allen et al. 1998)",
+      "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+      "readOn": "2026-11-16"
+    },
+    "fao-iwm-ch4": {
+      "title": "Irrigation Water Management: Irrigation Water Needs, Chapter 4: Irrigation water needs",
+      "publisher": "FAO training manual",
+      "url": "https://www.fao.org/4/S2022E/s2022e08.htm",
+      "readOn": "2026-11-16"
+    },
+    "power-method": {
+      "title": "Methodology, NASA POWER Docs",
+      "publisher": "NASA POWER",
+      "url": "https://power.larc.nasa.gov/docs/methodology/",
+      "readOn": "2026-11-16"
+    },
+    "power-params": {
+      "title": "NASA POWER parameter catalogue (AG community, daily)",
+      "publisher": "NASA POWER",
+      "url": "https://power.larc.nasa.gov/api/system/manager/parameters?community=ag&temporal=daily",
+      "readOn": "2026-11-16"
+    },
+    "merra2": {
+      "title": "Modern-Era Retrospective analysis for Research and Applications, Version 2 (MERRA-2)",
+      "publisher": "NASA GMAO",
+      "url": "https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/",
+      "readOn": "2026-11-16"
+    },
+    "ecmwf-reanalysis": {
+      "title": "Fact sheet: Reanalysis",
+      "publisher": "ECMWF",
+      "url": "https://www.ecmwf.int/en/about/media-centre/focus/2020/fact-sheet-reanalysis",
+      "readOn": "2026-11-16"
+    },
+    "nasa-ndvi": {
+      "title": "Measuring Vegetation (NDVI & EVI)",
+      "publisher": "NASA Earth Observatory (Weier and Herring)",
+      "url": "https://science.nasa.gov/earth/earth-observatory/measuring-vegetation-ndvi-evi",
+      "readOn": "2026-11-16"
+    },
+    "usgs-landsat8": {
+      "title": "Landsat 8",
+      "publisher": "U.S. Geological Survey",
+      "url": "https://www.usgs.gov/landsat-missions/landsat-8",
+      "readOn": "2026-11-16"
+    },
+    "modis-mod13q1": {
+      "title": "MODIS/Terra Vegetation Indices 16-Day L3 Global 250m SIN Grid V061",
+      "publisher": "NASA Earthdata",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-mod13q1-061",
+      "readOn": "2026-11-16"
+    },
+    "nasadem": {
+      "title": "NASADEM Merged DEM Global 1 arc second V001",
+      "publisher": "NASA Earthdata",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-nasadem-hgt-001",
+      "readOn": "2026-11-16"
+    },
+    "ssurgo": {
+      "title": "Soil Survey Geographic Database (SSURGO)",
+      "publisher": "USDA Natural Resources Conservation Service",
+      "url": "https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo",
+      "readOn": "2026-11-16"
+    },
+    "sda-columns": {
+      "title": "Soil Data Access: Table Column Descriptions",
+      "publisher": "USDA Natural Resources Conservation Service",
+      "url": "https://sdmdataaccess.nrcs.usda.gov/documents/TableColumnDescriptionsReport.pdf",
+      "readOn": "2026-11-16"
+    },
+    "neh7": {
+      "title": "National Engineering Handbook Part 630 Hydrology, Chapter 7: Hydrologic Soil Groups (January 2009)",
+      "publisher": "USDA Natural Resources Conservation Service",
+      "url": "https://www.damtoolbox.org/images/e/e9/NEH7.pdf",
+      "readOn": "2026-11-16"
+    },
+    "daymet-overview": {
+      "title": "Daymet: Description",
+      "publisher": "ORNL DAAC",
+      "url": "https://daymet.ornl.gov/overview",
+      "readOn": "2026-11-16"
+    },
+    "daymet-earthdata": {
+      "title": "Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 4 R1",
+      "publisher": "NASA Earthdata (ORNL DAAC)",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-daymet-daily-v4r1-2129-4.1",
+      "readOn": "2026-11-16"
+    },
+    "nass-cdl": {
+      "title": "Cropland Data Layers",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "url": "https://www.nass.usda.gov/Research_and_Science/Cropland/sarsfaqs2.php",
+      "readOn": "2026-11-16"
+    },
+    "nass-cdl-news": {
+      "title": "CropScape and Cropland Data Layer: Announcements",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "url": "https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php",
+      "readOn": "2026-11-16"
+    },
+    "usgs-nlcd": {
+      "title": "National Land Cover Database",
+      "publisher": "U.S. Geological Survey",
+      "url": "https://www.usgs.gov/centers/eros/science/national-land-cover-database",
+      "readOn": "2026-11-16"
+    },
+    "mrlc-about": {
+      "title": "About, Multi-Resolution Land Characteristics (MRLC) Consortium",
+      "publisher": "MRLC",
+      "url": "https://www.mrlc.gov/about",
+      "readOn": "2026-11-16"
+    },
+    "cocorahs": {
+      "title": "CoCoRaHS: Community Collaborative Rain, Hail & Snow Network (About)",
+      "publisher": "CoCoRaHS",
+      "url": "https://www.cocorahs.org/Content.aspx?page=aboutus",
+      "readOn": "2026-11-16"
+    },
+    "usgs-crn": {
+      "title": "U.S. Geological Survey National Groundwater Climate Response Network",
+      "publisher": "U.S. Geological Survey (Fact Sheet 2024-3057)",
+      "url": "https://pubs.usgs.gov/publication/fs20243057/full",
+      "readOn": "2026-11-16"
+    },
+    "cimis-dwr": {
+      "title": "State of California: i04 CIMIS Weather Stations",
+      "publisher": "California Department of Water Resources (data.gov catalog record)",
+      "url": "https://catalog.data.gov/dataset/i04-cimis-weather-stations",
+      "readOn": "2026-11-16"
+    },
+    "openet": {
+      "title": "OpenET: Open-Source Transparent Water Management Data",
+      "publisher": "OpenET",
+      "url": "https://openetdata.org/",
+      "readOn": "2026-11-16"
+    },
+    "smap": {
+      "title": "SMAP",
+      "publisher": "NASA NSIDC DAAC",
+      "url": "https://nsidc.org/data/smap",
+      "readOn": "2026-11-16"
+    },
+    "imerg": {
+      "title": "IMERG: Integrated Multi-satellitE Retrievals for GPM",
+      "publisher": "NASA Global Precipitation Measurement Mission",
+      "url": "https://gpm.nasa.gov/data/imerg",
+      "readOn": "2026-11-16"
+    },
+    "ecostress": {
+      "title": "Welcome to ECOSTRESS",
+      "publisher": "NASA JPL",
+      "url": "https://ecostress.jpl.nasa.gov/",
+      "readOn": "2026-11-16"
+    },
+    "gldas": {
+      "title": "GLDAS: Project Goals",
+      "publisher": "NASA Land Data Assimilation System (LDAS)",
+      "url": "https://ldas.gsfc.nasa.gov/gldas",
+      "readOn": "2026-11-16"
+    },
+    "arkansas-fsa2176": {
+      "title": "Estimating Nutrient Removal for Row Crops Grown in Arkansas, FSA2176 (2015)",
+      "publisher": "University of Arkansas Division of Agriculture",
+      "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+      "readOn": "2026-11-16"
+    },
+    "nmsu-a129": {
+      "title": "Nitrogen Fixation by Legumes, Guide A-129",
+      "publisher": "New Mexico State University Cooperative Extension Service",
+      "url": "https://pubs.nmsu.edu/_a/A129.pdf",
+      "readOn": "2026-11-16"
+    },
+    "nmsu-h644": {
+      "title": "Leaching Requirements of Pecan and Fruit Trees, Guide H-644",
+      "publisher": "New Mexico State University Cooperative Extension Service",
+      "url": "https://pubs.nmsu.edu/_h/H644/",
+      "readOn": "2026-11-16"
+    }
+  }
+}

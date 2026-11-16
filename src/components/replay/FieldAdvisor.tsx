@@ -10,6 +10,8 @@ import type { ReplayOk } from "@/lib/replay/types";
 import { compareRotations, SOILHEALTH_LABEL } from "@/lib/soilhealth";
 import type { RotationNutrientResult, WaterFigure } from "@/lib/soilhealth";
 import type { AdvisorOutcome } from "@/lib/advisor/run";
+import { isIdentityScenario } from "@/lib/scenario";
+import type { Scenario } from "@/lib/scenario";
 
 type Units = "us" | "metric";
 type Rot = { name: string; sequence: string[] };
@@ -26,6 +28,8 @@ type Props = {
   supplyMaxMm: number;
   onApplySupply: (mm: number) => void;
   result: ReplayOk | null;
+  /** What-if settings from the sliders. Sent only when not neutral; the server reruns them. */
+  scenario?: Scenario;
 };
 
 const fmt = (v: number | null, dp = 1): string => (v === null ? "unknown" : v.toLocaleString("en-US", { maximumFractionDigits: dp }));
@@ -111,8 +115,9 @@ export default function FieldAdvisor(props: Props) {
       yields,
       priorities: order,
       price: priceForCost,
+      scenario: props.scenario && !isIdentityScenario(props.scenario) ? props.scenario : undefined,
     }),
-    [props.lat, props.lon, props.exampleFarm, props.rotations, props.supplyMm, yields, order, priceForCost],
+    [props.lat, props.lon, props.exampleFarm, props.rotations, props.supplyMm, yields, order, priceForCost, props.scenario],
   );
   const bodyKey = JSON.stringify(requestBody);
   const stale = ai.state === "done" && ai.sentKey !== bodyKey;
@@ -136,7 +141,7 @@ export default function FieldAdvisor(props: Props) {
 
   return (
     <section aria-labelledby="fa-h" className="rp-sec fa" data-testid="field-advisor">
-      <h2 id="fa-h" className="sh-h2"><span className="rp-step">4</span> Your water budget, yields and priorities</h2>
+      <h2 id="fa-h" className="sh-h2"><span className="rp-step">5</span> Your water budget, yields and priorities</h2>
       <p className="sh-lede">
         Tell us what you can spend on water, what you expect to harvest and what matters most. Everything below is worked out from published figures and the weather record on this page. Nothing here is a forecast.
       </p>
@@ -223,6 +228,7 @@ export default function FieldAdvisor(props: Props) {
           {views.length > 0 && (
             <div className="fa__card" data-testid="fa-priorities">
               <h3 className="rp-sub">Your priorities, side by side</h3>
+              <p className="fa__hint">Water figures come from the replay of the real 1986 to 2025 weather record: regional climate, about 50 km grid, reanalysis and not a farm sensor.</p>
               {views.map((v) => (
                 <div key={v.priority} className="fa__prio-view">
                   <h4>{v.rank}. {v.label}</h4>

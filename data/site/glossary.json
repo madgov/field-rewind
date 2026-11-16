@@ -1,0 +1,1303 @@
+{
+  "compiledOn": "2026-11-16",
+  "note": "Plain-English definitions. Every term lists the documents it was written from, with the place read and a short word-for-word quote. Terms marked app describe how this app counts and are sourced to the repo's own method documents. Where a source could not be opened, no claim was made.",
+  "groups": [
+    {
+      "id": "weather",
+      "title": "Weather and climate"
+    },
+    {
+      "id": "water",
+      "title": "Water and crops"
+    },
+    {
+      "id": "counting",
+      "title": "How this app counts"
+    },
+    {
+      "id": "space",
+      "title": "Satellites and maps"
+    },
+    {
+      "id": "soil",
+      "title": "Soil"
+    },
+    {
+      "id": "records",
+      "title": "Ground checks and land records"
+    },
+    {
+      "id": "nutrients",
+      "title": "Nutrients"
+    }
+  ],
+  "sources": {
+    "fao56-ch1": {
+      "title": "FAO Irrigation and Drainage Paper 56, Chapter 1: Introduction to evapotranspiration",
+      "publisher": "FAO (Allen et al. 1998)",
+      "url": "https://www.fao.org/4/x0490e/x0490e04.htm",
+      "readOn": "2026-11-16"
+    },
+    "fao56-ch6": {
+      "title": "FAO Irrigation and Drainage Paper 56, Chapter 6: ETc, single crop coefficient (Kc)",
+      "publisher": "FAO (Allen et al. 1998)",
+      "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+      "readOn": "2026-11-16"
+    },
+    "fao-iwm-ch4": {
+      "title": "Irrigation Water Management: Irrigation Water Needs, Chapter 4: Irrigation water needs",
+      "publisher": "FAO training manual",
+      "url": "https://www.fao.org/4/S2022E/s2022e08.htm",
+      "readOn": "2026-11-16"
+    },
+    "power-method": {
+      "title": "Methodology, NASA POWER Docs",
+      "publisher": "NASA POWER",
+      "url": "https://power.larc.nasa.gov/docs/methodology/",
+      "readOn": "2026-11-16"
+    },
+    "power-params": {
+      "title": "NASA POWER parameter catalogue (AG community, daily)",
+      "publisher": "NASA POWER",
+      "url": "https://power.larc.nasa.gov/api/system/manager/parameters?community=ag&temporal=daily",
+      "readOn": "2026-11-16"
+    },
+    "merra2": {
+      "title": "Modern-Era Retrospective analysis for Research and Applications, Version 2 (MERRA-2)",
+      "publisher": "NASA GMAO",
+      "url": "https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/",
+      "readOn": "2026-11-16"
+    },
+    "ecmwf-reanalysis": {
+      "title": "Fact sheet: Reanalysis",
+      "publisher": "ECMWF",
+      "url": "https://www.ecmwf.int/en/about/media-centre/focus/2020/fact-sheet-reanalysis",
+      "readOn": "2026-11-16"
+    },
+    "nasa-ndvi": {
+      "title": "Measuring Vegetation (NDVI & EVI)",
+      "publisher": "NASA Earth Observatory (Weier and Herring)",
+      "url": "https://science.nasa.gov/earth/earth-observatory/measuring-vegetation-ndvi-evi",
+      "readOn": "2026-11-16"
+    },
+    "usgs-landsat8": {
+      "title": "Landsat 8",
+      "publisher": "U.S. Geological Survey",
+      "url": "https://www.usgs.gov/landsat-missions/landsat-8",
+      "readOn": "2026-11-16"
+    },
+    "modis-mod13q1": {
+      "title": "MODIS/Terra Vegetation Indices 16-Day L3 Global 250m SIN Grid V061",
+      "publisher": "NASA Earthdata",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-mod13q1-061",
+      "readOn": "2026-11-16"
+    },
+    "nasadem": {
+      "title": "NASADEM Merged DEM Global 1 arc second V001",
+      "publisher": "NASA Earthdata",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/lpcloud-nasadem-hgt-001",
+      "readOn": "2026-11-16"
+    },
+    "ssurgo": {
+      "title": "Soil Survey Geographic Database (SSURGO)",
+      "publisher": "USDA Natural Resources Conservation Service",
+      "url": "https://www.nrcs.usda.gov/resources/data-and-reports/soil-survey-geographic-database-ssurgo",
+      "readOn": "2026-11-16"
+    },
+    "sda-columns": {
+      "title": "Soil Data Access: Table Column Descriptions",
+      "publisher": "USDA Natural Resources Conservation Service",
+      "url": "https://sdmdataaccess.nrcs.usda.gov/documents/TableColumnDescriptionsReport.pdf",
+      "readOn": "2026-11-16"
+    },
+    "neh7": {
+      "title": "National Engineering Handbook Part 630 Hydrology, Chapter 7: Hydrologic Soil Groups (January 2009)",
+      "publisher": "USDA Natural Resources Conservation Service",
+      "url": "https://www.damtoolbox.org/images/e/e9/NEH7.pdf",
+      "readOn": "2026-11-16"
+    },
+    "daymet-overview": {
+      "title": "Daymet: Description",
+      "publisher": "ORNL DAAC",
+      "url": "https://daymet.ornl.gov/overview",
+      "readOn": "2026-11-16"
+    },
+    "daymet-earthdata": {
+      "title": "Daymet: Daily Surface Weather Data on a 1-km Grid for North America, Version 4 R1",
+      "publisher": "NASA Earthdata (ORNL DAAC)",
+      "url": "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-daymet-daily-v4r1-2129-4.1",
+      "readOn": "2026-11-16"
+    },
+    "nass-cdl": {
+      "title": "Cropland Data Layers",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "url": "https://www.nass.usda.gov/Research_and_Science/Cropland/sarsfaqs2.php",
+      "readOn": "2026-11-16"
+    },
+    "nass-cdl-news": {
+      "title": "CropScape and Cropland Data Layer: Announcements",
+      "publisher": "USDA National Agricultural Statistics Service",
+      "url": "https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php",
+      "readOn": "2026-11-16"
+    },
+    "usgs-nlcd": {
+      "title": "National Land Cover Database",
+      "publisher": "U.S. Geological Survey",
+      "url": "https://www.usgs.gov/centers/eros/science/national-land-cover-database",
+      "readOn": "2026-11-16"
+    },
+    "mrlc-about": {
+      "title": "About, Multi-Resolution Land Characteristics (MRLC) Consortium",
+      "publisher": "MRLC",
+      "url": "https://www.mrlc.gov/about",
+      "readOn": "2026-11-16"
+    },
+    "cocorahs": {
+      "title": "CoCoRaHS: Community Collaborative Rain, Hail & Snow Network (About)",
+      "publisher": "CoCoRaHS",
+      "url": "https://www.cocorahs.org/Content.aspx?page=aboutus",
+      "readOn": "2026-11-16"
+    },
+    "usgs-crn": {
+      "title": "U.S. Geological Survey National Groundwater Climate Response Network",
+      "publisher": "U.S. Geological Survey (Fact Sheet 2024-3057)",
+      "url": "https://pubs.usgs.gov/publication/fs20243057/full",
+      "readOn": "2026-11-16"
+    },
+    "cimis-dwr": {
+      "title": "State of California: i04 CIMIS Weather Stations",
+      "publisher": "California Department of Water Resources (data.gov catalog record)",
+      "url": "https://catalog.data.gov/dataset/i04-cimis-weather-stations",
+      "readOn": "2026-11-16"
+    },
+    "openet": {
+      "title": "OpenET: Open-Source Transparent Water Management Data",
+      "publisher": "OpenET",
+      "url": "https://openetdata.org/",
+      "readOn": "2026-11-16"
+    },
+    "smap": {
+      "title": "SMAP",
+      "publisher": "NASA NSIDC DAAC",
+      "url": "https://nsidc.org/data/smap",
+      "readOn": "2026-11-16"
+    },
+    "imerg": {
+      "title": "IMERG: Integrated Multi-satellitE Retrievals for GPM",
+      "publisher": "NASA Global Precipitation Measurement Mission",
+      "url": "https://gpm.nasa.gov/data/imerg",
+      "readOn": "2026-11-16"
+    },
+    "ecostress": {
+      "title": "Welcome to ECOSTRESS",
+      "publisher": "NASA JPL",
+      "url": "https://ecostress.jpl.nasa.gov/",
+      "readOn": "2026-11-16"
+    },
+    "gldas": {
+      "title": "GLDAS: Project Goals",
+      "publisher": "NASA Land Data Assimilation System (LDAS)",
+      "url": "https://ldas.gsfc.nasa.gov/gldas",
+      "readOn": "2026-11-16"
+    },
+    "arkansas-fsa2176": {
+      "title": "Estimating Nutrient Removal for Row Crops Grown in Arkansas, FSA2176 (2015)",
+      "publisher": "University of Arkansas Division of Agriculture",
+      "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+      "readOn": "2026-11-16"
+    },
+    "nmsu-a129": {
+      "title": "Nitrogen Fixation by Legumes, Guide A-129",
+      "publisher": "New Mexico State University Cooperative Extension Service",
+      "url": "https://pubs.nmsu.edu/_a/A129.pdf",
+      "readOn": "2026-11-16"
+    },
+    "nmsu-h644": {
+      "title": "Leaching Requirements of Pecan and Fruit Trees, Guide H-644",
+      "publisher": "New Mexico State University Cooperative Extension Service",
+      "url": "https://pubs.nmsu.edu/_h/H644/",
+      "readOn": "2026-11-16"
+    }
+  },
+  "terms": [
+    {
+      "id": "regional-climate",
+      "group": "weather",
+      "term": "Regional climate, about 50 km grid",
+      "kind": "world",
+      "plain": "Weather numbers that describe a wide square of land around your pin, not the exact spot. NASA POWER gives weather on grid squares about half a degree of latitude tall (roughly 50 km). Sunlight comes on a coarser square, 1 degree by 1 degree.",
+      "appFact": "Every NASA POWER number in this app is labelled 'regional climate, about 50 km grid'. All points inside the same half-degree cell get the same saved data.",
+      "appLinks": [
+        {
+          "href": "/shift",
+          "label": "Your field has shifted"
+        },
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "It is not a sensor on your farm, and it cannot show differences inside one grid square.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "power-method",
+          "where": "POWER Data Methodology, resolution statement (Release 9)",
+          "quote": "½° latitude by ⅝° longitude for the meteorological data sets"
+        },
+        {
+          "kind": "web",
+          "source": "power-method",
+          "where": "POWER Data Methodology, resolution statement (Release 9)",
+          "quote": "That resolution is 1.0° latitude by 1.0° longitude for the radiation data sets"
+        },
+        {
+          "kind": "web",
+          "source": "merra2",
+          "where": "MERRA-2 description",
+          "quote": "Spatial resolution remains about the same (about 50 km in the latitudinal direction) as in MERRA."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/power-integration.md",
+          "where": "Section 'Approximation to disclose'"
+        }
+      ]
+    },
+    {
+      "id": "reanalysis",
+      "group": "weather",
+      "term": "Reanalysis",
+      "kind": "world",
+      "plain": "A way of rebuilding past weather. Old short-range weather forecasts are combined with real observations, and the same forecasting system is used for the whole period so the record is consistent from year to year.",
+      "appFact": "This app calls NASA POWER weather 'reanalysis, not a farm sensor'. POWER's own methodology page describes its weather data as based on 'assimilation models' and does not use the word reanalysis; MERRA-2, one of those models, is described by NASA as a reanalysis.",
+      "appLinks": [],
+      "notTell": "A reanalysis is a model product, not a measurement made at your farm. ECMWF notes that reanalyses are usually produced at lower resolution than current weather forecasts.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "ecmwf-reanalysis",
+          "where": "Fact sheet, section 'What is reanalysis' and following text",
+          "quote": "Reanalysis combines past short-range weather forecasts with observations through data assimilation ."
+        },
+        {
+          "kind": "web",
+          "source": "ecmwf-reanalysis",
+          "where": "Fact sheet",
+          "quote": "Reanalyses are usually produced at lower resolution than current weather forecasts, and they use the same modern data assimilation system and forecasting model throughout the reanalysis period."
+        },
+        {
+          "kind": "web",
+          "source": "merra2",
+          "where": "MERRA-2 description",
+          "quote": "MERRA-2 is the first long-term global reanalysis to assimilate space-based observations of aerosols"
+        }
+      ]
+    },
+    {
+      "id": "nasa-power",
+      "group": "weather",
+      "term": "NASA POWER",
+      "kind": "world",
+      "plain": "A free NASA service that gives daily weather for any point on Earth. Its weather comes from computer weather-model data (MERRA-2 and GEOS FP-IT). Its sunlight numbers come from satellite observations. This app asks it for daily highest and lowest temperature, humidity, wind, sunlight and rain for 1985 to 2025.",
+      "appFact": "No API key is needed. A missing value stays missing: the app never fills a gap.",
+      "appLinks": [
+        {
+          "href": "/shift",
+          "label": "Your field has shifted"
+        }
+      ],
+      "notTell": "It is a mix of model and satellite data on a coarse grid. It is not a weather station record, and it cannot tell you what happened on your field on a given day.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "power-method",
+          "where": "POWER Data Methodology, Release 10 text",
+          "quote": "Meteorological parameters continue to be based upon MERRA-2 and GEOS FP-IT assimilation models."
+        },
+        {
+          "kind": "web",
+          "source": "power-method",
+          "where": "POWER Data Methodology, Release 8 text",
+          "quote": "based upon satellite observations"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/power-integration.md",
+          "where": "Section 'Endpoint' and 'Normalization'"
+        }
+      ]
+    },
+    {
+      "id": "soil-wetness",
+      "group": "weather",
+      "term": "Soil wetness (modelled)",
+      "kind": "world",
+      "plain": "How full of water the soil is, as a number from 0 (completely dry) to 1 (completely saturated). 'Root zone' means roughly the top 1 metre of soil. 'Surface' means the top 5 cm.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "This is modelled, not measured. It describes a grid square about 50 km wide, so it cannot say how wet your own field was.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "power-params",
+          "where": "Parameter GWETROOT, 'Root Zone Soil Wetness', definition",
+          "quote": "The amount of water and water vapor available to plants in the root zone, generally considered to be the upper 1 m of soil, expressed as the proportion of water present in a given amount of soil. Values range from 0 for completely dry conditions to 1 for completely saturated soil."
+        },
+        {
+          "kind": "web",
+          "source": "power-params",
+          "where": "Parameter GWETTOP, 'Surface Soil Wetness', definition",
+          "quote": "Top indicates the upper 5 cm of soil. Values range from 0 for completely dry conditions to 1 for completely saturated soil."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/power-extra.md",
+          "where": "Section 'Parameters': values are modelled wetness from the MERRA-2 reanalysis, not measured soil moisture"
+        }
+      ]
+    },
+    {
+      "id": "frost-day",
+      "group": "weather",
+      "term": "Frost day (NASA POWER)",
+      "kind": "world",
+      "plain": "A day when the air temperature 2 metres above the ground falls to the dew point and both are below 0 °C (32 °F).",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "It is worked out from model data on a 50 km grid, not from a thermometer in your field.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "power-params",
+          "where": "Parameter FROST_DAYS, 'Frost Days', definition",
+          "quote": "A frost day occurs when the 2m temperature cools to the dew point temperature and both are less than 0 C or 32 F."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/power-extra.md",
+          "where": "Section 'Parameters'"
+        }
+      ]
+    },
+    {
+      "id": "et0",
+      "group": "water",
+      "term": "Crop water demand (ET0, reference evapotranspiration)",
+      "kind": "world",
+      "plain": "How strongly the weather pulls water out of soil and plants on a day: heat, dry air, wind and sunshine all raise it. FAO describes it as the evaporation power of the atmosphere. It does not depend on which crop you grow.",
+      "appFact": "Computed every day from NASA POWER with the FAO-56 Penman-Monteith equation, using highest and lowest temperature, humidity, wind at 2 m, sunlight, the grid cell's height above sea level and the latitude. A day with any input missing gets no value.",
+      "appLinks": [
+        {
+          "href": "/shift",
+          "label": "Your field has shifted"
+        },
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "It is not any crop's own water use (that needs a crop factor, Kc). The app computes it from a 50 km grid, so it can read differently from a weather station placed over irrigated grass.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "fao56-ch1",
+          "where": "Chapter 1, 'Reference crop evapotranspiration'",
+          "quote": "ETo is a climatic parameter expressing the evaporation power of the atmosphere."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/et0-mapping.md",
+          "where": "Section 'Input mapping' and 'Approximations'"
+        }
+      ]
+    },
+    {
+      "id": "crop-coefficient",
+      "group": "water",
+      "term": "Crop coefficient (Kc)",
+      "kind": "world",
+      "plain": "A number for each crop and growth stage that turns the weather's demand into that crop's water use: crop water use = Kc x ET0. FAO divides a season into four stages: initial, crop development, mid-season and late season.",
+      "appFact": "Kc values for each crop are in the crop catalog with their table and page. The app uses the tabulated values as they are and does not apply FAO's climate adjustment.",
+      "appLinks": [
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "Kc values come from tables made for typical conditions. They are not measured on your crop.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "fao56-ch6",
+          "where": "Chapter 6, equation 58",
+          "quote": "ETc = Kc ETo (58)"
+        },
+        {
+          "kind": "web",
+          "source": "fao56-ch6",
+          "where": "Chapter 6, growth stages",
+          "quote": "Divide the growing period into four general growth stages"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/replay-method.md",
+          "where": "Section 'Crop water demand (ETc)'"
+        }
+      ]
+    },
+    {
+      "id": "crop-water-use",
+      "group": "water",
+      "term": "Crop water use (ETc)",
+      "kind": "world",
+      "plain": "The water a crop would use if it were well managed, in a large well-watered field: the weather's demand (ET0) times the crop's own factor (Kc), added up over the season.",
+      "appFact": "Season ETc = the sum over the season's days of Kc(day) x ET0(day), in mm.",
+      "appLinks": [
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "It is a calculation, not a measurement. The app uses the same planting date and stage lengths every year.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "fao56-ch1",
+          "where": "Chapter 1, 'Crop evapotranspiration under standard conditions (ETc)'",
+          "quote": "ETc refers to the evapotranspiration from excellently managed, large, well-watered fields"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/replay-method.md",
+          "where": "Section 'Crop water demand (ETc)' and 'Limitations'"
+        }
+      ]
+    },
+    {
+      "id": "effective-rain",
+      "group": "water",
+      "term": "Effective rain",
+      "kind": "world",
+      "plain": "The part of the rain the crop can actually use. FAO counts it as total rain minus the water that runs off, evaporates, or drains below the roots; only water kept in the root zone helps the plants.",
+      "appFact": "Monthly, using the USDA Soil Conservation Service formula as used in CROPWAT, then the season gets its share of each month. The repo notes that this formula was checked from a secondary source, not an FAO page.",
+      "appLinks": [
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "The app estimates it from a formula, not from soil measurements. It does not carry stored winter water into the season.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "fao-iwm-ch4",
+          "where": "Section 4.2, 'Determination of the effective rainfall'",
+          "quote": "In other words, the effective rainfall (8) is the total rainfall (1) minus runoff (4) minus evaporation (5) and minus deep percolation (7); only the water retained in the root zone (8) can be used by the plants, and represents what is called the effective part of the rainwater."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/replay-method.md",
+          "where": "Section 'Effective rainfall'"
+        }
+      ]
+    },
+    {
+      "id": "leaching",
+      "group": "water",
+      "term": "Leaching",
+      "kind": "world",
+      "plain": "Applying extra water so that dissolved salts are pushed below the roots. Irrigation water carries salts; when the crop uses the water, the salts stay behind and can build up in the root zone.",
+      "appFact": "Not modelled.",
+      "appLinks": [],
+      "notTell": "The replay does not include leaching. It compares your supply with the crop's net need, so a real irrigation system must deliver more than the replay shows.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "nmsu-h644",
+          "where": "Introduction (the guide is about pecan and fruit trees; it is used here only to explain the word)",
+          "quote": "Irrigation water contains dissolved salts that can accumulate in the root zone as evapotranspiration ( Et ) removes irrigation water and leaves the salts behind."
+        },
+        {
+          "kind": "web",
+          "source": "nmsu-h644",
+          "where": "Section 'The Leaching Requirement'",
+          "quote": "The leaching requirement ( LR ) is the extra water needed for leaching expressed as a fraction or percentage (leaching percentage) of the total water penetrating the soil ( DD )."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/replay-method.md",
+          "where": "Section 'Limitations': 'No irrigation efficiency or leaching'"
+        }
+      ]
+    },
+    {
+      "id": "replay",
+      "group": "counting",
+      "term": "Replay",
+      "kind": "app",
+      "plain": "Running your crops and water supply through each of the 40 seasons from 1986 to 2025 of the real weather record for your spot, one season at a time.",
+      "appFact": "Seasons are named by harvest year. A winter crop's 1986 season starts in autumn 1985, which is why the weather record starts in 1985.",
+      "appLinks": [
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "It is a test against past weather, not a forecast. Ten seasons per decade is a small sample, so counts are shown as they are.",
+      "cites": [
+        {
+          "kind": "repo",
+          "path": "docs/replay-method.md",
+          "where": "Sections 'Seasons', 'Rotations, decades, wording' and 'Limitations'"
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "group": "counting",
+      "term": "Rotation",
+      "kind": "app",
+      "plain": "The crops you grow in turn, one crop per season, repeating. For example wheat one year, then maize, then wheat again.",
+      "appFact": "Year Y uses the crop at position (Y - 1986) mod length of the sequence. 2 or 3 rotations are compared at one water supply.",
+      "appLinks": [
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "A rotation here is 1 to 3 crops. The replay uses the same planting date and stage lengths for a crop every year.",
+      "cites": [
+        {
+          "kind": "repo",
+          "path": "docs/replay-method.md",
+          "where": "Section 'Rotations, decades, wording'"
+        }
+      ]
+    },
+    {
+      "id": "short-of-water",
+      "group": "counting",
+      "term": "Season short of water",
+      "kind": "app",
+      "plain": "A season where the crop's irrigation need is more than your water supply. Irrigation need is the crop's water use minus the effective rain, and it never goes below zero.",
+      "appFact": "Red (short) when need is greater than supply; otherwise green. A season with more than 10 missing days of weather data is grey, 'not enough data'.",
+      "appLinks": [
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "It does not say how much yield you would lose. It does not count stored soil water, irrigation losses or leaching.",
+      "cites": [
+        {
+          "kind": "repo",
+          "path": "docs/replay-method.md",
+          "where": "Section 'Irrigation need and the red/green result'"
+        }
+      ]
+    },
+    {
+      "id": "what-if",
+      "group": "counting",
+      "term": "What-if (scenario)",
+      "kind": "app",
+      "plain": "A copy of the real weather record with every day's rain multiplied by a chosen factor (0.70 to 1.30) and every day's temperature shifted by a chosen amount (-2 to +4 °C). The replay is then run on that copy to see how the results change.",
+      "appFact": "Results are labelled 'What-if applied to the real 1985-2025 record. Not a forecast.'",
+      "appLinks": [],
+      "notTell": "It is a test of sensitivity, not a forecast. Storms keep their real dates, rain days are not added or removed, and wind and sunlight are unchanged.",
+      "cites": [
+        {
+          "kind": "repo",
+          "path": "docs/scenario-method.md",
+          "where": "Sections 'The transform' and 'Limits'"
+        }
+      ]
+    },
+    {
+      "id": "hot-day",
+      "group": "counting",
+      "term": "Hot day",
+      "kind": "app",
+      "plain": "A day when the highest temperature is above 35 °C. A day at exactly 35.0 does not count.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/shift",
+          "label": "Your field has shifted"
+        }
+      ],
+      "notTell": "It is counted from a 50 km grid. It is not a heat limit for any crop. The replay counts days above each crop's own heat threshold for information only.",
+      "cites": [
+        {
+          "kind": "repo",
+          "path": "docs/shift-method.md",
+          "where": "Section 'Three yearly numbers'"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/replay-method.md",
+          "where": "Section 'Irrigation need and the red/green result' (heat days are information only)"
+        }
+      ]
+    },
+    {
+      "id": "clear-change",
+      "group": "counting",
+      "term": "Clear change",
+      "kind": "app",
+      "plain": "A difference between the early years (1985 to 2004) and the late years (2006 to 2025) that is more than twice the year-to-year ups and downs. If it is not, the screen says there is no clear change.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/shift",
+          "label": "Your field has shifted"
+        }
+      ],
+      "notTell": "'Clear' is a plain yardstick chosen in advance. It does not say what caused a change, and it says nothing about future years.",
+      "cites": [
+        {
+          "kind": "repo",
+          "path": "docs/shift-method.md",
+          "where": "Section 'When is a change clear?'"
+        }
+      ]
+    },
+    {
+      "id": "ndvi",
+      "group": "space",
+      "term": "NDVI (greenness from space)",
+      "kind": "world",
+      "plain": "A greenness score worked out from the visible and near-infrared light that plants reflect. Bare ground scores 0.1 or lower, shrub and grassland about 0.2 to 0.3, and temperate and tropical rainforests 0.6 to 0.8.",
+      "appFact": "The series is the one 30 m Landsat pixel that contains the pin. Cloudy dates are missing, not zero. A flag means 'unusually low greenness for this pixel at this time of year', nothing more.",
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "NDVI cannot tell you which crop is growing, and a low value does not prove stress: it can also mean a different crop, an earlier harvest or haze. In this app it is one 30 m pixel, not your whole field.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "nasa-ndvi",
+          "where": "'What is NDVI' and the values paragraph",
+          "quote": "NDVI is calculated from the visible and near-infrared light reflected by vegetation."
+        },
+        {
+          "kind": "web",
+          "source": "nasa-ndvi",
+          "where": "Values paragraph",
+          "quote": "Very low values of NDVI (0.1 and below) correspond to barren areas of rock, sand, or snow."
+        },
+        {
+          "kind": "web",
+          "source": "nasa-ndvi",
+          "where": "Values paragraph",
+          "quote": "Moderate values represent shrub and grassland (0.2 to 0.3)"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ndvi.md",
+          "where": "Sections 'What it is, and what it is not' and stress flags"
+        }
+      ]
+    },
+    {
+      "id": "landsat",
+      "group": "space",
+      "term": "Landsat",
+      "kind": "world",
+      "plain": "A series of US Earth-observing satellites. Landsat 8 takes pictures with a 30 m pixel, including red and near-infrared bands, and repeats every 16 days; Landsat 9 is offset from it by 8 days. Only clear days are usable.",
+      "appFact": "The app uses Landsat 5, 7, 8 and 9 and applies no adjustment between satellites. A step of up to about 0.03 (Brentwood) to 0.08 (low-greenness pixels) around 2013 is possible in mixed series.",
+      "appLinks": [],
+      "notTell": "Clouds hide the ground. A 30 m pixel can be smaller or larger than your field, and can mix crop with road or buildings.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "usgs-landsat8",
+          "where": "Overview text",
+          "quote": "Landsat 8 images have 15-meter panchromatic and 30-meter multi-spectral spatial resolutions along a 185 km (115 mi) swath."
+        },
+        {
+          "kind": "web",
+          "source": "usgs-landsat8",
+          "where": "Overview text",
+          "quote": "Has a 16-day repeat cycle with an equatorial crossing time of 10:12 a.m. +/- 5 minutes"
+        },
+        {
+          "kind": "web",
+          "source": "usgs-landsat8",
+          "where": "Overview text (offset)",
+          "quote": "8-day offset with Landsat 9"
+        },
+        {
+          "kind": "web",
+          "source": "usgs-landsat8",
+          "where": "Band table",
+          "quote": "Band 4 Red (0.64 - 0.67 µm) 30 m"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ndvi.md",
+          "where": "Sections 'Sources' and 'Landsat 5, 7, 8, 9 consistency'"
+        }
+      ]
+    },
+    {
+      "id": "nasadem",
+      "group": "space",
+      "term": "NASADEM (ground height map)",
+      "kind": "world",
+      "plain": "A worldwide map of ground height with one value about every 30 m, made from the radar data of NASA's Shuttle Radar Topography Mission (SRTM).",
+      "appFact": "Slope is computed from the 8 neighbours of each cell. The Fresno demo pin is developed land, so its slope is not farm slope.",
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "It is a surface model: radar bounces off roofs and treetops, so buildings and trees raise it. Slope on built-up or wooded ground is not farm slope. 30 m cells also hide ditches and field edges.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "nasadem",
+          "where": "Record description",
+          "quote": "NASADEM data products were derived from original telemetry data from the Shuttle Radar Topography Mission (SRTM)"
+        },
+        {
+          "kind": "web",
+          "source": "nasadem",
+          "where": "Record description",
+          "quote": "provides global elevation data at 1 arc second spacing."
+        },
+        {
+          "kind": "web",
+          "source": "nasadem",
+          "where": "Metadata table",
+          "quote": "30 Meters x 30 Meters"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/landform.md",
+          "where": "Section 'Terrain: NASADEM'"
+        }
+      ]
+    },
+    {
+      "id": "ssurgo",
+      "group": "soil",
+      "term": "SSURGO soil survey",
+      "kind": "world",
+      "plain": "The US national soil map database. Soil scientists collected the information over about a century of field surveys and drew map areas at scales between 1:12,000 and 1:63,360. Each map area lists soil types with layers (horizons) and their properties.",
+      "appFact": "The app asks the USDA Soil Data Access service for the map unit at the pin. Outside the US the service returns nothing and the app says so.",
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "It covers the United States only, so Ludhiana shows no soil. A map area mixes several soil types, so it does not describe the exact spot. Nitrogen, phosphorus and potassium levels are not in it.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "ssurgo",
+          "where": "Description of SSURGO Database",
+          "quote": "The Soil Survey Geographic Database (SSURGO) contains information about soil as collected by the National Cooperative Soil Survey over the course of a century."
+        },
+        {
+          "kind": "web",
+          "source": "ssurgo",
+          "where": "Description of SSURGO Database",
+          "quote": "The information was collected at scales ranging from 1:12,000 to 1:63,360."
+        },
+        {
+          "kind": "web",
+          "source": "ssurgo",
+          "where": "Description of SSURGO Database",
+          "quote": "More details were gathered at a scale of 1:12,000 than at a scale of 1:63,360."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/landform.md",
+          "where": "Section 'Soil: SSURGO via Soil Data Access'"
+        }
+      ]
+    },
+    {
+      "id": "organic-matter",
+      "group": "soil",
+      "term": "Soil organic matter",
+      "kind": "world",
+      "plain": "The share of the soil (by weight) that is decomposed plant and animal material.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "The survey gives a typical value for a soil type, not a test of your field.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "sda-columns",
+          "where": "Table 'chorizon', column 'om_r' (OM); text extracted from the PDF, a line break removed",
+          "quote": "The amount by weight of decomposed plant and animal residue expressed as a weight percentage of the less than 2 mm soil material."
+        }
+      ]
+    },
+    {
+      "id": "available-water-capacity",
+      "group": "soil",
+      "term": "Available water capacity",
+      "kind": "world",
+      "plain": "How much water a layer of soil can store that plants can use. NRCS gives it as a fraction of the layer's depth; the app adds up the layers of the top 100 cm into millimetres of water.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "It is the soil's storage size, not how much water is in the soil now. It comes from the survey, not from a test of your field.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "sda-columns",
+          "where": "Table 'chorizon', column 'awc_r' (AWC)",
+          "quote": "The amount of water that an increment of soil depth, inclusive of fragments, can store that is available to plants. AWC is expressed as a volume fraction, and is commonly estimated as the difference between the water contents at 1/10 or 1/3 bar (field capacity) and 15 bars (permanent wilting point) tension and adjusted for salinity, and fragments."
+        },
+        {
+          "kind": "repo",
+          "path": "src/lib/landform/soil.ts",
+          "where": "Function profileAwc: sum over horizons of awc x thickness x 10 for the top 100 cm, weighted by component percentage"
+        }
+      ]
+    },
+    {
+      "id": "kf-erodibility",
+      "group": "soil",
+      "term": "Soil erodibility (Kf)",
+      "kind": "world",
+      "plain": "A soil property that tells how easily water detaches soil particles. A higher number means the soil particles are more easily detached.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "Kf alone is not a soil-loss prediction. This app shows slope and Kf side by side as separate facts and does not combine them into a risk class, because no published way to do so was found.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "sda-columns",
+          "where": "Table 'chorizon', column 'kffact' (Kf)",
+          "quote": "An erodibility factor which quantifies the susceptibility of soil particles to detachment by water."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/landform.md",
+          "where": "Section on the erosion indicator: 'not a soil-loss prediction'"
+        }
+      ]
+    },
+    {
+      "id": "hydrologic-soil-group",
+      "group": "soil",
+      "term": "Hydrologic soil group",
+      "kind": "world",
+      "plain": "A letter, A to D, that sorts soils by how much rain tends to run off them. A means low runoff and water moves freely through the soil. D means high runoff and water movement is restricted. B and C are in between.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "It describes a soil type under typical conditions, not the runoff from your field on a given day. Some soils have two letters (for example C/D), one for drained and one for undrained conditions.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "sda-columns",
+          "where": "Table 'component', column 'hydgrp'",
+          "quote": "A group of soils having similar runoff potential under similar storm and cover conditions. Examples are A and A/D."
+        },
+        {
+          "kind": "web",
+          "source": "neh7",
+          "where": "Group descriptions",
+          "quote": "Group A—Soils in this group have low runoff poten- tial when thoroughly wet. Water is transmitted freely through the soil."
+        },
+        {
+          "kind": "web",
+          "source": "neh7",
+          "where": "Group descriptions",
+          "quote": "Group D—Soils in this group have high runoff poten- tial when thoroughly wet. Water movement through the soil is restricted or very restricted."
+        },
+        {
+          "kind": "repo",
+          "path": "src/lib/landform/soil.ts",
+          "where": "Function hydrologicGroupMeaning: dual groups such as C/D, first letter drained and second undrained, per NEH7 chapter 7"
+        }
+      ]
+    },
+    {
+      "id": "daymet",
+      "group": "records",
+      "term": "Daymet",
+      "kind": "world",
+      "plain": "A daily weather map of North America on a 1 km grid, made by interpolating and extrapolating from weather station observations. It gives highest and lowest temperature, rain, vapor pressure, radiation, snow and day length.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        },
+        {
+          "href": "/satellite-vs-ground",
+          "label": "Satellite vs ground"
+        }
+      ],
+      "notTell": "It is a gridded product, not a measurement at your farm. It covers North America, so Ludhiana has no Daymet. When this app compares Daymet with NASA POWER it is comparing two gridded products with each other; that does not show which one is right.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "daymet-overview",
+          "where": "Description, 'Daymet Science and Introduction'",
+          "quote": "The Daymet approach to estimating daily surface weather parameters at locations lacking instrumentation is based on a combination of interpolation and extrapolation, using inputs from multiple instrumented sites and weights for each site that reflect the spatial and temporal relationships of the estimation location to the instrumental observations."
+        },
+        {
+          "kind": "web",
+          "source": "daymet-overview",
+          "where": "Description",
+          "quote": "Weather parameters generated include daily surfaces of minimum and maximum temperature, precipitation, vapor pressure, radiation, snow water equivalent, and day length produced on a 1 km x 1 km gridded surface."
+        },
+        {
+          "kind": "web",
+          "source": "daymet-earthdata",
+          "where": "Record description",
+          "quote": "gridded estimates of daily weather parameters for North America, Hawaii, and Puerto Rico"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Section 'Daymet V4 R1 (ORNL DAAC)' and framing rule"
+        }
+      ]
+    },
+    {
+      "id": "cdl",
+      "group": "records",
+      "term": "Cropland Data Layer (CDL)",
+      "kind": "world",
+      "plain": "A yearly map of what crop was probably growing, produced by USDA from satellite images taken through the growing season. It is trained and checked with the Farm Service Agency's field records. Its pixels were 30 m through 2023 and are 10 m from 2024.",
+      "appFact": "For each year 2008 to 2024 the app asks for a 3 by 3 block of points 30 m apart and shows the most common class. The 30 m spacing was chosen for the 30 m pixels; from 2024 the pixel size is 10 m.",
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        },
+        {
+          "href": "/satellite-vs-ground",
+          "label": "Satellite vs ground"
+        }
+      ],
+      "notTell": "It is a satellite classification, not the farmer's record. USDA states producer's accuracy is generally 85% to 95% for the major crop categories, and says pixel counts give biased area estimates. It covers the continental US only.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "nass-cdl",
+          "where": "Page introduction",
+          "quote": "is an annual raster, geo-referenced, crop-specific land cover data layer produced using satellite imagery."
+        },
+        {
+          "kind": "web",
+          "source": "nass-cdl",
+          "where": "Page text on how it is created",
+          "quote": "Agricultural training and validation data are derived from the Farm Service Agency (FSA) Common Land Unit (CLU) Program."
+        },
+        {
+          "kind": "web",
+          "source": "nass-cdl",
+          "where": "Accuracy text",
+          "quote": "The Producer's Accuracy is generally 85% to 95% correct for the major crop-specific land cover categories."
+        },
+        {
+          "kind": "web",
+          "source": "nass-cdl",
+          "where": "Page text on area estimates",
+          "quote": "Counting pixels and multiplying by the area of each pixel will result in biased area estimates"
+        },
+        {
+          "kind": "web",
+          "source": "nass-cdl-news",
+          "where": "Announcements",
+          "quote": "The CDL spatial resolution has been increased from 30-meter to 10-meter beginning in 2024."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Section 'USDA NASS Cropland Data Layer'"
+        }
+      ]
+    },
+    {
+      "id": "nlcd",
+      "group": "records",
+      "term": "Land cover (NLCD)",
+      "kind": "world",
+      "plain": "A national map of what covers the land (for example cropland, built-up, water), made from Landsat satellite images at 30 m. It is produced for the United States.",
+      "appFact": "The saved NLCD class tells you, for example, that the Fresno demo pin is in a built-up class.",
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        },
+        {
+          "href": "/satellite-vs-ground",
+          "label": "Satellite vs ground"
+        }
+      ],
+      "notTell": "It names the type of land cover at a point. It does not tell you which crop, or how the land has been managed.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "usgs-nlcd",
+          "where": "Overview text",
+          "quote": "The National Land Cover Database (NLCD) serves as the definitive Landsat-based, 30-meter resolution, land cover database for the Nation."
+        },
+        {
+          "kind": "web",
+          "source": "mrlc-about",
+          "where": "About page",
+          "quote": "from decadal Landsat satellite imagery and other supplementary datasets"
+        },
+        {
+          "kind": "web",
+          "source": "mrlc-about",
+          "where": "About page",
+          "quote": "the lower 48 United States, Hawaii, Alaska and Puerto Rico"
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Section 'NLCD 2021 land cover (MRLC)'"
+        }
+      ]
+    },
+    {
+      "id": "cocorahs",
+      "group": "records",
+      "term": "Volunteer rain gauge (CoCoRaHS)",
+      "kind": "world",
+      "plain": "A network of volunteers of all ages who measure and map rain, hail and snow with their own gauges.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        },
+        {
+          "href": "/satellite-vs-ground",
+          "label": "Satellite vs ground"
+        }
+      ],
+      "notTell": "One gauge is one point, several kilometres from the grid squares it is compared with. Days it did not report are skipped, never counted as dry. It is indicative only.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "cocorahs",
+          "where": "About page",
+          "quote": "CoCoRaHS is a unique, non-profit, community-based network of volunteers of all ages and backgrounds working together to measure and map precipitation (rain, hail, and snow)."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Section 'CoCoRaHS (community rain gauges)'"
+        }
+      ]
+    },
+    {
+      "id": "depth-to-water",
+      "group": "records",
+      "term": "Depth to water (nearby well)",
+      "kind": "world",
+      "plain": "How far below the ground surface the water level sits in a monitoring well. USGS uses it to follow how climate affects groundwater.",
+      "appFact": null,
+      "appLinks": [
+        {
+          "href": "/conditions",
+          "label": "Field conditions"
+        }
+      ],
+      "notTell": "It is a fact about that one well, not about your field's water table. Readings can be old; the app says so when the newest reading is years older than the saved response.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "usgs-crn",
+          "where": "Overview of the network",
+          "quote": "Data provided by the CRN form the basis for assessments and models that characterize the connections between climate and groundwater levels (depth to water below land surface)."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/ground-truth.md",
+          "where": "Section 'USGS NWIS'"
+        }
+      ]
+    },
+    {
+      "id": "cimis",
+      "group": "records",
+      "term": "CIMIS weather station",
+      "kind": "world",
+      "plain": "California's network of automated weather stations, run by the Department of Water Resources. Stations record sunlight, rain, air temperature, humidity and wind each hour, and most estimate reference evapotranspiration (ETo) for the station and its immediate surroundings, often in farmland.",
+      "appFact": "Built but never run: no CIMIS app key is set on the build machine, so no CIMIS number appears anywhere in the app.",
+      "appLinks": [
+        {
+          "href": "/satellite-vs-ground",
+          "label": "Satellite vs ground"
+        }
+      ],
+      "notTell": "A station is one place: DWR describes its reference evapotranspiration estimate as applying to the station location and its immediate surroundings.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "cimis-dwr",
+          "where": "Dataset description",
+          "quote": "CIMIS stations provide hourly records of solar radiation, precipitation, air temperature, air humidity, and wind speed."
+        },
+        {
+          "kind": "web",
+          "source": "cimis-dwr",
+          "where": "Dataset description",
+          "quote": "Most of the CIMIS stations produce estimates of reference evapotranspiration (ETo) for the station location and their immediate surroundings, often in agricultural areas."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/cimis-check.md",
+          "where": "Status line: the comparison has NOT been run"
+        }
+      ]
+    },
+    {
+      "id": "openet",
+      "group": "records",
+      "term": "OpenET",
+      "kind": "world",
+      "plain": "A service that delivers satellite-based evapotranspiration (water use) data for the real crop or ground cover at a pixel.",
+      "appFact": "Built but never run: no OpenET key is set on the build machine, so no OpenET number appears anywhere in the app.",
+      "appLinks": [
+        {
+          "href": "/satellite-vs-ground",
+          "label": "Satellite vs ground"
+        }
+      ],
+      "notTell": "It shows what was actually growing, not what you chose to model. A gap between OpenET and the modelled crop does not mean either is wrong.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "openet",
+          "where": "Home page",
+          "quote": "OpenET empowers water management from local to global scales by delivering transparent, scientifically rigorous satellite-based evapotranspiration (ET) data through accessible tools."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/openet-check.md",
+          "where": "Status line and section 'What can and cannot be compared'"
+        }
+      ]
+    },
+    {
+      "id": "nutrient-removal",
+      "group": "nutrients",
+      "term": "Nutrient removal",
+      "kind": "world",
+      "plain": "The nutrients that leave the field inside the part of the crop you harvest. It is smaller than total nutrient uptake, because some nutrients stay in the leaves, stalks and roots.",
+      "appFact": "Removal per unit of yield comes from published tables for other regions (Arkansas, Nebraska, Montana). Each figure on the replay page links to its source and page.",
+      "appLinks": [
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "A published average is not a soil test. The Arkansas guide says removal estimates should not be the only basis for deciding fertilizer, and that the most accurate way to find removal is to have harvested grain analysed.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "arkansas-fsa2176",
+          "where": "Page 1, 'Nutrient Uptake vs. Nutrient Removal'",
+          "quote": "Nutrient removal refers only to the nutrients contained in the portion of the crop that is harvested and removed from the field."
+        },
+        {
+          "kind": "web",
+          "source": "arkansas-fsa2176",
+          "where": "Page 1",
+          "quote": "Nutrient uptake is the total amount of nutrients taken up by the crop throughout the growing season and contained in the grain, leaves, stalks and roots."
+        },
+        {
+          "kind": "web",
+          "source": "arkansas-fsa2176",
+          "where": "Page 3",
+          "quote": "The best and most accurate way to determine nutrient removal is to collect representative grain samples and have them analyzed."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/nutrient-sources.md",
+          "where": "Section 'Where the nutrient numbers come from'"
+        }
+      ]
+    },
+    {
+      "id": "nitrogen-fixation",
+      "group": "nutrients",
+      "term": "Nitrogen fixation",
+      "kind": "world",
+      "plain": "How legume plants (such as beans, soybeans, alfalfa) get nitrogen from the air: bacteria living in nodules on their roots turn nitrogen gas into a form the plant can use.",
+      "appFact": "Replenishment is shown as unknown for every crop in the catalog: no single sourced figure fits (the only fixation figures found are per bean type), and the app never assumes zero.",
+      "appLinks": [
+        {
+          "href": "/replay",
+          "label": "40-season replay"
+        }
+      ],
+      "notTell": "Fixed nitrogen is not automatically left behind for the next crop: NMSU says most of the nitrogen fixed during a season is removed from the field as grain. How much a crop fixes varies a lot with the legume and the conditions.",
+      "cites": [
+        {
+          "kind": "web",
+          "source": "nmsu-a129",
+          "where": "Section 'Biological Nitrogen Fixation'",
+          "quote": "Biological nitrogen fixation is the process that chang- es inert N2 into biologically useful NH3."
+        },
+        {
+          "kind": "web",
+          "source": "nmsu-a129",
+          "where": "Section 'Nitrogen Return to the Soil and Other Crops'",
+          "quote": "Most of the nitrogen fixed during the season is removed from the field as grain."
+        },
+        {
+          "kind": "web",
+          "source": "nmsu-a129",
+          "where": "Section 'Nitrogen Fixation Efficiency'",
+          "quote": "Common beans are poor fixers (less than 50 lb N per acre) and fix less than their nitrogen needs."
+        },
+        {
+          "kind": "repo",
+          "path": "docs/nutrient-sources.md",
+          "where": "Section 'Replenishment'"
+        }
+      ]
+    }
+  ]
+}

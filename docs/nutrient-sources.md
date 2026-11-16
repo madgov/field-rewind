@@ -51,4 +51,4 @@ The payload also carries the terrain caveat with the erosion indicator (a NASADE
 Payload size is about 12 kB per pin.
 
 ## Wiring into /replay
-Done in Batch 2 (docs/advisor-method.md): the budget form, yields, priorities table, nutrient table with a per-figure source list, local notes with their gaps, and the AI summary are in section 4 of `/replay`. This document describes the Batch 1 data and logic.
+Done in Batch 2 (docs/advisor-method.md): the budget form, yields, priorities table, nutrient table with a per-figure source list, local notes with their gaps, and the AI summary are in section 5 of `/replay`. This document describes the Batch 1 data and logic.

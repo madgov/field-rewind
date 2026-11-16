@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE_LINKS } from "@/components/site/links";
 import { Suspense } from "react";
 import { connection } from "next/server";
 import { DEMO_PINS } from "@/lib/demoPins";
@@ -120,6 +121,9 @@ export default async function ConditionsContent({ searchParams }: { searchParams
       </main>
       <footer className="footer sh-footer">
         <p>Weather data: NASA POWER, regional climate, about 50 km grid. Satellites: Landsat (USGS) and MODIS (NASA). Maps: OpenStreetMap contributors.</p>
+        {SITE_LINKS.map((l) => (
+          <Link key={l.href} href={l.href}>{l.label}</Link>
+        ))}
         <Link href="/">Back to the map</Link>
       </footer>
     </>

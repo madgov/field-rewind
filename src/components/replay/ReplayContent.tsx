@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE_LINKS } from "@/components/site/links";
 import { connection } from "next/server";
 import { usableCrops } from "@/lib/crops/catalog";
 import { cropRegionNotice } from "@/lib/crops/region";
@@ -118,6 +119,9 @@ export default async function ReplayContent({ searchParams }: { searchParams: Pr
       />
       <footer className="footer sh-footer">
         <p>Data: NASA POWER. Regional climate, about 50 km grid.</p>
+        {SITE_LINKS.map((l) => (
+          <Link key={l.href} href={l.href}>{l.label}</Link>
+        ))}
         <Link href="/">Back to the map</Link>
       </footer>
     </>

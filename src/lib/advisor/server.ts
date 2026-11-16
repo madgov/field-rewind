@@ -17,11 +17,15 @@ import { validateCoordinates } from "../power/grid";
 import { powerDataLabel } from "../power/label";
 import { replay } from "../replay/replay";
 import { validateSupply } from "../replay/evaluate";
+import { RAIN_FACTOR_RANGE, TEMP_DELTA_RANGE, isIdentityScenario, runScenarioReplay, validateScenario } from "../scenario";
+import type { Scenario } from "../scenario";
 import { computeShift } from "../shift/compute";
 import { summarizeAnnual } from "../summary/annual";
 import { julyMeanTmax } from "../summary/julyTmax";
 import type { PowerResult } from "../types";
 import { buildAdvisorPayload } from "./payload";
+import { buildScenarioView } from "./scenarioView";
+import type { ScenarioView } from "./scenarioView";
 import type { AdvisorPayload } from "./payload";
 
 export const EXAMPLE_FARM_PIN = "brentwood";
@@ -38,6 +42,8 @@ export type AdvisorRequest = {
   yields: Record<string, number>;
   priorities: PriorityId[];
   price?: { units: "us" | "metric"; waterPrice: number };
+  /** What-if from the sliders. Absent or neutral means none. Ranges are the slider ranges. */
+  scenario?: Scenario;
   /** Set by the browser only to say the farmer typed a budget; the amounts themselves are never sent. */
   budgetUsed?: boolean;
 };
@@ -75,6 +81,23 @@ const defaultDeps: Required<AdvisorDeps> = {
   },
 };
 
+const EPS = 1e-9;
+
+/** The slider ranges (docs/scenario-method.md). The engine accepts more; the route accepts only what the page offers. */
+export function validateScenarioSettings(raw: unknown): { ok: true; scenario: Scenario | undefined } | { ok: false; message: string } {
+  if (raw === undefined || raw === null) return { ok: true, scenario: undefined };
+  const r = raw as Partial<Scenario>;
+  if (typeof r !== "object") return { ok: false, message: "The what-if settings were not understood." };
+  const s: Scenario = { rainFactor: Number(r.rainFactor), tempDeltaC: Number(r.tempDeltaC), humidity: r.humidity };
+  const bad = validateScenario(s);
+  if (bad) return { ok: false, message: bad };
+  if (s.rainFactor < RAIN_FACTOR_RANGE.min - EPS || s.rainFactor > RAIN_FACTOR_RANGE.max + EPS)
+    return { ok: false, message: `The rain multiplier must be between ${RAIN_FACTOR_RANGE.min} and ${RAIN_FACTOR_RANGE.max}.` };
+  if (s.tempDeltaC < TEMP_DELTA_RANGE.min - EPS || s.tempDeltaC > TEMP_DELTA_RANGE.max + EPS)
+    return { ok: false, message: `The temperature shift must be between ${TEMP_DELTA_RANGE.min} and ${TEMP_DELTA_RANGE.max} degrees C.` };
+  return { ok: true, scenario: { rainFactor: s.rainFactor, tempDeltaC: s.tempDeltaC, humidity: s.humidity ?? "hold-vapour-pressure" } };
+}
+
 export function validateRequest(raw: unknown): { ok: true; req: AdvisorRequest } | { ok: false; message: string } {
   const r = raw as Partial<AdvisorRequest> | null;
   if (!r || typeof r !== "object") return { ok: false, message: "The request was not understood." };
@@ -95,6 +118,8 @@ export function validateRequest(raw: unknown): { ok: true; req: AdvisorRequest }
   }
   const prios = (Array.isArray(r.priorities) ? r.priorities : []).filter((p): p is PriorityId => typeof p === "string" && p in PRIORITIES);
   const price = r.price && (r.price.units === "us" || r.price.units === "metric") && Number.isFinite(r.price.waterPrice) && r.price.waterPrice > 0 ? { units: r.price.units, waterPrice: r.price.waterPrice } : undefined;
+  const sc = validateScenarioSettings(r.scenario);
+  if (!sc.ok) return { ok: false, message: sc.message };
   return {
     ok: true,
     req: {
@@ -107,6 +132,7 @@ export function validateRequest(raw: unknown): { ok: true; req: AdvisorRequest }
       priorities: prios,
       price,
       budgetUsed: r.budgetUsed === true,
+      scenario: sc.scenario && !isIdentityScenario(sc.scenario) ? sc.scenario : undefined,
     },
   };
 }
@@ -122,6 +148,10 @@ export async function buildAdvisorRequestPayload(req: AdvisorRequest, deps: Advi
   const { renamed, key } = anonymizeRotations(req.rotations);
   const rep = replay(power, usableCrops(), { rotations: renamed, supplyMm: req.supplyMm });
   if (rep.status === "unavailable") return { error: `${rep.reason} ${rep.nextStep}`.trim(), status: 422 };
+  // The what-if runs on the server through the existing engine; crop names (not letters) are used inside its sentences.
+  const scenarioView = req.scenario
+    ? buildScenarioView(rep, runScenarioReplay(power, usableCrops(), { rotations: renamed, supplyMm: req.supplyMm, scenario: req.scenario }), req.scenario, renamed.map((r) => r.sequence.map((id) => CROP_CATALOG.crops.find((c) => c.id === id)?.name ?? id).join(", then ")))
+    : null;
 
   // Soil and land cover do not depend on each other, so they load together (a new place can take tens of seconds).
   const [lf, gt] = await Promise.all([
@@ -141,6 +171,7 @@ export async function buildAdvisorRequestPayload(req: AdvisorRequest, deps: Advi
     erosion: lf && lf.status !== "error" ? lf.erosion : null,
     soilOriginLine: lf && lf.status !== "error" ? landformOriginLine({ origin: lf.origin, fetchedAt: lf.fetchedAt ?? "" }) : null,
     groundTruth: gt,
+    scenario: scenarioView,
     rotations: renamed,
     yields: req.yields,
     budget: null,
@@ -148,4 +179,24 @@ export async function buildAdvisorRequestPayload(req: AdvisorRequest, deps: Advi
     price: req.price,
   });
   return { payload, placeName: place, rotationKey: key };
+}
+
+export type ScenarioResponse = ScenarioView | { status: "error"; message: string; httpStatus: number };
+
+/**
+ * The what-if for the page: the as-recorded replay and the scenario replay on the same real record, both from the existing engine.
+ * The farmer's own rotation names are used (this goes back to their browser only, not to a model).
+ */
+export async function buildScenarioResponse(req: AdvisorRequest, deps: AdvisorDeps = {}): Promise<ScenarioResponse> {
+  const d = { ...defaultDeps, ...deps };
+  const lat = req.exampleFarm ? DEMO_PINS.find((p) => p.id === EXAMPLE_FARM_PIN)!.lat : req.lat;
+  const lon = req.exampleFarm ? DEMO_PINS.find((p) => p.id === EXAMPLE_FARM_PIN)!.lon : req.lon;
+  const power = await d.power(lat, lon, req.exampleFarm === true);
+  if (power.status === "error" || power.status === "no-coverage")
+    return { status: "error", message: power.message ?? "The climate record could not be read for this spot.", httpStatus: 502 };
+  const crops = usableCrops();
+  const scenario: Scenario = req.scenario ?? { rainFactor: 1, tempDeltaC: 0, humidity: "hold-vapour-pressure" };
+  const baseline = replay(power, crops, { rotations: req.rotations, supplyMm: req.supplyMm });
+  if (baseline.status === "unavailable") return { status: "error", message: `${baseline.reason} ${baseline.nextStep}`.trim(), httpStatus: 422 };
+  return buildScenarioView(baseline, runScenarioReplay(power, crops, { rotations: req.rotations, supplyMm: req.supplyMm, scenario }), scenario);
 }

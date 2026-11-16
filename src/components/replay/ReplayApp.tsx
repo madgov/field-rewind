@@ -12,6 +12,8 @@ import { EXAMPLE_FARM_PARAM } from "./exampleFarm";
 import FieldAdvisor from "./FieldAdvisor";
 import Gauge from "./Gauge";
 import PrintReport, { usePrintMeta } from "./PrintReport";
+import { DEFAULT_SCENARIO, type Scenario } from "@/lib/scenario";
+import ScenarioPanel from "./ScenarioPanel";
 import { ReplayRotationsProvider } from "../howweknow/ReplayInputsContext";
 import RotationBuilder from "./RotationBuilder";
 import Scrubber from "./Scrubber";
@@ -53,6 +55,8 @@ export default function ReplayApp(props: Props) {
   const [year, setYear] = useState(props.initial.year);
   const [playing, setPlaying] = useState(false);
   const [dismissedNotes, setDismissedNotes] = useState(false);
+  // What-if sliders. The panel runs them on the server; the same settings go to the AI advisor.
+  const [scenario, setScenario] = useState<Scenario>({ ...DEFAULT_SCENARIO });
 
   const [printMeta, capturePrintMeta] = usePrintMeta();
   const exampleRotationsOn = rotationsAreExample(rotations);
@@ -242,7 +246,10 @@ export default function ReplayApp(props: Props) {
         )}
       </section>
 
+      <ScenarioPanel lat={props.lat} lon={props.lon} exampleFarm={props.exampleFarm === true} rotations={engineRotations} supplyMm={supplyMm} scenario={scenario} onChange={setScenario} />
+
       <FieldAdvisor
+        scenario={scenario}
         lat={props.lat}
         lon={props.lon}
         exampleFarm={props.exampleFarm === true}

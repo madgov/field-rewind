@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { SITE_LINKS } from "@/components/site/links";
 import { DEMO_PINS } from "@/lib/demoPins";
 import PinPicker from "./PinPicker";
 import CoordinatePanel from "./CoordinatePanel";
@@ -64,6 +65,9 @@ export default function HomeClient() {
 
       <footer className="footer">
         <p>Map data &copy; OpenStreetMap contributors.</p>
+        {SITE_LINKS.map((l) => (
+          <Link key={l.href} href={l.href}>{l.label}</Link>
+        ))}
         <Link href="/dev">Data check (dev)</Link>
       </footer>
     </>

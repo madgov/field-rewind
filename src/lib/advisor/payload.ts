@@ -24,6 +24,7 @@ import type { RotationComparison, RotationNutrientInput, YieldInputs } from "../
 import type { ShiftResult } from "../shift/types";
 import type { AnnualSummary } from "../summary/annual";
 import type { JulyTmax } from "../summary/julyTmax";
+import type { ScenarioView } from "./scenarioView";
 
 export const ADVISOR_PAYLOAD_VERSION = 1;
 export const CLIMATE_LABEL = "regional climate, about 50 km grid";
@@ -44,6 +45,8 @@ export type AdvisorInputs = {
   soilOriginLine: string | null;
   /** Saved or live satellite land-cover and crop-history record for the point; null when none was fetched. */
   groundTruth?: GroundTruthResult | null;
+  /** The what-if run, or null / absent when the sliders were not used. Built on the same (renamed) rotations as `replay`. */
+  scenario?: ScenarioView | null;
   rotations: RotationNutrientInput[];
   /** Farmer's expected yield per acre in each crop's own unit. Missing crops stay unknown. */
   yields: YieldInputs;
@@ -120,11 +123,41 @@ export type WaterSection =
       }[];
     };
 
+/** The what-if section. "not-applied" means there is nothing to describe: the model must not mention a what-if. */
+export type ScenarioSection =
+  | { status: "not-applied"; reason: string }
+  | NotAvailable
+  | {
+      status: "ok";
+      label: string;
+      rainFactor: number;
+      tempDeltaC: number;
+      humidity: string;
+      rainDaysScaled: number;
+      rhClampedDays: number;
+      rhNotAdjustedDays: number;
+      supplyMm: number;
+      headline: string;
+      rotations: {
+        name: string;
+        crops: string[];
+        baselineSeasonsShort: number;
+        baselineSeasonsJudged: number;
+        scenarioSeasonsShort: number;
+        scenarioSeasonsJudged: number;
+        byDecade: { label: string; baselineShort: number; baselineJudged: number; scenarioShort: number; scenarioJudged: number }[];
+        sentence: string;
+      }[];
+      notes: string[];
+      caveats: string[];
+    };
+
 export type AdvisorPayload = {
   version: number;
   location: AdvisorInputs["pin"];
   climate: ClimateSection;
   water: WaterSection;
+  scenario: ScenarioSection;
   soil: SoilSection;
   erosion: NotAvailable | { status: "ok"; slopePct: number | null; slopeBand: string | null; kf: number | null; kfClassRank: number | null; label: string; caveat: string };
   /** What satellite land-cover and crop-history records say the point is. Sentences come from the app's own wording code. */
@@ -142,6 +175,42 @@ function round(v: number | null, dp = 2): number | null {
   if (v === null) return null;
   const f = 10 ** dp;
   return Math.round(v * f) / f;
+}
+
+function scenarioSection(v: ScenarioView | null | undefined): ScenarioSection {
+  if (!v) return { status: "not-applied", reason: "No what-if was set, so there is no scenario to describe." };
+  if (v.status !== "ok") return na(v.reason);
+  if (v.isIdentity) return { status: "not-applied", reason: "The what-if sliders are at their neutral setting, so the replay is the record as recorded and there is no scenario to describe." };
+  return {
+    status: "ok",
+    label: v.label,
+    rainFactor: v.settings.rainFactor,
+    tempDeltaC: v.settings.tempDeltaC,
+    humidity: v.settings.humidity,
+    rainDaysScaled: v.rainDaysScaled,
+    rhClampedDays: v.rhClampedDays,
+    rhNotAdjustedDays: v.rhNotAdjustedDays,
+    supplyMm: round(v.supplyMm, 1) as number,
+    headline: v.headline,
+    rotations: v.rotations.map((r) => ({
+      name: r.name,
+      crops: r.cropNames,
+      baselineSeasonsShort: r.baseline.short,
+      baselineSeasonsJudged: r.baseline.judged,
+      scenarioSeasonsShort: r.scenario.short,
+      scenarioSeasonsJudged: r.scenario.judged,
+      byDecade: r.baseline.byDecade.map((d, k) => ({
+        label: d.label,
+        baselineShort: d.short,
+        baselineJudged: d.judged,
+        scenarioShort: r.scenario.byDecade[k].short,
+        scenarioJudged: r.scenario.byDecade[k].judged,
+      })),
+      sentence: r.sentence,
+    })),
+    notes: v.notes,
+    caveats: v.caveats,
+  };
 }
 
 function soilSection(soil: SoilResult | null, originLine: string | null): SoilSection {
@@ -278,6 +347,8 @@ export function buildAdvisorPayload(i: AdvisorInputs): AdvisorPayload {
     "Water need comes from FAO-56 crop coefficients; irrigation losses, salinity, and the water already in the soil are not modelled.",
   ];
   limits.push(TERRAIN_CAVEAT);
+  const scenario = scenarioSection(i.scenario);
+  if (scenario.status === "ok") limits.push(`${scenario.label} Describe it only as a what-if, never as a prediction.`);
   const landCover = landCoverSection(i.groundTruth);
   if (landCover.status === "ok" && landCover.notCropland)
     limits.push(
@@ -293,6 +364,7 @@ export function buildAdvisorPayload(i: AdvisorInputs): AdvisorPayload {
     location: i.pin,
     climate: climateSection(i),
     water: waterSection(i),
+    scenario,
     soil: soilSection(i.soil, i.soilOriginLine),
     erosion: i.erosion
       ? { status: "ok" as const, slopePct: round(i.erosion.slopePct, 1), slopeBand: i.erosion.slopeBand?.label ?? null, kf: i.erosion.kf, kfClassRank: i.erosion.kfClassRank, label: i.erosion.label, caveat: TERRAIN_CAVEAT }

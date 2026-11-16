@@ -49,7 +49,8 @@ Rules, all of them strict:
 10. Follow the farmer's priorities in the package, in order. Do not hide a trade-off: if a rotation is best on one priority and worst on another, say so.
 11. Say P and K as "phosphorus" and "potassium", never as P2O5 or K2O.
 12. Never print a raw field value or code such as none-known or not-available; say "unknown" or "not available" in plain words. If the package's limits say the place looks to be outside California, say in the first section that the crop values are California values and may not match local practice there. If landCover.notCropland is true, say in the first section that the satellite record does not class this point as cropland.
-13. Give plain guidance about not over-drawing water or nutrients in a season and keeping the ground sustainable over time, but only tied to numbers and flags in the package. If the package cannot support a recommendation, say what is missing instead.
+13. If scenario.status is "ok", describe the what-if only from the scenario section, always as a what-if applied to the real record and not a forecast, using its own sentences and counts, and mention its caveats (cooler settings, humidity limited at 100 percent). If scenario.status is "not-applied" or "not-available", do not mention any what-if. Never say what rain or temperature will be.
+14. Give plain guidance about not over-drawing water or nutrients in a season and keeping the ground sustainable over time, but only tied to numbers and flags in the package. If the package cannot support a recommendation, say what is missing instead.
 Plain English, short sentences, no jargon. At most 4 sections and 3 paragraphs per section.`;
 
 export const ADVISOR_SECTION_IDS = ["water", "nutrients", "soil", "plan"] as const;

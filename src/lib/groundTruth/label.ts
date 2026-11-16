@@ -21,7 +21,7 @@ export const COCORAHS_SOURCE: SourceInfo = {
 };
 
 export const CDL_SOURCE: SourceInfo = {
-  name: "USDA NASS Cropland Data Layer (30 m satellite classification)",
+  name: "USDA NASS Cropland Data Layer (satellite classification; 30 m pixels through 2023, 10 m from 2024)",
   citation:
     "USDA National Agricultural Statistics Service Cropland Data Layer. Published crop-specific data layer. USDA-NASS, Washington, DC. https://nassgeodata.gmu.edu/CropScape/",
   url: "https://nassgeodata.gmu.edu/CropScape/",

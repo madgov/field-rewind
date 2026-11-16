@@ -131,7 +131,7 @@ export function cropHistoryWording(g: GroundTruthOk): CropHistoryWording {
         `The satellite classification calls this spot "${n}" in all ${ys.length} years from ${first} to ${last}${NON_CROP.test(n) ? ", which is not a crop class, so there is no crop history to show for this point" : ""}.`,
       );
     } else {
-      out.cdl.push(`What the satellite classification says this spot was, most common class of the ${per} nearest 30 m pixels, ${first} to ${last}: ${runs(ys).join("; ")}.`);
+      out.cdl.push(`What the satellite classification says this spot was, most common class of ${per} sample points in a block 30 m apart (the pixels are 30 m through 2023 and 10 m from 2024), ${first} to ${last}: ${runs(ys).join("; ")}.`);
     }
     const full = ys.filter((y) => y.agree === y.sampled).length;
     const low = Math.min(...ys.map((y) => y.agree));

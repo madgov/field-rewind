@@ -1,4 +1,5 @@
 import { DEFAULT_GEMINI_MODEL, FALLBACK_GEMINI_MODELS, GEMINI_KEY_ENV, GEMINI_MODEL_ENV, createGeminiCaller, forModel } from "@/lib/advisor/model";
+import { ADVISOR_OFFLINE_MESSAGE, advisorOffline } from "@/lib/advisor/offline";
 import { runAdvisor } from "@/lib/advisor/run";
 import { buildAdvisorRequestPayload, validateRequest } from "@/lib/advisor/server";
 
@@ -18,6 +19,9 @@ export async function POST(request: Request): Promise<Response> {
   }
   const v = validateRequest(body);
   if (!v.ok) return Response.json({ status: "error", kind: "bad-request", message: v.message }, { status: 400 });
+
+  // The offline switch means no outside service is contacted, and Gemini is one.
+  if (advisorOffline()) return Response.json({ status: "not-connected", message: ADVISOR_OFFLINE_MESSAGE });
 
   const key = process.env[GEMINI_KEY_ENV]?.trim();
   const model = process.env[GEMINI_MODEL_ENV]?.trim() || DEFAULT_GEMINI_MODEL;

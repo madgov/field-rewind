@@ -4,9 +4,9 @@ Built for NASA Space Apps 2026 (Field Shift). It answers one question for a farm
 
 **"Would your crop rotation have survived the last 40 seasons with your water supply?"**
 
-Drop a pin on the map. The app shows (1) how the regional climate at that spot has shifted between 1985-2004 and 2006-2025, and (2) a 40-season replay (1986 to 2025) of up to three crop rotations against a water supply you choose, season by season.
+Drop a pin on the map. The app shows (1) how the regional climate at that spot has shifted between 1985-2004 and 2006-2025, (2) a 40-season replay (1986 to 2025) of up to three crop rotations against a water supply you choose, season by season, (3) the field conditions around the pin (soil, terrain, satellite vegetation, frost, ground checks), and (4) on the replay page, your water budget, expected yields and priorities set against published nutrient figures, with an optional plain-English summary written by AI from those computed numbers.
 
-It is not deployed. There is no public URL yet. Run it locally as below.
+No public URL is recorded in this repository yet. Run it locally as below.
 
 ## Setup and run
 
@@ -28,35 +28,46 @@ Run with no network at all (only the saved example places work):
 FIELD_REWIND_OFFLINE=1 npx next start -p 3100   # after npm run build
 ```
 
-Data scripts (each needs the network; the first rewrites the saved NASA POWER files in `data/power/`, so do not run it casually):
+Data scripts. Each needs the network and each overwrites committed saved files in `data/`, so do not run them casually. They fail loudly and write nothing rather than save placeholder data.
 
 ```bash
-npx tsx scripts/fetch-demo-pins.ts   # re-fetch the 3 demo pins from NASA POWER
-npx tsx scripts/fetch-cimis.ts       # CIMIS station 47; needs CIMIS_APP_KEY
-npx tsx scripts/fetch-openet.ts      # OpenET monthly ET; needs OPENET_API_KEY (optional pin id, default brentwood)
+npx tsx scripts/fetch-demo-pins.ts      # NASA POWER daily weather for the 3 demo pins  -> data/power/
+npx tsx scripts/fetch-power-extra.ts    # POWER soil wetness, frost, surface heat         -> data/power-extra/
+npx tsx scripts/fetch-landform.ts [id]  # NASADEM terrain + SSURGO soil                   -> data/landform/
+npx tsx scripts/fetch-ndvi.ts [pin]     # Landsat NDVI (add --modis for Brentwood MODIS)  -> data/ndvi/ (slow, resumable)
+npx tsx scripts/fetch-ground-truth.ts   # Daymet, CDL, NLCD, CoCoRaHS, USGS wells         -> data/ground-truth/
+npx tsx scripts/fetch-cimis.ts          # CIMIS station 47; needs CIMIS_APP_KEY
+npx tsx scripts/fetch-openet.ts         # OpenET monthly ET; needs OPENET_API_KEY (optional pin id, default brentwood)
 ```
 
 There are also report scripts, `scripts/shift-report.ts` and `scripts/replay-report.ts`, that print results to the terminal.
 
 ## Environment variables
 
-Put these in `.env.local` (never commit it; `.env.example` lists the names). They are read on the server only.
+Put these in `.env.local` or `.env` (both are git-ignored; never commit them; `.env.example` lists the names). They are read on the server only and never reach the browser.
 
 | Name | Purpose |
 | --- | --- |
 | `CIMIS_APP_KEY` | CIMIS Web API key. Register at https://et.water.ca.gov |
 | `OPENET_API_KEY` | OpenET API key. Register at https://account.etdata.org |
-| `FIELD_REWIND_OFFLINE` | `1`, `true`, `yes` or `on`: the server never contacts NASA; only saved example places work. See `docs/example-mode.md`. |
+| `GEMINI_API_KEY` | Google Gemini API key (free tier works), from Google AI Studio. Enables the AI summary on `/replay`. |
+| `GEMINI_MODEL` | Optional. First model to try, e.g. `gemini-3.6-flash`. If it is busy, out of quota or missing, the route tries other free-tier models and names the one that answered. |
+| `FIELD_REWIND_OFFLINE` | `1`, `true`, `yes` or `on`: the server contacts no outside service (NASA POWER, the ground-check and soil services, Gemini); only saved example places work and the AI summary is off. See `docs/example-mode.md`. |
 
-The app runs without the two keys; the CIMIS and OpenET panels then say so.
+The app runs without any of the keys. Without the CIMIS and OpenET keys those panels say so. Without a Gemini key the AI block says it is not connected and writes nothing in its place; everything else on the page still works.
 
 ## Pages
 
 - `/` map with demo pins (Brentwood CA, Fresno CA, Ludhiana Punjab), your own coordinates, and "Load example farm (Brentwood)".
 - `/shift` "Your field has shifted": hot days over 35 C, crop water demand (ET0) and rainfall, early versus late 20-year periods, year stripes. Headlines are generated from the computed numbers; if there is no shift it says so, and if a measure cannot be compared it says that.
-- `/replay` choose 2 or 3 rotations and a seasonal water supply; 40-season strips, a season scrubber with water gauges, a "How we know" panel and a one-page printable report (Print report button).
+- `/replay` choose 2 or 3 rotations and a seasonal water supply; 40-season strips, a season scrubber with water gauges, then section 4, a what-if panel (rain 0.70 to 1.30 times the real record, temperature -2 to +4 C, run on the real daily record on the server, labelled "What-if applied to the real 1985-2025 record. Not a forecast."), then section 5: a water-budget form (money to mm), expected yields, a priorities table, nutrients carried off with a source for every figure, local-expert quotes, and the AI summary. Then a "How we know" panel and a one-page printable report (Print report button).
+- `/conditions` field conditions for a pin: heat and frost, modelled soil wetness, Landsat vegetation, soil and terrain, a map, ground checks, a harmonized 1985 to 2025 yearly view, and a list of data layers that are not connected. See `docs/conditions-page.md`.
+- `/glossary` 33 plain-English terms, each with what it does not tell you and the sources it was read from (`docs/site-pages.md`).
+- `/satellite-vs-ground` what satellite and model layers can and cannot say compared with ground measurements, for every layer this app uses, including findings from the saved data and the layers that are not connected.
 - `/dev` the raw saved-data summary for the three demo pins.
 - `/api/power` JSON endpoint for NASA POWER data.
+- `/api/scenario` POST: runs the what-if on the server and returns baseline and what-if side by side. No key needed.
+- `/api/advisor` POST: your choices in, a checked AI summary out (or a plain reason why not). Server side only.
 
 ## Data sources
 
@@ -66,9 +77,17 @@ The app runs without the two keys; the CIMIS and OpenET panels then say so.
 - **Effective rainfall**: USDA Soil Conservation Service monthly formula as used in FAO CROPWAT.
 - **CIMIS station 47 (Brentwood)**, https://et.water.ca.gov, for a station-versus-POWER ET0 check: `docs/cimis-check.md`.
 - **OpenET** (https://openetdata.org), satellite actual ET, optional panel: `docs/openet-check.md`.
+- **Field-condition layers** (all labelled with their own origin line; US-only layers say "not available" elsewhere):
+  - NASA POWER soil wetness, frost and surface heat, regional climate, about 50 km grid: `docs/power-extra.md`.
+  - Landsat Collection 2 Level-2 NDVI (30 m, one pixel per pin) and, for Brentwood, ORNL MODIS 250 m: `docs/ndvi.md`.
+  - NASADEM terrain (about 30 m surface model) and USDA NRCS SSURGO soil via Soil Data Access (US only): `docs/landform.md`.
+  - Ground checks: Daymet rain, CoCoRaHS gauge, USDA NASS Cropland Data Layer crop history (a satellite classification, not a farm record), NLCD land cover, USGS wells: `docs/ground-truth.md`.
+- **Crop nutrient removal** per unit of yield from published tables (University of Arkansas FSA2176, University of Nebraska CNMP tables, Montana State Extension), each value with source and page: `data/crops/nutrients.json`, `docs/nutrient-sources.md`. Not California measurements and not a soil test.
+- **Local-expert quotes**, word for word with source and read date: `data/expertise/notes.json`.
+- **Google Gemini API** writes the optional summary: `docs/advisor-method.md`.
 - The Fresno July temperature comparison in "How we know" uses the NOAA NCEI U.S. Climate Normals 1991-2020 (station FRESNO YOSEMITE INTL AP, USW00093193), cited on the page.
 
-Method write-ups: `docs/shift-method.md`, `docs/replay-method.md`, `docs/example-mode.md`.
+Method write-ups: `docs/shift-method.md`, `docs/replay-method.md`, `docs/example-mode.md`, `docs/scenario-method.md`, `docs/nutrient-sources.md`, `docs/advisor-method.md`.
 
 ## How saved, cached and live data are labelled
 
@@ -85,6 +104,15 @@ One function (`src/lib/power/label.ts`) words it for every screen, the replay ch
 3. Need beyond rain = max(0, crop water use minus effective rain). The season is "short" if the need is above your supply, otherwise covered, and grey (not judged) if more than 10 days lack ET0 or more than 10 days lack rain, or the season is outside the record.
 4. Counts of short seasons are shown per decade. Ten seasons per decade is a small sample, so no trend is claimed.
 
+## The AI summary: what it is and what it is not
+
+On `/replay`, section 5 can send the computed results to Google Gemini and show a short plain-English summary. Rules it runs under (details and live test results: `docs/advisor-method.md`):
+
+- The model never supplies a number. The server rebuilds every figure from the same data the page uses, and the summary is shown only if every number in each paragraph sits at a data path that paragraph cites. A summary that fails the check, even after one retry, is not shown at all, and the reasons are listed.
+- Missing layers stay missing: a place with no soil data (for example Ludhiana) is reported as "not available", and nothing fills the gap.
+- What is sent to Google: the computed results, your yields and priorities, your location rounded to the 50 km grid, and rotation letters instead of the names you typed. Not sent: money amounts, field size, your typed names. On the free tier Google says content may be used to improve its products; the page says this next to the button. In offline mode nothing is sent.
+- It is not a forecast, not a soil test and not agronomic advice. Every summary is labelled as written by AI.
+
 ## Known limitations
 
 - Crop values are California values (California Delta / Central Valley). The replay page and report print that region, and warn when the pin is outside California. That check is an approximate bounding shape, not real borders (`src/lib/crops/region.ts`).
@@ -99,12 +127,19 @@ One function (`src/lib/power/label.ts`) words it for every screen, the replay ch
 - POWER reads hotter than weather stations (see the Fresno example in "How we know"), so hot-day counts are regional-grid counts. The change between periods is the point.
 - The default example supply of 700 mm was derived from the Brentwood record and is used as the default on every pin.
 - No soil water carry-over and no delivery losses are modelled.
+- Nutrient figures are published averages for harvested product from Arkansas, Nebraska and Montana, not California measurements. Residues, fertilizer and soil supply are not counted. Nitrogen fixation and other replenishment are "unknown" for all seven catalog crops (no source gave a usable figure), and unknown is never treated as zero. There is no legume in the catalog yet.
+- The soil survey has no plant-available nitrogen, phosphorus or potassium. Soil and several ground layers are US only, so Ludhiana shows "not available".
+- Some demo-pin points are not farmland: the Fresno pin is developed land, so its crop history and vegetation say so, and the AI is told not to call it a field. Slope comes from a surface model and is not farm slope on built-up ground.
+- Local-expert notes are sparse: only Fresno has a place-specific quote; Brentwood and Ludhiana show a stated gap (the pages could not be opened).
+- The AI summary used the free Gemini tier in testing. Free models are sometimes busy and have small quotas, the first reply often fails the check and is retried once, and a "limit reached" message is possible on a busy day.
+- NASA satellite layers (SMAP, GPM IMERG, ECOSTRESS, GLDAS/NLDAS) are not connected: they need an Earthdata account and token. Market prices (USDA) are not connected, so nothing says what a rotation earns.
+- The `/conditions` pages are heavy (about 1 MB for Brentwood and 1.6 MB for Fresno). NDVI map windows exist only for the three demo pins.
 
 ## Status of CIMIS and OpenET
 
 Not run. Exact blocker: `CIMIS_APP_KEY` and `OPENET_API_KEY` are not set, so `data/cimis` and `data/openet` hold no saved responses and both panels show a no-key message.
 
-## 60-second demo
+## 60-second demo (no keys needed)
 
 1. `npm run dev`, open the home page.
 2. Click "Load example farm (Brentwood)". The page says "Saved response from [date]", "Regional climate, about 50 km grid" and "Constructed example, not records of a real farm".
@@ -112,5 +147,9 @@ Not run. Exact blocker: `CIMIS_APP_KEY` and `OPENET_API_KEY` are not set, so `da
 4. Drag the water supply slider and watch the cells and headlines change.
 5. Drag the season scrubber (or press play) and read the water gauges.
 6. Open "How we know" for data sources, the 50 km caveat and the crop sources.
-7. Press "Print report" for the one-page report.
-8. Go back to the map, choose the Ludhiana pin and open the replay: a warning says the crop values are California values.
+7. Press "Print report" for the one-page report. The new sections on the page are hidden in print.
+8. Move the what-if rain and temperature sliders and read baseline against what-if. Then in section 5: type a budget, a water price and a field size and press "Use ... as my water supply"; enter yields; tick two priorities and read them side by side; open "Where each nutrient figure comes from".
+9. With `GEMINI_API_KEY` set, press "Send these results to Gemini and write the summary". Without it the block says exactly what is missing.
+10. Open `/conditions` from the replay header for the soil, vegetation, ground checks and the not-connected list.
+11. Open the footer links "Plain-English glossary" and "Satellite vs ground" to see what each data layer can and cannot say.
+12. Go back to the map, choose the Ludhiana pin and open the replay: a warning says the crop values are California values, and soil shows as not available.
