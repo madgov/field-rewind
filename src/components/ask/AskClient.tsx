@@ -9,6 +9,7 @@ import { DEFAULT_YEAR, encodeState } from "@/components/replay/urlState";
 import type { AdvisorOutcome } from "@/lib/advisor/run";
 import type { Understood, UnderstandResponse } from "@/lib/assistant/types";
 import type { Scenario } from "@/lib/scenario";
+import Alternatives from "./Alternatives";
 import MicButton from "./MicButton";
 import PlaceSearch from "./PlaceSearch";
 import PlanView from "./PlanView";
@@ -218,6 +219,9 @@ export default function AskClient({ crops }: { crops: CropRef[] }) {
           {plan.state === "done" && plan.failure && <p className="ask-bad">{plan.failure}</p>}
           {plan.state === "done" && plan.outcome && <PlanView o={plan.outcome} />}
         </div>
+        {pin && supplyOk && u && u.supplyMm !== null && (
+          <Alternatives lat={pin.lat} lon={pin.lon} supplyMm={u.supplyMm} current={[...new Set(rotations.flatMap((r) => r.sequence))]} />
+        )}
         {pin && (
           <div className="ask-evidence">
             <p><strong>See the full evidence for this spot:</strong></p>
