@@ -5,7 +5,7 @@
     {
       "id": "space-or-model",
       "title": "From space, or built by computer models",
-      "blurb": "These cover everywhere and every year, but each number describes a grid square or a pixel, not your exact spot."
+      "blurb": "Coverage and dates differ by layer. Each number describes a grid square or a pixel, rather than your exact field."
     },
     {
       "id": "ground",
@@ -108,13 +108,13 @@
           "kind": "web",
           "source": "power-method",
           "where": "Resolution statement (Release 9)",
-          "quote": "½° latitude by ⅝° longitude for the meteorological data sets"
+          "quote": "\u00bd\u00b0 latitude by \u215d\u00b0 longitude for the meteorological data sets"
         },
         {
           "kind": "web",
           "source": "power-method",
           "where": "Resolution statement (Release 9)",
-          "quote": "That resolution is 1.0° latitude by 1.0° longitude for the radiation data sets"
+          "quote": "That resolution is 1.0\u00b0 latitude by 1.0\u00b0 longitude for the radiation data sets"
         },
         {
           "kind": "web",
@@ -338,12 +338,21 @@
       "kindLabel": "Satellite-based water use",
       "plain": "A service that delivers satellite-based evapotranspiration (the water a real crop or ground cover uses) for a pixel.",
       "resolution": "The documents read in this build give no explicit native pixel size, so none is stated here.",
-      "coverage": "Conterminous United States per the OpenET documents read in this build (docs/openet-check.md); the app's client refuses points outside it. Not run.",
+      "coverage": "Conterminous United States per the OpenET documents read in this build (docs/openet-check.md); the app's client refuses points outside it. Saved responses are included for Brentwood and Fresno only.",
       "canSay": "What was actually growing and using water at the pixel, for comparison with the app's modelled crop.",
       "cannotSay": "Whether the modelled crop is right: the pixel may hold a different crop, fallow land or not farmland.",
-      "status": "built-not-run",
-      "statusText": "Built but never run: no OpenET key is set, so no OpenET number appears in the app.",
-      "links": [],
+      "status": "connected",
+      "statusText": "Saved response from 2026-11-16 for Brentwood and Fresno. The replay's How we know panel compares saved monthly actual water use with the modelled crop. A key is needed only to fetch new responses.",
+      "links": [
+        {
+          "href": "/replay?lat=37.93&lon=-121.66",
+          "label": "Compare water use at Brentwood"
+        },
+        {
+          "href": "/replay?lat=36.74&lon=-119.79",
+          "label": "Compare water use at Fresno"
+        }
+      ],
       "cites": [
         {
           "kind": "web",
@@ -517,11 +526,16 @@
       "plain": "California's network of automated weather stations. Station 47 at Brentwood reports hourly weather and an estimate of reference evapotranspiration for its own surroundings.",
       "resolution": "One station: its own location and immediate surroundings.",
       "coverage": "California.",
-      "canSay": "A real instrument's daily reference evapotranspiration, which the app would compare with its own value computed from NASA POWER.",
-      "cannotSay": "Anything yet: the comparison has never been run. A station over irrigated grass and a 50 km grid square differ by nature.",
-      "status": "built-not-run",
-      "statusText": "Built but never run: no CIMIS key is set, so no CIMIS number appears in the app.",
-      "links": [],
+      "canSay": "A real instrument's daily reference evapotranspiration, which the app compares with its own value computed from NASA POWER regional climate, about 50 km grid.",
+      "cannotSay": "Whether the regional estimate is correct at another farm. A station over irrigated grass and a 50 km grid square differ by nature; the reference-evapotranspiration methods also differ.",
+      "status": "connected",
+      "statusText": "Saved response from 2026-11-16 for station 47 at Brentwood. The replay's How we know panel computes the station comparison from the saved response. A key is needed only to fetch new responses.",
+      "links": [
+        {
+          "href": "/replay?lat=37.93&lon=-121.66",
+          "label": "See the Brentwood station comparison"
+        }
+      ],
       "cites": [
         {
           "kind": "web",
@@ -538,27 +552,35 @@
         {
           "kind": "repo",
           "path": "docs/cimis-check.md",
-          "where": "Status line: the comparison has NOT been run"
+          "where": "Status line and 'What is compared'"
         }
       ],
       "finding": null
     },
     {
       "id": "smap",
-      "side": "not-connected",
-      "name": "SMAP soil moisture",
+      "side": "space-or-model",
+      "name": "SMAP surface soil moisture (SPL3SMP_E v006)",
       "kindLabel": "Satellite measurement",
       "plain": "A NASA satellite that measures how much water is in the top layer of soil and produces global soil-moisture maps.",
-      "resolution": "Not stated here (not read in this build).",
-      "coverage": "Global (per NASA).",
-      "canSay": "Not used by this app.",
-      "cannotSay": "Not used by this app.",
-      "status": "not-connected",
-      "statusText": "Needs a free NASA Earthdata account and an access token, and this app has not been connected to one. No data are shown for it; nothing is estimated in its place.",
+      "resolution": "Posted to a 9 km grid from an approximately 36 km radiometer footprint; approximately the top 5 cm of soil.",
+      "coverage": "Saved July 2025 snapshots for Brentwood, Fresno and Ludhiana only. Other locations are not fetched while the page loads.",
+      "canSay": "Surface soil moisture at the sampled grid cell on the saved dates. Only recommended-quality retrievals are displayed as moisture values.",
+      "cannotSay": "Root-zone water available to a crop, irrigation requirements, soil health, or conditions across an exact field boundary. A short snapshot does not establish a trend.",
+      "status": "connected",
+      "statusText": "Saved response from 2026-11-16 for the three demo pins. Observation dates and quality information are shown on the conditions page. The Earthdata token is used only by the fetch script. These observations do not change the water replay.",
       "links": [
         {
-          "href": "/conditions",
-          "label": "Field conditions"
+          "href": "/conditions?lat=37.93&lon=-121.66",
+          "label": "See the Brentwood observations"
+        },
+        {
+          "href": "/conditions?lat=36.74&lon=-119.79",
+          "label": "See the Fresno observations"
+        },
+        {
+          "href": "/conditions?lat=30.90&lon=75.85",
+          "label": "See the Ludhiana observations"
         }
       ],
       "cites": [
@@ -570,28 +592,42 @@
         },
         {
           "kind": "repo",
-          "path": "src/components/conditions/BlockedCard.tsx",
-          "where": "BLOCKED_DATASETS and its explanation"
+          "path": "docs/earthdata.md",
+          "where": "Products, quality handling, saved observations and real access findings"
+        },
+        {
+          "kind": "web",
+          "source": "smap-v006-guide",
+          "where": "Sections 1.1, 1.3.2 and the retrieval-quality recommendation",
+          "quote": "A retrieval_qual_flag value of either 0 or 8 indicates high-quality retrievals"
         }
       ],
       "finding": null
     },
     {
       "id": "imerg",
-      "side": "not-connected",
-      "name": "GPM IMERG rainfall",
-      "kindLabel": "Satellite estimate",
+      "side": "space-or-model",
+      "name": "GPM IMERG Final monthly rainfall (v07)",
+      "kindLabel": "Merged satellite and rain-gauge estimate",
       "plain": "A NASA product that merges rain estimates from many satellites into one continuous record. NASA says it is especially valuable where there are no ground instruments.",
-      "resolution": "Not stated here (not read in this build).",
-      "coverage": "Global (per NASA).",
-      "canSay": "Not used by this app.",
-      "cannotSay": "Not used by this app.",
-      "status": "not-connected",
-      "statusText": "Needs a free NASA Earthdata account and an access token, and this app has not been connected to one. No data are shown for it; nothing is estimated in its place.",
+      "resolution": "One 0.1 degree grid cell, monthly.",
+      "coverage": "Saved July 2025 snapshots for Brentwood, Fresno and Ludhiana only. Other locations are not fetched while the page loads.",
+      "canSay": "An estimated rainfall total for the sampled grid cell and saved month, calculated from the product's monthly mean rate with its uncertainty and quality fields retained.",
+      "cannotSay": "Rain measured on the farm, daily extremes within that month, future rainfall, or a 40-season trend from one month. It does not replace NASA POWER in the replay.",
+      "status": "connected",
+      "statusText": "Saved response from 2026-11-16 for the three demo pins. Observation dates and quality information are shown on the conditions page. The Earthdata token is used only by the fetch script. These observations do not change the water replay.",
       "links": [
         {
-          "href": "/conditions",
-          "label": "Field conditions"
+          "href": "/conditions?lat=37.93&lon=-121.66",
+          "label": "See the Brentwood observations"
+        },
+        {
+          "href": "/conditions?lat=36.74&lon=-119.79",
+          "label": "See the Fresno observations"
+        },
+        {
+          "href": "/conditions?lat=30.90&lon=75.85",
+          "label": "See the Ludhiana observations"
         }
       ],
       "cites": [
@@ -603,8 +639,8 @@
         },
         {
           "kind": "repo",
-          "path": "src/components/conditions/BlockedCard.tsx",
-          "where": "BLOCKED_DATASETS and its explanation"
+          "path": "docs/earthdata.md",
+          "where": "Products, quality handling, saved observations and real access findings"
         }
       ],
       "finding": null
@@ -684,7 +720,7 @@
   ],
   "gaps": [
     "OpenET's native pixel size is not stated: the documents read give no explicit native-resolution sentence (docs/openet-check.md).",
-    "SMAP, IMERG, ECOSTRESS and GLDAS resolutions are not stated: the pages read were not checked for a single clear figure, so none is quoted.",
+    "ECOSTRESS and GLDAS resolutions are not stated here because these later-stage layers are not implemented. SMAP and IMERG now have product-specific resolution and quality notes in docs/earthdata.md.",
     "CoCoRaHS: the page read gives the network's purpose but not the instrument; the instrument is not described here.",
     "CIMIS: the official CIMIS home page returned only its title and a UC Davis page returned an access-denied (HTTP 403) page, so the description comes from the California Department of Water Resources catalog record. It says 'over 145' active stations; older sources say over 120.",
     "Daymet: its method description was read on the ORNL DAAC page. The app has not validated Daymet against anything; it only compares it with NASA POWER and one gauge.",
@@ -879,6 +915,12 @@
       "publisher": "New Mexico State University Cooperative Extension Service",
       "url": "https://pubs.nmsu.edu/_h/H644/",
       "readOn": "2026-11-16"
+    },
+    "smap-v006-guide": {
+      "title": "SMAP Enhanced L3 Radiometer Global and Polar Grid Daily 9 km EASE-Grid Soil Moisture, Version 6: User Guide",
+      "publisher": "NASA NSIDC DAAC",
+      "url": "https://nsidc.org/sites/default/files/documents/user-guide/spl3smp_e-v006-userguide.pdf",
+      "readOn": "2026-11-15"
     }
   }
 }

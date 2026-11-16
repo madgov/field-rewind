@@ -5,6 +5,7 @@ import type { Crop } from "@/lib/crops/types";
 import { replayFromSeasonTable, type SeasonTable } from "@/lib/replay/assemble";
 import { EXAMPLE_LABEL, EXAMPLE_SUPPLY_MM, EXAMPLE_SUPPLY_NOTE } from "@/lib/replay/examples";
 import { FIRST_SEASON, LAST_SEASON, type ReplayOk, type ReplayResult } from "@/lib/replay/types";
+import { WATER_RESULT_MEANING, WATER_RESULT_LIMIT } from "@/lib/replay/wording";
 import type { PowerResult } from "@/lib/types";
 import type { CropRegionNotice } from "@/lib/crops/region";
 import { cropAbbreviations } from "./cells";
@@ -206,6 +207,7 @@ export default function ReplayApp(props: Props) {
       <section aria-labelledby="rp-strips-h" className="rp-sec">
         <h2 id="rp-strips-h" className="sh-h2"><span className="rp-step">2</span> 40 seasons, 1986 to 2025</h2>
         <p className="sh-lede">One cell per season, for each rotation. Move the water supply above and watch the cells change. Tap a cell to look at that season below.</p>
+        <p className="sh-lede">{WATER_RESULT_MEANING} {WATER_RESULT_LIMIT}</p>
         <StripLegend crops={usedLetters} />
         {ok ? (
           <div className="rp-strips">
@@ -218,7 +220,7 @@ export default function ReplayApp(props: Props) {
                 <p className="rcard__headline" key={r.headline}>{r.headline}</p>
                 <Strip rotation={r} year={year} abbr={abbr} onPick={pickYear} />
                 <p className="rcard__total">
-                  All 40 seasons: {r.totals.short} short, {r.totals.ok} covered{r.totals.insufficient > 0 ? `, ${r.totals.insufficient} not judged` : ""}.
+                  All 40 seasons in the model: {r.totals.short} short, {r.totals.ok} covered{r.totals.insufficient > 0 ? `, ${r.totals.insufficient} not judged` : ""}.
                 </p>
                 <p className="rcard__sentence">{r.sentence}</p>
                 <p className="rcard__caveat">{r.caveat}</p>

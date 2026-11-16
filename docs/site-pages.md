@@ -1,12 +1,12 @@
 # Reference pages: /glossary and /satellite-vs-ground
 
-Status: built and tested, not browser-checked (no browser was available). Sources read 2026-11-16 (UTC). Not wired into other pages yet: `src/components/site/links.ts` exports `SITE_LINKS` for that.
+Status: built and tested, not browser-checked (no browser was available). Sources read 2026-11-16 (UTC). Footer links use `SITE_LINKS` from `src/components/site/links.ts`. Later Earthdata additions are described in `docs/earthdata.md`.
 
 ## What is where
 - Content as data: `data/site/glossary.json` (33 terms) and `data/site/satellite-vs-ground.json` (16 layers, 3 "why both" statements, a gaps list). Both carry a source registry (title, publisher, URL, read date). Every statement lists the documents it was written from: a web document (with where it was read and a short word-for-word quote) or one of this repo's own method documents (path and section).
 - Loaders and types: `src/lib/site/` (`glossary.ts`, `satellite.ts`, `resolve.ts`, `types.ts`). `findings.ts` builds the "what this app found" blocks from the committed saved responses using the app's existing wording functions (`groundCheckWording`, `cropHistoryWording`, `ndviWording`), so every sentence is generated from the saved numbers and carries the layer's own "Saved response from [date]" label. `findingsCached.ts` wraps it in `"use cache"` (as `src/app/dev/page.tsx` does), so both pages are static (`next build` shows them as prerendered) and no change to `next.config.ts` file tracing is needed.
 - Pages and components: `src/app/glossary/page.tsx`, `src/app/satellite-vs-ground/page.tsx`, `src/components/site/` (SiteShell with the animated hero, GlossaryList, SatelliteView, FindingsView, SourceList, `site.css`, `links.ts`).
-- Tests: `src/lib/site/site.test.ts` (24 tests): every entry has sources with https URLs and a read date, quotes present, repo paths exist, links go to real routes, the four blocked NASA layers and the two built-but-never-run layers are shown with their status, findings come out finite from the real saved files, and the components render without NaN or undefined text.
+- Tests: `src/lib/site/site.test.ts` (25 tests): every entry has sources with https URLs and a read date, quotes present, repo paths exist, links go to real routes, ECOSTRESS/GLDAS remain blocked, SMAP/IMERG are saved contextual observations, and CIMIS/OpenET are labelled as saved comparisons, findings come out finite from the real saved files, and the components render without NaN or undefined text.
 
 ## How content was sourced
 Web pages were fetched with curl and their tags stripped, so each quote is page text; PDFs (Arkansas FSA2176, NRCS Soil Data Access column descriptions, NRCS NEH Part 630 chapter 7, NMSU A-129) were read with pypdf; the NASA POWER parameter catalogue was read as JSON. Statements about what this app does are written from `docs/*.md` and the code, and cite them.
@@ -16,7 +16,7 @@ FAO-56 chapters 1 and 6; FAO "Irrigation Water Management: Irrigation Water Need
 
 ## Gaps (also shown on the satellite-vs-ground page)
 - OpenET native pixel size: not stated in the documents read.
-- SMAP, IMERG, ECOSTRESS, GLDAS resolutions: not stated (the pages were not checked for a single clear figure). These four are shown as not connected, described only by what NASA's own page says they are, with the reason (needs an Earthdata account and token).
+- ECOSTRESS and GLDAS remain unimplemented, with no resolution quoted here. SMAP and IMERG now have product-specific resolution, quality and period information; see `docs/earthdata.md`. Their dated snapshots are separate from the 40-season replay.
 - CoCoRaHS instrument: the About page read does not name it.
 - CIMIS: the official CIMIS home page returned only its title and a UC Davis page returned access denied (HTTP 403); the description comes from the DWR catalog record on data.gov ("over 145" stations).
 - NASA POWER's methodology page says "assimilation models" and never "reanalysis"; the app's word reanalysis rests on MERRA-2 being described by NASA as one. Both facts are stated on the glossary page.

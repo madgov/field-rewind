@@ -9,6 +9,7 @@ import { PlaceLinks, Problem } from "../shift/States";
 import { latText, lonText } from "../shift/format";
 import LayerSources from "../howweknow/LayerSources";
 import BlockedCard from "./BlockedCard";
+import EarthdataSection from "./EarthdataSection";
 import MapSection from "./MapSection";
 import { SectionLoading } from "./parts";
 import { GroundSection, HeatFrostSection, LandformSection, SoilWetnessSection, VegetationSection } from "./sections";
@@ -41,6 +42,7 @@ export function ConditionsLoading() {
 const NAV = [
   ["frost", "Heat and frost"],
   ["soil", "Soil wetness"],
+  ["earthdata", "NASA snapshots"],
   ["veg", "Vegetation"],
   ["land", "Soil and terrain"],
   ["map", "Map"],
@@ -110,6 +112,7 @@ export default async function ConditionsContent({ searchParams }: { searchParams
       <main className="sh-main cx-main">
         <Suspense fallback={<SectionLoading id="frost" title="Heat and frost" />}><HeatFrostSection lat={lat} lon={lon} /></Suspense>
         <Suspense fallback={<SectionLoading id="soil" title="Soil wetness (modelled)" />}><SoilWetnessSection lat={lat} lon={lon} /></Suspense>
+        <Suspense fallback={<SectionLoading id="earthdata" title="NASA soil moisture and rainfall snapshots" />}><EarthdataSection lat={lat} lon={lon} /></Suspense>
         <Suspense fallback={<SectionLoading id="veg" title="Vegetation seen from space" slow={slow} />}><VegetationSection lat={lat} lon={lon} /></Suspense>
         <Suspense fallback={<SectionLoading id="land" title="Soil and terrain" slow={slow} />}><LandformSection lat={lat} lon={lon} /></Suspense>
         <Suspense fallback={<SectionLoading id="map" title="Look at the ground" slow={slow} />}><MapSection lat={lat} lon={lon} place={place} /></Suspense>

@@ -20,7 +20,7 @@ export default function Gauge({ name, s }: { name: string; s: SeasonResult }) {
 
   const label = grey
     ? `${name}, ${s.year}: not enough data to judge`
-    : `${name}, ${s.year}: need ${formatMm(fig?.needMm ?? 0)} against a supply of ${formatMm(s.supplyMm)}, ${kind === "short" ? "short" : "covered"}`;
+    : `${name}, ${s.year}: modelled need ${formatMm(fig?.needMm ?? 0)} against a supply of ${formatMm(s.supplyMm)}, ${kind === "short" ? "short" : "covered"}`;
 
   return (
     <figure className={`gauge gauge--${kind}`}>
@@ -58,7 +58,7 @@ export default function Gauge({ name, s }: { name: string; s: SeasonResult }) {
             <p className="gauge__reason">{s.reason}</p>
           ) : (
             <dl className="gauge__list">
-              <div><dt>Crop water demand</dt><dd>{mmWithInches(fig?.etcMm ?? 0)}</dd></div>
+              <div><dt>Modelled crop water demand</dt><dd>{mmWithInches(fig?.etcMm ?? 0)}</dd></div>
               <div><dt>Rain that counted</dt><dd>{mmWithInches(fig?.rainMm ?? 0)}</dd></div>
               <div className="gauge__need"><dt>Need beyond rain</dt><dd>{mmWithInches(fig?.needMm ?? 0)}</dd></div>
               <div><dt>Your supply</dt><dd>{mmWithInches(s.supplyMm)}</dd></div>

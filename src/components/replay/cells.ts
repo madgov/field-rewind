@@ -31,7 +31,7 @@ export function decadeCountText(d: DecadeCount): string {
 }
 
 export function cellLabel(s: SeasonResult): string {
-  const what = s.outcome === "short" ? "short of water" : s.outcome === "ok" ? "water supply covers it" : "not enough data to judge";
+  const what = s.outcome === "short" ? "supply below modelled water need" : s.outcome === "ok" ? "supply covers modelled water need" : "not enough data to judge";
   return `${s.year}, ${s.cropName}: ${what}`;
 }
 

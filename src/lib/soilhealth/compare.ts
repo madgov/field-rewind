@@ -3,7 +3,7 @@ import { creditsBetween, fixationKnown, getNutrients, removalAtYield, NUTRIENT_K
 import type { NutrientKey } from "../nutrients";
 
 export const SOILHEALTH_LABEL =
-  "Nutrient comparison from published crop-removal averages and the yields you entered. It is not a soil test and not a prediction.";
+  "Estimated nutrient removal from published crop-removal averages and your yield assumptions. It does not measure nutrients remaining in the soil or changes in soil health. It is not a soil test and not a prediction.";
 
 export type RotationNutrientInput = {
   name: string;

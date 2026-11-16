@@ -2,11 +2,13 @@
 
 Built for NASA Space Apps 2026 (Field Shift). It answers one question for a farmer, a farm adviser or a student:
 
-**"Would your crop rotation have survived the last 40 seasons with your water supply?"**
+**"Would your water supply have met your crops' modelled needs over the last 40 seasons?"**
 
-Drop a pin on the map. The app shows (1) how the regional climate at that spot has shifted between 1985-2004 and 2006-2025, (2) a 40-season replay (1986 to 2025) of up to three crop rotations against a water supply you choose, season by season, (3) the field conditions around the pin (soil, terrain, satellite vegetation, frost, ground checks), and (4) on the replay page, your water budget, expected yields and priorities set against published nutrient figures, with an optional plain-English summary written by AI from those computed numbers.
+Drop a pin on the map. The app shows (1) how the regional climate at that spot has shifted between 1985-2004 and 2006-2025, (2) a 40-season replay (1986 to 2025) of up to three crop rotations against a water supply you choose, season by season, (3) the field conditions around the pin (soil, terrain, satellite vegetation, frost, ground checks), and (4) on the replay page, your water budget, yield assumptions and priorities set against published nutrient figures, with an optional plain-English summary written by AI from those computed numbers.
 
-No public URL is recorded in this repository yet. Run it locally as below.
+"Covered" means the selected supply meets modelled water need beyond rain. The replay does not predict crop survival, yield or soil-health change. Yield entries come from the user's records or assumptions and are used for nutrient-removal estimates; they are not adjusted when water is short. Nutrient removal does not measure the nutrients remaining in the soil.
+
+Public demo: https://field-rewind-t4fe.vercel.app. The deployed version may differ from local changes; a working homepage does not verify every feature or the AI connection. Run it locally as below.
 
 ## Setup and run
 
@@ -35,6 +37,7 @@ npx tsx scripts/fetch-demo-pins.ts      # NASA POWER daily weather for the 3 dem
 npx tsx scripts/fetch-power-extra.ts    # POWER soil wetness, frost, surface heat         -> data/power-extra/
 npx tsx scripts/fetch-landform.ts [id]  # NASADEM terrain + SSURGO soil                   -> data/landform/
 npx tsx scripts/fetch-ndvi.ts [pin]     # Landsat NDVI (add --modis for Brentwood MODIS)  -> data/ndvi/ (slow, resumable)
+npx tsx scripts/fetch-earthdata.ts [pin|all] [YYYY-MM] # SMAP daily sample + IMERG month -> data/earthdata/; needs EARTHDATA_TOKEN
 npx tsx scripts/fetch-ground-truth.ts   # Daymet, CDL, NLCD, CoCoRaHS, USGS wells         -> data/ground-truth/
 npx tsx scripts/fetch-cimis.ts          # CIMIS station 47; needs CIMIS_APP_KEY
 npx tsx scripts/fetch-openet.ts         # OpenET monthly ET; needs OPENET_API_KEY (optional pin id, default brentwood)
@@ -52,16 +55,17 @@ Put these in `.env.local` or `.env` (both are git-ignored; never commit them; `.
 | `OPENET_API_KEY` | OpenET API key. Register at https://account.etdata.org |
 | `GEMINI_API_KEY` | Google Gemini API key (free tier works), from Google AI Studio. Enables the AI summary on `/replay`. |
 | `GEMINI_MODEL` | Optional. First model to try, e.g. `gemini-3.6-flash`. If it is busy, out of quota or missing, the route tries other free-tier models and names the one that answered. |
+| `EARTHDATA_TOKEN` | Fetch-machine only: NASA Earthdata bearer token for `scripts/fetch-earthdata.ts`. NASA GES DISC terms must also be accepted by the account owner for IMERG. The site reads saved files and needs no Earthdata token at runtime. |
 | `FIELD_REWIND_OFFLINE` | `1`, `true`, `yes` or `on`: the server contacts no outside service (NASA POWER, the ground-check and soil services, Gemini); only saved example places work and the AI summary is off. See `docs/example-mode.md`. |
 
-The app runs without any of the keys. Without the CIMIS and OpenET keys those panels say so. Without a Gemini key the AI block says it is not connected and writes nothing in its place; everything else on the page still works.
+The app runs without any of the keys. The CIMIS and OpenET panels read the saved responses included in `data/`; their keys are needed only to fetch replacements. Without a Gemini key the AI block says it is not connected and writes nothing in its place; everything else on the page still works.
 
 ## Pages
 
 - `/` map with demo pins (Brentwood CA, Fresno CA, Ludhiana Punjab), your own coordinates, and "Load example farm (Brentwood)".
 - `/shift` "Your field has shifted": hot days over 35 C, crop water demand (ET0) and rainfall, early versus late 20-year periods, year stripes. Headlines are generated from the computed numbers; if there is no shift it says so, and if a measure cannot be compared it says that.
-- `/replay` choose 2 or 3 rotations and a seasonal water supply; 40-season strips, a season scrubber with water gauges, then section 4, a what-if panel (rain 0.70 to 1.30 times the real record, temperature -2 to +4 C, run on the real daily record on the server, labelled "What-if applied to the real 1985-2025 record. Not a forecast."), then section 5: a water-budget form (money to mm), expected yields, a priorities table, nutrients carried off with a source for every figure, local-expert quotes, and the AI summary. Then a "How we know" panel and a one-page printable report (Print report button).
-- `/conditions` field conditions for a pin: heat and frost, modelled soil wetness, Landsat vegetation, soil and terrain, a map, ground checks, a harmonized 1985 to 2025 yearly view, and a list of data layers that are not connected. See `docs/conditions-page.md`.
+- `/replay` choose 2 or 3 rotations and a seasonal water supply; 40-season strips, a season scrubber with water gauges, then section 4, a what-if panel (rain 0.70 to 1.30 times the real record, temperature -2 to +4 C, run on the real daily record on the server, labelled "What-if applied to the real 1985-2025 record. Not a forecast."), then section 5: a water-budget form (money to mm), user-entered yield assumptions, a priorities table, nutrients carried off with a source for every figure, local-expert quotes, and the AI summary. Then a "How we know" panel and a one-page printable report (Print report button).
+- `/conditions` field conditions for a pin: heat and frost, modelled soil wetness, dated SMAP surface-moisture and IMERG rainfall snapshots for the three demo places, Landsat vegetation, soil and terrain, a map, ground checks, a harmonized 1985 to 2025 yearly view, and a list of data layers that are not connected. The Earthdata snapshots remain separate from the yearly view and replay. See `docs/conditions-page.md` and `docs/earthdata.md`.
 - `/glossary` 33 plain-English terms, each with what it does not tell you and the sources it was read from (`docs/site-pages.md`).
 - `/satellite-vs-ground` what satellite and model layers can and cannot say compared with ground measurements, for every layer this app uses, including findings from the saved data and the layers that are not connected.
 - `/dev` the raw saved-data summary for the three demo pins.
@@ -82,6 +86,7 @@ The app runs without any of the keys. Without the CIMIS and OpenET keys those pa
   - Landsat Collection 2 Level-2 NDVI (30 m, one pixel per pin) and, for Brentwood, ORNL MODIS 250 m: `docs/ndvi.md`.
   - NASADEM terrain (about 30 m surface model) and USDA NRCS SSURGO soil via Soil Data Access (US only): `docs/landform.md`.
   - Ground checks: Daymet rain, CoCoRaHS gauge, USDA NASS Cropland Data Layer crop history (a satellite classification, not a farm record), NLCD land cover, USGS wells: `docs/ground-truth.md`.
+  - SMAP SPL3SMP_E v006 morning surface-soil-moisture sample (2025-07-01 to 2025-07-07), with retrieval-quality flags, and GPM IMERG Final monthly v07 rainfall (July 2025): `docs/earthdata.md`. These are real saved snapshots for the demo pins, not a 40-season history or current field readings. Rejected and missing SMAP retrievals are excluded; no nearby valid value is substituted.
 - **Crop nutrient removal** per unit of yield from published tables (University of Arkansas FSA2176, University of Nebraska CNMP tables, Montana State Extension), each value with source and page: `data/crops/nutrients.json`, `docs/nutrient-sources.md`. Not California measurements and not a soil test.
 - **Local-expert quotes**, word for word with source and read date: `data/expertise/notes.json`.
 - **Google Gemini API** writes the optional summary: `docs/advisor-method.md`.
@@ -132,7 +137,7 @@ On `/replay`, section 5 can send the computed results to Google Gemini and show 
 - Some demo-pin points are not farmland: the Fresno pin is developed land, so its crop history and vegetation say so, and the AI is told not to call it a field. Slope comes from a surface model and is not farm slope on built-up ground.
 - Local-expert notes are sparse: only Fresno has a place-specific quote; Brentwood and Ludhiana show a stated gap (the pages could not be opened).
 - The AI summary used the free Gemini tier in testing. Free models are sometimes busy and have small quotas, the first reply often fails the check and is retried once, and a "limit reached" message is possible on a busy day.
-- NASA satellite layers (SMAP, GPM IMERG, ECOSTRESS, GLDAS/NLDAS) are not connected: they need an Earthdata account and token. Market prices (USDA) are not connected, so nothing says what a rotation earns.
+- SMAP and IMERG cover only the dated demo-pin snapshots in `data/earthdata/`, with no arbitrary-pin live fetch, forecast, or change to the water replay. SMAP's posted 9 km grid comes from an approximately 36 km footprint, and values failing its quality check stay unavailable. ECOSTRESS and GLDAS/NLDAS remain unimplemented. Market prices (USDA) are not connected, so nothing says what a rotation earns.
 - The `/conditions` pages are heavy (about 1 MB for Brentwood and 1.6 MB for Fresno). NDVI map windows exist only for the three demo pins.
 
 ## Status of CIMIS and OpenET

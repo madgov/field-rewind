@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "pinId": "brentwood",
+  "lat": 37.93,
+  "lon": -121.66,
+  "fetchedAt": "2026-11-16T06:55:57.815Z",
+  "products": {
+    "smap": {
+      "shortName": "SPL3SMP_E",
+      "version": "006",
+      "collectionId": "C2938664763-NSIDC_CPRD",
+      "units": "m3/m3",
+      "grid": "EASE-Grid 2.0 Global EPSG:6933",
+      "sampling": "native cell containing pin; no resampling"
+    },
+    "imerg": {
+      "shortName": "GPM_3IMERGM",
+      "version": "07",
+      "collectionId": "C2723754851-GES_DISC",
+      "rateUnits": "mm/hr",
+      "totalUnits": "mm",
+      "qualityIndexUnits": "Equivalent gauges per 2.5 deg box",
+      "grid": "0.1 degree longitude/latitude"
+    }
+  },
+  "smap": {
+    "status": "no-data",
+    "requestedStart": "2025-07-01",
+    "requestedEnd": "2025-07-07",
+    "observations": [
+      {
+        "date": "2025-07-01",
+        "valueM3M3": null,
+        "rawValueM3M3": 0.1372358798980713,
+        "retrievalQualityFlag": 1,
+        "quality": "not-recommended",
+        "pixelLat": 37.91860119735504,
+        "pixelLon": -121.69605809128724,
+        "sourceGranule": "SMAP_L3_SM_P_E_20250701_R19240_001.h5"
+      },
+      {
+        "date": "2025-07-02",
+        "valueM3M3": null,
+        "rawValueM3M3": null,
+        "retrievalQualityFlag": 7,
+        "quality": "missing",
+        "pixelLat": 37.91860119735504,
+        "pixelLon": -121.69605809128724,
+        "sourceGranule": "SMAP_L3_SM_P_E_20250702_R19240_002.h5"
+      },
+      {
+        "date": "2025-07-03",
+        "valueM3M3": null,
+        "rawValueM3M3": 0.12868541479110718,
+        "retrievalQualityFlag": 1,
+        "quality": "not-recommended",
+        "pixelLat": 37.91860119735504,
+        "pixelLon": -121.69605809128724,
+        "sourceGranule": "SMAP_L3_SM_P_E_20250703_R19240_002.h5"
+      },
+      {
+        "date": "2025-07-04",
+        "valueM3M3": null,
+        "rawValueM3M3": 0.14136280119419098,
+        "retrievalQualityFlag": 1,
+        "quality": "not-recommended",
+        "pixelLat": 37.91860119735504,
+        "pixelLon": -121.69605809128724,
+        "sourceGranule": "SMAP_L3_SM_P_E_20250704_R19240_002.h5"
+      },
+      {
+        "date": "2025-07-05",
+        "valueM3M3": null,
+        "rawValueM3M3": null,
+        "retrievalQualityFlag": 7,
+        "quality": "missing",
+        "pixelLat": 37.91860119735504,
+        "pixelLon": -121.69605809128724,
+        "sourceGranule": "SMAP_L3_SM_P_E_20250705_R19240_001.h5"
+      },
+      {
+        "date": "2025-07-06",
+        "valueM3M3": null,
+        "rawValueM3M3": 0.1282297968864441,
+        "retrievalQualityFlag": 1,
+        "quality": "not-recommended",
+        "pixelLat": 37.91860119735504,
+        "pixelLon": -121.69605809128724,
+        "sourceGranule": "SMAP_L3_SM_P_E_20250706_R19240_002.h5"
+      },
+      {
+        "date": "2025-07-07",
+        "valueM3M3": null,
+        "rawValueM3M3": null,
+        "retrievalQualityFlag": 7,
+        "quality": "missing",
+        "pixelLat": 37.91860119735504,
+        "pixelLon": -121.69605809128724,
+        "sourceGranule": "SMAP_L3_SM_P_E_20250707_R19240_002.h5"
+      }
+    ]
+  },
+  "imerg": {
+    "status": "ok",
+    "requestedStart": "2025-07-01",
+    "requestedEnd": "2025-07-31",
+    "observations": [
+      {
+        "month": "2025-07",
+        "rateMmPerHour": 0,
+        "totalMm": 0,
+        "randomErrorMmPerHour": 0.003,
+        "qualityIndex": 11.24,
+        "pixelLat": 37.95,
+        "pixelLon": -121.65,
+        "sourceGranule": "GPM_3IMERGM.07:3B-MO.MS.MRG.3IMERG.20250701-S000000-E235959.07.V07B.HDF5"
+      }
+    ]
+  }
+}

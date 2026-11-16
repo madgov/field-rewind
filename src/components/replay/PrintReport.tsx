@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import type { Crop } from "@/lib/crops/types";
 import { EXAMPLE_LABEL, FIRST_SEASON, type ReplayOk, type SeasonResult } from "@/lib/replay/types";
+import { WATER_RESULT_MEANING, WATER_RESULT_LIMIT } from "@/lib/replay/wording";
 import { formatInches, formatMm } from "@/lib/shift/units";
 import { powerOriginLine } from "../shift/format";
 import type { PowerResult } from "@/lib/types";
@@ -117,7 +118,7 @@ export default function PrintReport(props: {
     <section className="pr" aria-hidden="true" data-testid="print-report">
       <header className="pr-head">
         <h1 className="pr-title">Water Reality Check</h1>
-        <p className="pr-q">Would these crop rotations have survived the last 40 seasons ({FIRST_SEASON} to 2025) with this water supply?</p>
+        <p className="pr-q">Would this supply have met these rotations&rsquo; modelled water needs ({FIRST_SEASON} to 2025)?</p>
         <p className="pr-pin"><strong>{props.place}</strong>. {props.gridText}. Regional climate, about 50 km grid.</p>
         <p className="pr-supply"><strong>Water supply:</strong> {formatMm(result.supplyMm)} ({formatInches(result.supplyMm)}) per season.</p>
         <p className="pr-flags">
@@ -137,7 +138,7 @@ export default function PrintReport(props: {
       ))}
 
       <p className="pr-legend">
-        How to read the strips: an outlined box with a tick means the supply covers that season; a solid, shorter, notched box with a cross means short of water; a hatched box means not enough data to judge. Each box shows the harvest year (two digits) and a crop letter: {props.usedCrops.map((c) => `${props.abbr[c.id]} = ${c.name}`).join(", ")}.
+        How to read the strips: an outlined box with a tick means supply covers modelled need; a solid, shorter, notched box with a cross means short of water; a hatched box means not enough data to judge. Each box shows the harvest year (two digits) and a crop letter: {props.usedCrops.map((c) => `${props.abbr[c.id]} = ${c.name}`).join(", ")}.
       </p>
 
       <section className="pr-notes">
@@ -150,7 +151,7 @@ export default function PrintReport(props: {
         </ul>
         <h2 className="pr-h">Caveats</h2>
         <ul>
-          <li>This is regional climate on a grid about 50 km across, a computer reconstruction of past weather, not a sensor in your field.</li>
+          <li>{WATER_RESULT_MEANING} {WATER_RESULT_LIMIT}</li>
           <li>No soil water is carried between seasons, and no delivery losses are counted: the supply is compared with the net crop need.</li>
           <li>Ten seasons per decade is a small sample. The counts describe what the record shows, not a trend or a forecast.</li>
         </ul>

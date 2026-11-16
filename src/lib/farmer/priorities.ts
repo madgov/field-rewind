@@ -7,8 +7,8 @@ export type PriorityId = "dependable-water" | "use-less-water" | "low-water-cost
 
 export const PRIORITIES: Record<PriorityId, { label: string; plain: string; metricLabel: string; unit: string; better: "lower" | "higher" }> = {
   "dependable-water": {
-    label: "Have enough water, year after year",
-    plain: "Fewest seasons short of water out of the 40 replayed.",
+    label: "Fewer seasons short of water",
+    plain: "Fewest seasons where modelled water need exceeds your supply in the historical replay.",
     metricLabel: "Seasons short of water",
     unit: "seasons",
     better: "lower",
@@ -28,8 +28,8 @@ export const PRIORITIES: Record<PriorityId, { label: string; plain: string; metr
     better: "lower",
   },
   "protect-soil-nutrients": {
-    label: "Take less nitrogen out of the soil",
-    plain: "Least nitrogen carried off in the harvested crop each season, from published averages and your yields.",
+    label: "Less nitrogen removed in harvest",
+    plain: "Least nitrogen carried off in the harvested crop, from published averages and your yield assumptions. This does not measure soil-health improvement.",
     metricLabel: "Nitrogen removed",
     unit: "lb per acre per season",
     better: "lower",

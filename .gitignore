@@ -38,6 +38,10 @@ yarn-error.log*
 # runtime cache
 .cache/
 
+# Local verification files and private demo recordings
+/scratchpad/
+/demo-video/
+
 # vercel
 .vercel
 

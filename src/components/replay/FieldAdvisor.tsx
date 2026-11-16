@@ -178,8 +178,8 @@ export default function FieldAdvisor(props: Props) {
 
       {/* ---- Yields */}
       <div className="fa__card">
-        <h3 className="rp-sub">Expected yields (optional)</h3>
-        <p className="fa__hint">Nutrient totals need a yield for every crop in a rotation, per {units === "us" ? "acre" : "hectare"}, in the unit shown. Leave a crop blank and its nutrients stay unknown. Nothing is guessed.</p>
+        <h3 className="rp-sub">Your yield assumptions (optional)</h3>
+        <p className="fa__hint">Enter yields from your records or assumptions, per {units === "us" ? "acre" : "hectare"}, in the unit shown. The app does not predict yields or reduce them when water is short. These inputs are used to estimate nutrient removal; they do not change the water replay. Leave a crop blank and its nutrients stay unknown.</p>
         <div className="fa__grid">
           {usedCropIds.map((id) => {
             const n = getNutrients(id);

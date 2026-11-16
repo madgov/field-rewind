@@ -52,15 +52,14 @@ Only dates where both are non-null are compared. The pure comparison is `src/lib
 | `/api/station/47` | HTTP 200, no key needed |
 | `/api/station` | HTTP 200, no key needed (all stations) |
 
-No redirects were observed. No request with a valid key could be made, so the real shape of a data response is
-**unverified**; the client follows the documented shape.
+No redirects were observed in these earlier probes. At that time no valid key was available. The later authenticated request confirmed the response shape through the new API; see the status and API-change sections above.
 
 Station 47 metadata (real, from `/api/station/47`): name Brentwood, city Brentwood, North Central Region Office,
 Contra Costa County, connected 11/18/1985, disconnect date 12/31/2050 (placeholder), `IsActive` True,
 `IsEtoStation` True, elevation 45 (the API gives no unit; CIMIS lists it in feet), ground cover Grass,
 latitude 37.928258, longitude -121.6599, zip codes 94548, 94514, 94513.
 
-Documentation (https://et.water.ca.gov/Rest/Index, text dated 2014, still current):
+Legacy documentation (https://et.water.ca.gov/Rest/Index, text dated 2014; historical details below, superseded by the new endpoint above):
 
 - Parameters: `appKey` (required), `targets` (station numbers, comma list), `startDate`, `endDate` (`yyyy-mm-dd`),
   `unitOfMeasure` (`E` default, or `M`), `dataItems` (comma list), `prioritizeSCS` (zip codes only).
@@ -70,8 +69,7 @@ Documentation (https://et.water.ca.gov/Rest/Index, text dated 2014, still curren
   ERR2112 comes back, halves the chunk and retries.
 - JSON: send `Accept: application/json`. Structure
   `{"Data":{"Providers":[{"Name","Type","Owner","Records":[{"Date","Julian","Station","Standard","ZipCodes","Scope","DayAsceEto":{"Value":"0.03","Qc":" ","Unit":"(in)"}}]}]}}`.
-  Values are strings; the unit is `(in)` for English and, by the documented pattern, `(mm)` for metric (not yet
-  observed). The client refuses anything else rather than convert.
+  Values are strings; the unit is `(in)` for English and `(mm)` for metric (confirmed by the later authenticated metric response). The client refuses anything else rather than convert.
 - Errors documented: ERR1006 invalid key (403), ERR1019 station not found (404), ERR1035 data item not found (404),
   ERR1010 future date, ERR1011 date before 1982-06-07, ERR1012 date order, ERR1032 bad unit (400), ERR2112 volume (400).
 

@@ -18,6 +18,7 @@ import { NON_CROP, cropHistoryWording } from "../groundTruth/wording";
 import type { GroundTruthResult } from "../groundTruth/types";
 import type { ErosionIndicator, SoilResult } from "../landform/types";
 import { DECADES } from "../replay/types";
+import { WATER_RESULT_MEANING, WATER_RESULT_LIMIT } from "../replay/wording";
 import type { ReplayResult } from "../replay/types";
 import { compareRotations } from "../soilhealth";
 import type { RotationComparison, RotationNutrientInput, YieldInputs } from "../soilhealth";
@@ -341,6 +342,9 @@ export function buildAdvisorPayload(i: AdvisorInputs): AdvisorPayload {
   const limits = [
     `Climate is ${CLIMATE_LABEL}. It is reanalysis, not a farm sensor.`,
     "The replay is the real 1986 to 2025 weather record applied to your rotation. It is not a forecast.",
+    WATER_RESULT_MEANING,
+    WATER_RESULT_LIMIT,
+    "Yields are farmer-entered assumptions used to estimate nutrient removal, not predictions. Water shortages do not reduce those yields in this app. Nutrient removal does not measure nutrients remaining in the soil or soil-health improvement.",
     NUTRIENT_CAVEAT,
     "Replenishment (nitrogen fixation, residues, fertilizer) is shown only where a source prints a figure; unknown means no figure was found, not zero.",
     "No market prices are connected, so nothing here says what a rotation earns.",

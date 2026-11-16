@@ -20,7 +20,7 @@ describe("cell mapping", () => {
   });
   it("labels a cell with year, crop and outcome", () => {
     const s = { year: 2012, cropName: "Cotton", outcome: "short" } as SeasonResult;
-    expect(cellLabel(s)).toBe("2012, Cotton: short of water");
+    expect(cellLabel(s)).toBe("2012, Cotton: supply below modelled water need");
     expect(cellLabel({ ...s, outcome: null })).toMatch(/not enough data/);
   });
   it("formats dates and finds a season planted the year before", () => {

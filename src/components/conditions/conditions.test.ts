@@ -98,10 +98,10 @@ describe("sections render real saved data for every demo pin", () => {
     expect(p.ground).not.toMatch(/mm a year|Nearest well<\/h3>[^]*depth/);
   });
 
-  it("blocked card names the four NASA layers, both Earthdata links, and OpenET/CIMIS", () => {
+  it("blocked card keeps ECOSTRESS and GLDAS unimplemented and distinguishes the saved NASA snapshots and comparisons", () => {
     const out = renderToStaticMarkup(h(BlockedCard));
-    for (const n of ["SMAP", "GPM IMERG", "ECOSTRESS", "GLDAS"]) expect(out).toContain(n);
-    expect(BLOCKED_DATASETS).toHaveLength(4);
+    for (const n of ["SMAP", "IMERG", "ECOSTRESS", "GLDAS"]) expect(out).toContain(n);
+    expect(BLOCKED_DATASETS).toHaveLength(2);
     expect(out).toContain(`href="${EARTHDATA_REGISTER}"`);
     expect(out).toContain(`href="${EARTHDATA_TOKEN}"`);
     expect(out).toContain("OpenET");

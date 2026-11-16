@@ -117,7 +117,7 @@ function Cell({ s, index, selected, abbr, onPick }: { s: SeasonResult; index: nu
 export function StripLegend({ crops }: { crops: { abbr: string; name: string }[] }) {
   return (
     <ul className="legend legend--cells">
-      <li className="legend__item"><span className="lg lg--ok" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M2 6.5 5 9.2 10 3" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg></span> Green, full cell, tick: the supply covers the crop&rsquo;s need</li>
+      <li className="legend__item"><span className="lg lg--ok" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M2 6.5 5 9.2 10 3" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg></span> Green, full cell, tick: supply covers modelled need</li>
       <li className="legend__item"><span className="lg lg--short" aria-hidden="true"><svg viewBox="0 0 12 12" width="11" height="11"><path d="M3 3l6 6M9 3 3 9" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" /></svg></span> Red, shorter cell with a notched top, cross: short of water</li>
       <li className="legend__item"><span className="lg lg--grey" aria-hidden="true" /> Grey, hatched: not enough data to judge</li>
       {crops.length > 0 && (

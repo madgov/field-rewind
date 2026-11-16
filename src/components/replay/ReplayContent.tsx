@@ -86,7 +86,7 @@ export default async function ReplayContent({ searchParams }: { searchParams: Pr
             Back to how this field has shifted
           </Link>
           <p className="sh-hero__place">{place}</p>
-          <h1 className="sh-hero__title">Would your rotation have survived the last 40 seasons?</h1>
+          <h1 className="sh-hero__title">Would your water supply have met your rotation&rsquo;s modelled needs?</h1>
           <p className="sh-hero__sub">Choose 2 or 3 crop rotations and a water supply. Every season from 1986 to 2025 is replayed against the weather record for this spot.</p>
           <ul className="sh-hero__chips">
             <li className="chip chip--strong">Regional climate, about 50 km grid</li>

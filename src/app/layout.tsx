@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Field Rewind: would your crops have survived the last 40 seasons?",
+  title: "Field Rewind: compare crop water needs over 40 seasons",
   description:
     "Drop a pin on your farm and replay 40 seasons of weather against your crop rotation and water supply.",
 };

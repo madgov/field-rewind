@@ -7,7 +7,7 @@ import "@/components/replay/replay.css";
 
 export const metadata: Metadata = {
   title: "40-season replay | Field Rewind",
-  description: "Would your crop rotation have survived the last 40 seasons with your water supply? Replay 1986 to 2025 season by season, from NASA POWER regional climate data.",
+  description: "Compare modelled crop water needs with your selected supply over 1986 to 2025, using NASA POWER regional climate data. A water comparison, not a prediction of survival or yield.",
 };
 
 export const maxDuration = 60;

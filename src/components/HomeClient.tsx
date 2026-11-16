@@ -19,7 +19,7 @@ export default function HomeClient() {
         <p className="hero__kicker">NASA Space Apps 2026</p>
         <h1 className="hero__title">Field Rewind</h1>
         <p className="hero__sub">
-          Would your crop rotation have survived the last 40 seasons with your water supply?
+          Would your water supply have met your crops&rsquo; modelled needs over the last 40 seasons?
         </p>
       </header>
 

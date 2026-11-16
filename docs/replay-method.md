@@ -21,6 +21,7 @@ Code: `src/lib/replay/` (pure functions; take a NASA POWER `PowerResult` plus pl
 - Days with no precipitation value add no rain and are counted; they are not filled.
 
 ## Irrigation need and the red/green result
+- "Covered" means the selected supply meets modelled water need beyond rain; "short" means it does not. These are water-comparison outcomes, not predictions of crop survival, yield or soil-health change. Yield entries used in the nutrient comparison are user assumptions, not model predictions, and are not reduced when a season is short. Harvested nutrient removal does not measure nutrients remaining in the soil or soil-health improvement.
 - Irrigation need = max(0, ETc - effective rainfall), in mm.
 - Displayed figures: crop water use and effective rain are each rounded to whole mm, and the "need beyond rain" shown is max(0, rounded water use - rounded rain), so the three numbers add up on screen (it can differ by 1 mm from the unrounded need). Inches are derived from those same whole-mm numbers. The red/green result is always decided on the unrounded need (`displayedFigures` in `src/lib/replay/wording.ts`).
 - Short (red) when need is greater than the supply; otherwise OK (green). Margin = supply - need. The gauge value is need / supply (above 1 means short; none when the supply is 0).

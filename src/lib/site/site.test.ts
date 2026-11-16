@@ -128,18 +128,21 @@ describe("satellite-vs-ground data", () => {
     }
     expect(d.sides.reduce((n, s) => n + s.layers.length, 0)).toBe(d.layers.length);
   });
-  it("covers every layer the app really uses, and the two built-but-never-run layers", () => {
+  it("covers every layer the app uses and labels CIMIS and OpenET with their saved-response dates", () => {
     const ids = new Set(SAT.layers.map((l) => l.id));
     for (const id of ["power", "landsat-ndvi", "modis-ndvi", "nasadem", "ssurgo", "daymet", "cdl", "nlcd", "cocorahs", "usgs-wells", "cimis", "openet"]) expect(ids.has(id), id).toBe(true);
     for (const id of ["cimis", "openet"]) {
       const l = SAT.layers.find((x) => x.id === id)!;
-      expect(l.status).toBe("built-not-run");
-      expect(l.statusText).toMatch(/never run/);
-      expect(l.statusText).toMatch(/no .* key/i);
+      expect(l.status).toBe("connected");
+      const savedPath = id === "cimis" ? "data/cimis/station47.json" : "data/openet/brentwood.json";
+      const saved = JSON.parse(fs.readFileSync(path.join(ROOT, savedPath), "utf8"));
+      expect(l.statusText).toContain(`Saved response from ${saved.fetchedAt.slice(0, 10)}`);
+      expect(l.statusText).not.toMatch(/never run|no .* key/i);
+      expect(l.links.length).toBeGreaterThan(0);
     }
   });
-  it("shows the four NASA layers as not connected, with the reason, and describes none of them as used", () => {
-    for (const id of ["smap", "imerg", "ecostress", "gldas"]) {
+  it("keeps the later NASA layers explicitly not connected", () => {
+    for (const id of ["ecostress", "gldas"]) {
       const l = SAT.layers.find((x) => x.id === id)!;
       expect(l.status, id).toBe("not-connected");
       expect(l.side).toBe("not-connected");
@@ -149,9 +152,22 @@ describe("satellite-vs-ground data", () => {
       expect(l.links.length).toBeLessThanOrEqual(1);
     }
   });
+  it("describes SMAP and IMERG as saved contextual observations with their limits", () => {
+    for (const id of ["smap", "imerg"]) {
+      const l = SAT.layers.find((x) => x.id === id)!;
+      expect(l.status).toBe("connected");
+      expect(l.side).toBe("space-or-model");
+      expect(l.coverage).toContain("July 2025");
+      expect(l.statusText).toMatch(/Saved response from \d{4}-\d{2}-\d{2}/);
+      expect(l.statusText).toContain("do not change the water replay");
+      expect(l.cannotSay).toMatch(/trend/);
+      expect(l.links).toHaveLength(3);
+      expect(l.cites.some(c => c.kind === "repo" && c.path === "docs/earthdata.md")).toBe(true);
+    }
+  });
   it("the connected layers never claim a status the repo documents contradict", () => {
-    expect(SAT.layers.find((l) => l.id === "cimis")!.cannotSay).toMatch(/never been run/);
-    expect(SAT.layers.find((l) => l.id === "openet")!.statusText).toMatch(/no OpenET number appears/);
+    expect(SAT.layers.find((l) => l.id === "cimis")!.cannotSay).toMatch(/methods also differ/);
+    expect(SAT.layers.find((l) => l.id === "openet")!.cannotSay).toMatch(/different crop, fallow land or not farmland/);
     expect(SAT.layers.find((l) => l.id === "cdl")!.resolution).toMatch(/10 m from 2024/);
   });
   it("lists its gaps", () => {
@@ -166,13 +182,13 @@ describe("satellite-vs-ground data", () => {
 });
 
 describe("source registry", () => {
-  it("is the same for both pages, with https urls, one read date and no duplicate urls", () => {
+  it("has https urls, valid per-source read dates and no duplicate urls", () => {
     const all = { ...GLOSS.sources, ...SAT.sources };
     const urls = Object.values(all).map((s) => s.url);
     expect(new Set(urls).size).toBe(urls.length);
     for (const s of Object.values(all)) {
       expect(s.url).toMatch(/^https:\/\//);
-      expect(s.readOn).toBe(GLOSS.compiledOn);
+      expect(s.readOn).toMatch(DATE);
     }
     expect(SAT.compiledOn).toBe(GLOSS.compiledOn);
   });
@@ -225,7 +241,8 @@ describe("render", () => {
     const d = loadSatelliteVsGround();
     const html = renderToStaticMarkup(h(SatelliteView, { data: d }));
     expect(html).toContain("Not connected");
-    expect(html).toContain("Built, never run (no key)");
+    expect(html).toContain("Saved response from");
+    expect(html).not.toContain("Built, never run (no key)");
     expect(html).toContain("What we could not source or check");
     expect(html).toContain('id="smap"');
     expect(html).not.toMatch(/NaN|undefined|\[object/);

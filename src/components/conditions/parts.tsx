@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { DataBadge, type BadgeKind } from "./badges";
 import type { LayerProblem } from "./models";
 
-export type SectionId = "frost" | "soil" | "veg" | "map" | "land" | "ground" | "year" | "blocked";
+export type SectionId = "frost" | "soil" | "veg" | "map" | "land" | "ground" | "year" | "earthdata" | "blocked";
 
 export function SectionShell({ id, title, badges = [], label, children }: { id: SectionId; title: string; badges?: BadgeKind[]; label?: string; children: ReactNode }) {
   return (

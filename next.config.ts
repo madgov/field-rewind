@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 // Saved responses for the Field conditions layers (all read at runtime via process.cwd()). /shift and /replay read them too, for the
 // "How we know" panel's saved-response dates.
-const LAYER_DATA = ["./data/power-extra/**", "./data/ndvi/**", "./data/landform/**", "./data/ground-truth/**"];
+const LAYER_DATA = ["./data/power-extra/**", "./data/ndvi/**", "./data/landform/**", "./data/ground-truth/**", "./data/earthdata/*.json"];
 
 const nextConfig: NextConfig = {
   /* config options here */

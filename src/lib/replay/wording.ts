@@ -6,6 +6,11 @@
  */
 import type { DecadeCount, SeasonResult } from "./types";
 
+export const WATER_RESULT_MEANING =
+  "Covered means your selected supply meets the modelled water need beyond rain; short means it does not.";
+export const WATER_RESULT_LIMIT =
+  "This water comparison does not predict crop survival, yield or soil-health change.";
+
 export function roundInt(x: number): number {
   const r = Math.round(Math.abs(x)) * Math.sign(x);
   return r === 0 ? 0 : r;
@@ -115,14 +120,14 @@ export function describeSeason(r: SeasonResult): string {
   const need = shown ? shown.needMm : roundInt(r.needMm);
   const supply = roundInt(r.supplyMm);
   if (need === 0 && r.needMm === 0) {
-    return `${r.year}: ${r.cropName} needed no irrigation water; rain covered its demand. The supply of ${n(r.supplyMm)} mm was not needed.`;
+    return `In the model, ${r.year}: ${r.cropName} needed no irrigation water; rain covered its demand. The supply of ${n(r.supplyMm)} mm was not needed.`;
   }
   if (r.outcome === "short") {
     const gap = need - supply;
     const how = gap > 0 ? `short by ${n(gap)} mm` : `just short (by less than 1 mm)`;
-    return `${r.year}: ${r.cropName} needed about ${n(need)} mm of irrigation water. A supply of ${n(r.supplyMm)} mm was ${how}.`;
+    return `In the model, ${r.year}: ${r.cropName} needed about ${n(need)} mm of irrigation water. A supply of ${n(r.supplyMm)} mm was ${how}.`;
   }
   const spare = supply - need;
   const how = spare > 0 ? `covered it with ${n(spare)} mm to spare` : `just covered it`;
-  return `${r.year}: ${r.cropName} needed about ${n(need)} mm of irrigation water. A supply of ${n(r.supplyMm)} mm ${how}.`;
+  return `In the model, ${r.year}: ${r.cropName} needed about ${n(need)} mm of irrigation water. A supply of ${n(r.supplyMm)} mm ${how}.`;
 }
