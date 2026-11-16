@@ -284,3 +284,42 @@ a { color: var(--leaf); }
 .examplefarm__btn:hover { background: #17381f; }
 .examplefarm__btn:active { transform: scale(0.98); }
 @media (max-width: 560px) { .examplefarm__btn { width: 100%; } }
+
+/* Home: main call to action for the farmer assistant (/ask). */
+.askcta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-bottom: 20px;
+  padding: 22px 22px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--leaf), var(--leaf-bright));
+  color: var(--paper);
+  box-shadow: 0 8px 24px rgba(31, 77, 43, 0.25);
+}
+.askcta__title { margin: 0 0 6px; font-size: clamp(1.3rem, 4vw, 1.7rem); }
+.askcta__text { margin: 0; max-width: 60ch; }
+.askcta__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 12px 26px;
+  border-radius: 999px;
+  background: var(--sun);
+  color: var(--soil);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  animation: askcta-pulse 2.4s ease-in-out infinite;
+}
+.askcta__btn:hover { background: #f0bd4a; }
+.askcta__btn:active { transform: scale(0.98); }
+.askcta__btn:focus-visible { outline-color: var(--paper); }
+@keyframes askcta-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(224, 168, 46, 0.6); } 50% { box-shadow: 0 0 0 10px rgba(224, 168, 46, 0); } }
+@media (prefers-reduced-motion: reduce) { .askcta__btn { animation: none; } }
+@media (max-width: 560px) { .askcta__btn { width: 100%; } }

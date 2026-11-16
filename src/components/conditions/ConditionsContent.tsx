@@ -99,6 +99,7 @@ export default async function ConditionsContent({ searchParams }: { searchParams
           <p className="cx-herolinks">
             <Link className="btn btn--ghost" href={`/shift?${q}`}>How this field has shifted</Link>
             <Link className="btn btn--ghost" href={`/replay?${q}`}>Replay 40 seasons</Link>
+            <Link className="btn btn--ghost" href={`/ask?${q}`}>Ask the field advisor about this place</Link>
           </p>
         </div>
       </header>

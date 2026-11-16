@@ -1,0 +1,122 @@
+/* /ask: the farmer assistant. Uses tokens from globals.css (--leaf, --clay, --paper, --wheat, --line, --focus). */
+.ask { display: grid; gap: 36px; max-width: 1100px; margin: 0 auto; }
+.ask .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.ask-step { min-width: 0; display: grid; gap: 16px; }
+.ask-h2 { margin: 0; font-size: clamp(1.3rem, 4vw, 1.7rem); display: flex; align-items: center; gap: 10px; }
+.ask-h3 { margin: 0 0 6px; font-size: 1.15rem; }
+.ask-h4 { margin: 18px 0 8px; font-size: 1rem; }
+.ask-num {
+  display: inline-grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 50%;
+  background: var(--clay); color: var(--paper); font: 700 1.05rem system-ui, sans-serif;
+}
+.ask-label { display: block; font-weight: 700; margin-bottom: 6px; }
+.ask-hint { margin: 6px 0 0; color: var(--soil-soft); font-size: 0.95rem; max-width: 70ch; }
+.ask-bad { margin: 8px 0 0; padding: 10px 14px; border-left: 6px solid var(--clay); background: var(--paper); border-radius: 8px; }
+.ask-card { padding: 16px 18px; border: 2px solid var(--line); border-radius: 14px; background: var(--paper); min-width: 0; }
+.ask-input, .ask-textarea {
+  width: 100%; min-height: 48px; padding: 10px 12px; font: inherit; font-size: 1rem; color: var(--soil);
+  background: #fff; border: 2px solid var(--soil-soft); border-radius: 10px;
+}
+.ask-textarea { min-height: 140px; resize: vertical; }
+.ask-input:focus-visible, .ask-textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 1px; border-color: var(--focus); }
+
+/* Step 1 */
+.ask-place { display: grid; gap: 16px; }
+@media (min-width: 860px) { .ask-place { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; } }
+.ask-search__inputs { display: flex; gap: 8px; flex-wrap: wrap; }
+.ask-search__inputs .ask-input { flex: 1 1 200px; width: auto; }
+.ask-results { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.ask-result {
+  width: 100%; min-height: 56px; padding: 10px 14px; display: grid; gap: 2px; text-align: left; cursor: pointer;
+  font: inherit; color: var(--soil); background: var(--paper); border: 2px solid var(--leaf); border-radius: 12px;
+  transition: background 0.15s, transform 0.12s;
+}
+.ask-result:hover { background: var(--wheat-deep); }
+.ask-result:active { transform: scale(0.99); }
+.ask-result small { color: var(--soil-soft); }
+.ask-chosen { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: var(--paper); border: 2px dashed var(--line); }
+.ask-chosen p { margin: 0; }
+.ask-coords { font-variant-numeric: tabular-nums; color: var(--soil-soft); }
+.ask-map { min-height: 320px; }
+
+/* Step 2 */
+.ask-talk { display: grid; gap: 20px; }
+@media (min-width: 760px) { .ask-talk { grid-template-columns: 220px minmax(0, 1fr); align-items: start; } }
+.ask-mic { display: grid; justify-items: center; text-align: center; gap: 8px; }
+.ask-mic__wrap { position: relative; display: grid; place-items: center; width: 148px; height: 148px; }
+.ask-mic__wrap::before, .ask-mic__wrap::after {
+  content: ""; position: absolute; inset: 10px; border-radius: 50%; border: 4px solid var(--clay); opacity: 0; pointer-events: none;
+}
+.ask-mic__wrap--on::before { animation: ask-ring 1.6s ease-out infinite; }
+.ask-mic__wrap--on::after { animation: ask-ring 1.6s ease-out 0.8s infinite; }
+@keyframes ask-ring { from { transform: scale(0.85); opacity: 0.7; } to { transform: scale(1.25); opacity: 0; } }
+.ask-mic__btn {
+  position: relative; z-index: 1; width: 124px; height: 124px; border-radius: 50%; display: grid; place-items: center; align-content: center; gap: 4px;
+  font: 700 0.95rem system-ui, sans-serif; color: var(--paper); background: var(--leaf); border: 0; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(31, 77, 43, 0.35); transition: background 0.2s, transform 0.15s;
+}
+.ask-mic__btn:hover { background: #17381f; }
+.ask-mic__btn:active { transform: scale(0.96); }
+.ask-mic__btn[aria-pressed="true"] { background: var(--clay); }
+.ask-mic__status p { margin: 0; }
+.ask-mic__interim { color: var(--soil-soft); font-style: italic; }
+.ask-say { margin: 10px 0 14px; padding: 10px 14px; border-radius: 10px; background: var(--wheat-deep); font-size: 0.95rem; }
+.ask-say p { margin: 0 0 4px; }
+.ask-say ul { margin: 0; padding-left: 20px; }
+
+/* What we understood */
+.ask-understood { animation: ask-rise 0.4s ease-out both; }
+.ask-rots { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ask-rot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 12px; border-radius: 10px; background: var(--wheat); }
+.ask-rot__name { font-weight: 700; }
+.ask-rot .btn { margin-left: auto; }
+.ask-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ask-chip { padding: 6px 12px; border-radius: 999px; background: var(--leaf); color: var(--paper); font-weight: 600; font-size: 0.95rem; }
+.ask-grid { display: grid; gap: 14px; margin-top: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.ask-field { display: grid; gap: 4px; min-width: 0; }
+.ask-field p { margin: 0; font-size: 1.05rem; }
+.ask-field small { color: var(--soil-soft); }
+.ask-toggle {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 8px 16px; border-radius: 999px; cursor: pointer;
+  font: inherit; font-weight: 600; color: var(--leaf); background: var(--paper); border: 2px solid var(--leaf); transition: background 0.15s, color 0.15s;
+}
+.ask-toggle--on { background: var(--leaf); color: var(--paper); }
+.ask-toggle:focus-within { outline: 3px solid var(--focus); outline-offset: 2px; }
+.ask-missing { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+
+/* Step 3 */
+.ask-whatif { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.ask-whatif legend { margin-bottom: 8px; }
+.ask-whatif .ask-hint { flex-basis: 100%; }
+.ask-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.ask-go { min-height: 56px; font-size: 1.1rem; padding: 12px 28px; }
+.ask-working { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 10px; background: var(--paper); border: 2px solid var(--sun); }
+.ask-spin { flex: none; width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--leaf); animation: ask-spin 0.9s linear infinite; }
+@keyframes ask-spin { to { transform: rotate(360deg); } }
+.ask-plan__label { margin: 0; }
+.ask-plan__cards { display: grid; gap: 14px; margin-top: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.ask-plan__card { border-top: 6px solid var(--leaf); animation: ask-rise 0.5s ease-out both; }
+.ask-plan__card--water { border-top-color: #2b7ea8; }
+.ask-plan__card--nutrients { border-top-color: var(--sun); }
+.ask-plan__card--soil { border-top-color: var(--clay); }
+.ask-facts summary { cursor: pointer; color: var(--soil-soft); font-size: 0.9rem; }
+.ask-facts code { white-space: normal; word-break: break-word; }
+@keyframes ask-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.ask-evidence { padding: 14px 16px; border-radius: 12px; background: var(--paper); border: 2px solid var(--line); }
+.ask-evidence p { margin: 0; }
+.ask-evidence ul { margin: 6px 0 8px; padding-left: 20px; }
+.ask-evidence li { padding: 4px 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ask-mic__wrap--on::before, .ask-mic__wrap--on::after { animation: none; opacity: 0.6; transform: scale(1.1); }
+  .ask-mic__wrap--on::after { display: none; }
+  .ask-understood, .ask-plan__card { animation: none; }
+  .ask-spin { animation-duration: 3s; }
+}
+
+@media print {
+  .sh-hero, .st-footer, .ask-step:first-child, .ask-mic, .ask-talk, .ask-whatif, .ask-actions, .ask-missing, .ask-rot .btn, .ask-search { display: none !important; }
+  .ask-card, .ask-plan__card { animation: none; break-inside: avoid; border-color: #999; }
+  .ask-facts { display: none; }
+  body { background: #fff; }
+}

@@ -95,6 +95,7 @@ export default async function ReplayContent({ searchParams }: { searchParams: Pr
           </ul>
           <p className="cx-herolinks">
             <Link className="btn btn--ghost" href={`/conditions?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`}>Field conditions for this spot</Link>
+            <Link className="btn btn--ghost" href={`/ask?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`}>Ask the field advisor about this place</Link>
           </p>
         </div>
       </header>

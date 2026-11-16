@@ -4,7 +4,9 @@ Built for NASA Space Apps 2026 (Field Shift). It answers one question for a farm
 
 **"Would your water supply have met your crops' modelled needs over the last 40 seasons?"**
 
-Drop a pin on the map. The app shows (1) how the regional climate at that spot has shifted between 1985-2004 and 2006-2025, (2) a 40-season replay (1986 to 2025) of up to three crop rotations against a water supply you choose, season by season, (3) the field conditions around the pin (soil, terrain, satellite vegetation, frost, ground checks), and (4) on the replay page, your water budget, yield assumptions and priorities set against published nutrient figures, with an optional plain-English summary written by AI from those computed numbers.
+**Start at `/ask`, the farmer assistant.** The farmer types a place name (an OpenStreetMap Nominatim search, run on the server) or taps the map, then speaks (the browser's Web Speech API; the speech-to-text is done by the browser's own speech service) or types about their crops in order, water per season, field size, water budget and price, and priorities. The server reads those words into choices: Google Gemini if `GEMINI_API_KEY` is set, otherwise fixed rules. All unit conversion is done by code; the AI never does arithmetic. The page then shows an editable "What we understood" card. Once the farmer confirms it, the existing `/api/advisor` route computes everything from real data and Gemini writes the plan (water, nutrients, soil, plan), with every figure checked against the computed data before it is shown. A plan can be run against the real last 40 seasons, the same seasons 2 degrees C warmer, or the same seasons with 20 percent less rain. These are what-ifs on the real record, not forecasts. Details: `docs/assistant.md`.
+
+Or drop a pin on the map directly. The app shows (1) how the regional climate at that spot has shifted between 1985-2004 and 2006-2025, (2) a 40-season replay (1986 to 2025) of up to three crop rotations against a water supply you choose, season by season, (3) the field conditions around the pin (soil, terrain, satellite vegetation, frost, ground checks), and (4) on the replay page, your water budget, yield assumptions and priorities set against published nutrient figures, with an optional plain-English summary written by AI from those computed numbers.
 
 "Covered" means the selected supply meets modelled water need beyond rain. The replay does not predict crop survival, yield or soil-health change. Yield entries come from the user's records or assumptions and are used for nutrient-removal estimates; they are not adjusted when water is short. Nutrient removal does not measure the nutrients remaining in the soil.
 
@@ -53,7 +55,7 @@ Put these in `.env.local` or `.env` (both are git-ignored; never commit them; `.
 | --- | --- |
 | `CIMIS_APP_KEY` | CIMIS Web API key (sent in the `Ocp-Apim-Subscription-Key` header). Register at https://cimis.water.ca.gov/ and get it from your account page. The old registration site no longer exists. |
 | `OPENET_API_KEY` | OpenET API key. Register at https://account.etdata.org |
-| `GEMINI_API_KEY` | Google Gemini API key (free tier works), from Google AI Studio. Enables the AI summary on `/replay`. |
+| `GEMINI_API_KEY` | Google Gemini API key (free tier works), from Google AI Studio. Enables the AI summary on `/replay` and the plan on `/ask`, and lets Gemini read the farmer's words there (otherwise fixed rules do). |
 | `GEMINI_MODEL` | Optional. First model to try, e.g. `gemini-3.6-flash`. If it is busy, out of quota or missing, the route tries other free-tier models and names the one that answered. |
 | `EARTHDATA_TOKEN` | Fetch-machine only: NASA Earthdata bearer token for `scripts/fetch-earthdata.ts`. NASA GES DISC terms must also be accepted by the account owner for IMERG. The site reads saved files and needs no Earthdata token at runtime. |
 | `FIELD_REWIND_OFFLINE` | `1`, `true`, `yes` or `on`: the server contacts no outside service (NASA POWER, the ground-check and soil services, Gemini); only saved example places work and the AI summary is off. See `docs/example-mode.md`. |
@@ -62,6 +64,7 @@ The app runs without any of the keys. The CIMIS and OpenET panels read the saved
 
 ## Pages
 
+- `/ask` the farmer assistant: place name or map tap, then speech or typing, a "What we understood" card, and a checked plan. See `docs/assistant.md`.
 - `/` map with demo pins (Brentwood CA, Fresno CA, Ludhiana Punjab), your own coordinates, and "Load example farm (Brentwood)".
 - `/shift` "Your field has shifted": hot days over 35 C, crop water demand (ET0) and rainfall, early versus late 20-year periods, year stripes. Headlines are generated from the computed numbers; if there is no shift it says so, and if a measure cannot be compared it says that.
 - `/replay` choose 2 or 3 rotations and a seasonal water supply; 40-season strips, a season scrubber with water gauges, then section 4, a what-if panel (rain 0.70 to 1.30 times the real record, temperature -2 to +4 C, run on the real daily record on the server, labelled "What-if applied to the real 1985-2025 record. Not a forecast."), then section 5: a water-budget form (money to mm), user-entered yield assumptions, a priorities table, nutrients carried off with a source for every figure, local-expert quotes, and the AI summary. Then a "How we know" panel and a one-page printable report (Print report button).
@@ -71,6 +74,8 @@ The app runs without any of the keys. The CIMIS and OpenET panels read the saved
 - `/dev` the raw saved-data summary for the three demo pins.
 - `/api/power` JSON endpoint for NASA POWER data.
 - `/api/scenario` POST: runs the what-if on the server and returns baseline and what-if side by side. No key needed.
+- `/api/geocode?q=` GET: place-name search through OpenStreetMap Nominatim, server side.
+- `/api/assistant/understand` POST: the farmer's words in, choices out (Gemini if a key is set, otherwise fixed rules; unit conversion by code).
 - `/api/advisor` POST: your choices in, a checked AI summary out (or a plain reason why not). Server side only.
 
 ## Data sources
@@ -118,6 +123,16 @@ On `/replay`, section 5 can send the computed results to Google Gemini and show 
 - What is sent to Google: the computed results, your yields and priorities, your location rounded to the 50 km grid, and rotation letters instead of the names you typed. Not sent: money amounts, field size, your typed names. On the free tier Google says content may be used to improve its products; the page says this next to the button. In offline mode nothing is sent.
 - It is not a forecast, not a soil test and not agronomic advice. Every summary is labelled as written by AI.
 
+## The farmer assistant: what goes where
+
+- Place names you search for go to OpenStreetMap (Nominatim).
+- The farmer's words go to Google only when a Gemini key is set. Without a key, fixed rules read the words and nothing leaves the server.
+- Budget amounts stay in the browser.
+- Without a Gemini key the plan step says it is not connected, and nothing is written in its place.
+- Speech recognition depends on the browser (Chrome, Edge and Safari support it; not all browsers do), and the browser's own speech service does the transcription. Typing always works.
+- Only crops in the sourced catalog can be modelled. Other crops are listed and left out.
+- The 2 degrees C warmer and 20 percent less rain runs are what-ifs on the real record, not forecasts.
+
 ## Known limitations
 
 - Crop values are California values (California Delta / Central Valley). The replay page and report print that region, and warn when the pin is outside California. That check is an approximate bounding shape, not real borders (`src/lib/crops/region.ts`).
@@ -146,7 +161,8 @@ Both have run. `data/cimis/station47.json` (5,844 daily values, 2010 to 2025) an
 
 ## 60-second demo (no keys needed)
 
-1. `npm run dev`, open the home page.
+0. `npm run dev`, open `/ask`. Search a place or tap the map, then speak or type about your crops, water, field size, budget and priorities. Check the "What we understood" card, edit anything wrong, and confirm. Without `GEMINI_API_KEY` the words are read by fixed rules and the plan step says it is not connected. Then continue below, or open the home page.
+1. Open the home page.
 2. Click "Load example farm (Brentwood)". The page says "Saved response from [date]", "Regional climate, about 50 km grid" and "Constructed example, not records of a real farm".
 3. Look at the three strips: red cells are seasons short of the 700 mm supply; the headline per rotation compares 1986-1995 with 2016-2025.
 4. Drag the water supply slider and watch the cells and headlines change.

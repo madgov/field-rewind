@@ -24,6 +24,21 @@ export default function HomeClient() {
       </header>
 
       <main className="main">
+        <section className="askcta" aria-labelledby="ask-cta-h">
+          <div>
+            <h2 id="ask-cta-h" className="askcta__title">Talk to the field advisor</h2>
+            <p className="askcta__text">
+              Say or type where you farm, what you grow, your water and your budget. Get a plan built from 40 years of NASA weather, your soil and your crops&rsquo; needs.
+            </p>
+          </div>
+          <Link className="askcta__btn" href="/ask">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+              <rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor" />
+              <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            Ask the field advisor
+          </Link>
+        </section>
         <section className="examplefarm" aria-labelledby="example-farm-h">
           <div>
             <h2 id="example-farm-h" className="examplefarm__title">Just want to see it work?</h2>

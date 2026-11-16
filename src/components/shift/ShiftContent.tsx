@@ -71,6 +71,7 @@ export default async function ShiftContent({ searchParams }: { searchParams: Pro
       <Hero tone={heroTone(metrics)} place={place} gridText={gridText} headline={shift.overallHeadline} detail={shift.overallDetail} />
       <main className="sh-main">
         <p className="cx-toplink"><Link href={`/conditions?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`}>Field conditions for this spot: soil wetness, frost, vegetation, terrain, ground checks</Link></p>
+        <p className="cx-toplink"><Link href={`/ask?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`}>Ask the field advisor about this place</Link></p>
         {power.status === "partial" && <PartialNotice power={power} mode="shift" />}
         <aside className="sh-cta" aria-labelledby="cta-h">
           <div>
