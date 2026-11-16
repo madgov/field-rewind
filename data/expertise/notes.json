@@ -1,0 +1,68 @@
+{
+  "compiledOn": "2026-11-15",
+  "note": "Short quotations from published extension and university sources, copied word for word from documents opened on the compile date. A pin with no note has a gap listed under 'gaps' saying what could not be read. Nothing here is advice written by this app.",
+  "notes": [
+    {
+      "id": "munk-cotton-salinity",
+      "pins": ["fresno"],
+      "cropIds": ["cotton"],
+      "topic": "salinity-and-drainage",
+      "quote": "Halophytes such as cotton are among the most tolerant crops that give economic returns and provide a stable income for most Westside growers, however in many areas do not escape the yield losses associated with salinity and poor drainage.",
+      "by": "Daniel Munk, UC Cooperative Extension, Fresno County",
+      "source": "Contrasting Irrigation Application Methods for Drainage Reduction and Soil Salinity Management (project summary, funded 2001-2002 by The Prosser Trust), Executive Summary",
+      "url": "https://ucanr.edu/media/243361",
+      "readOn": "2026-11-15",
+      "limits": "Written about the west side of the San Joaquin Valley. The Fresno demo pin is a point in the region and may not sit on the west side. It is an early-2000s project summary, not current guidance."
+    },
+    {
+      "id": "munk-preirrigation-losses",
+      "pins": ["fresno"],
+      "cropIds": [],
+      "topic": "water-use",
+      "quote": "the majority of irrigation losses to deep percolation occur during the singular pre-irrigation event where high soil infiltrations rates cause an over application of irrigation water.",
+      "by": "Daniel Munk, UC Cooperative Extension, Fresno County, reporting the Committee of Consultants on Drainage Water Reduction (1988)",
+      "source": "Contrasting Irrigation Application Methods for Drainage Reduction and Soil Salinity Management (project summary, funded 2001-2002 by The Prosser Trust), Executive Summary",
+      "url": "https://ucanr.edu/media/243361",
+      "readOn": "2026-11-15",
+      "limits": "A 1988 finding repeated in an early-2000s project summary for the west side of the San Joaquin Valley. It describes where water was lost then, not what happens on this field now."
+    },
+    {
+      "id": "arkansas-removal-not-sole-basis",
+      "pins": ["brentwood", "fresno", "ludhiana"],
+      "cropIds": [],
+      "topic": "nutrients",
+      "quote": "nutrient removal should not be the sole basis for nutrient application and fertilization rates.",
+      "by": "Roberts, Kirkpatrick, Slaton and Norman, University of Arkansas Division of Agriculture",
+      "source": "Estimating Nutrient Removal for Row Crops Grown in Arkansas, FSA2176 (2015), page 1",
+      "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+      "readOn": "2026-11-15",
+      "limits": "An Arkansas publication. It is the same document the app's crop-removal figures come from, so it states the limit of those figures."
+    },
+    {
+      "id": "arkansas-sample-grain",
+      "pins": ["brentwood", "fresno", "ludhiana"],
+      "cropIds": [],
+      "topic": "nutrients",
+      "quote": "The best and most accurate way to determine nutrient removal is to collect representative grain samples and have them analyzed.",
+      "by": "Roberts, Kirkpatrick, Slaton and Norman, University of Arkansas Division of Agriculture",
+      "source": "Estimating Nutrient Removal for Row Crops Grown in Arkansas, FSA2176 (2015), page 3",
+      "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+      "readOn": "2026-11-15",
+      "limits": "An Arkansas publication about grain crops."
+    }
+  ],
+  "gaps": [
+    {
+      "pin": "brentwood",
+      "text": "No Delta-specific local note is shown. The UC Delta Crops Resource Management pages and a Delta Protection Commission page returned 'access denied' (HTTP 403) when opened on 2026-11-15, so nothing from them was read or used."
+    },
+    {
+      "pin": "fresno",
+      "text": "Only the two Fresno County notes above were readable. No current UC irrigation or nutrient guidance for cotton or other catalog crops was opened."
+    },
+    {
+      "pin": "ludhiana",
+      "text": "No Punjab note is shown. The copy of a 2009 sub-soil water Act that could be opened was the Haryana Act, a different state, so it was not used, and the Punjab Act and Punjab Agricultural University pages could not be opened (access denied or not found) on 2026-11-15."
+    }
+  ]
+}

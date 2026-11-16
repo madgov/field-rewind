@@ -78,7 +78,7 @@ export function groundCheckWording(g: GroundTruthOk): GroundCheckWording {
 
 export type CropHistoryWording = { labels: string[]; cdl: string[]; nlcd: string; wells: string[]; caveats: string[] };
 
-const NON_CROP = /^(developed|open water|perennial)/i;
+export const NON_CROP = /^(developed|open water|perennial)/i;
 
 function runs(years: CdlHistory["years"]): string[] {
   const out: string[] = [];

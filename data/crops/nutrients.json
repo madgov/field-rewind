@@ -1,0 +1,388 @@
+{
+  "compiledOn": "2026-11-15",
+  "note": "Nutrient removal in the harvested product per unit of yield, nitrogen fixation and rotation credits. Every value carries its source. A value that could not be read is null (unknown) and is never replaced by an assumed number. The sources are for other regions (Arkansas, Nebraska, Montana, Manitoba) quoting wide-area averages; none is a California measurement. Nutrient figures are not a soil test.",
+  "crops": [
+    {
+      "cropId": "winter-wheat",
+      "yieldUnit": "bushel of grain",
+      "yieldUnitNote": "Bushel weight is not printed in the Arkansas table (the Nebraska table prints 60 lb/bu for wheat).",
+      "removalPerUnit": {
+        "n": {
+          "value": 1.2,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Wheat (bushels)', column N",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel of grain."
+        },
+        "p2o5": {
+          "value": 0.48,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Wheat (bushels)', column P2O5",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel of grain."
+        },
+        "k2o": {
+          "value": 0.29,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Wheat (bushels)', column K2O",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel of grain."
+        }
+      },
+      "removalAlternatives": [
+        {
+          "label": "Nebraska, wheat grain",
+          "unit": "lb per bushel (60 lb)",
+          "n": 1.2,
+          "p2o5": 0.5,
+          "k2o": null,
+          "source": "University of Nebraska-Lincoln Extension, CNMP Reference Tables (Nebraska CNMP Manure Application Workbook)",
+          "url": "https://water.unl.edu/ianr/extension/water/sites/unl.edu.ianr.extension.water/files/media/file/CNMPReferenceTablesSec7.pdf",
+          "page": "Table R-1 'Plant nutrient uptake and removal in the harvested part of the crop' (PDF page 2), row 'Wheat (Grain)', test weight 60",
+          "note": "Table prints N and P2O5 only."
+        },
+        {
+          "label": "Montana State, wheat grain",
+          "unit": "lb per bushel (60 lb)",
+          "n": 1.25,
+          "p2o5": 0.62,
+          "k2o": 0.38,
+          "source": "Montana State University Extension, Soil Fertility, 'Nutrient Uptake & Removal' (tables sourced there to Fertilizer Guidelines for Montana Crops and Manitoba Agriculture)",
+          "url": "https://landresources.montana.edu/soilfertility/nutuptake.html",
+          "page": "Table 'Estimated nutrient removal in harvested portion of crops', row 'Wheat - grain'"
+        }
+      ],
+      "nFixationLbPerAcre": {
+        "low": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for winter wheat. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        },
+        "high": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for winter wheat. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        }
+      }
+    },
+    {
+      "cropId": "maize-grain",
+      "yieldUnit": "bushel of grain",
+      "yieldUnitNote": "Bushel weight is not printed in the Arkansas table (the Nebraska table prints 56 lb/bu for corn grain).",
+      "removalPerUnit": {
+        "n": {
+          "value": 0.67,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Corn (bushels)', column N",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel of grain."
+        },
+        "p2o5": {
+          "value": 0.35,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Corn (bushels)', column P2O5",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel of grain."
+        },
+        "k2o": {
+          "value": 0.25,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Corn (bushels)', column K2O",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel of grain."
+        }
+      },
+      "removalAlternatives": [
+        {
+          "label": "Nebraska, corn grain",
+          "unit": "lb per bushel (56 lb)",
+          "n": 0.7,
+          "p2o5": 0.31,
+          "k2o": null,
+          "source": "University of Nebraska-Lincoln Extension, CNMP Reference Tables (Nebraska CNMP Manure Application Workbook)",
+          "url": "https://water.unl.edu/ianr/extension/water/sites/unl.edu.ianr.extension.water/files/media/file/CNMPReferenceTablesSec7.pdf",
+          "page": "Table R-1 'Plant nutrient uptake and removal in the harvested part of the crop' (PDF page 2), row 'Corn (Grain)', test weight 56",
+          "note": "Table prints N and P2O5 only."
+        },
+        {
+          "label": "Montana State, corn grain",
+          "unit": "lb per bushel (56 lb)",
+          "n": 0.73,
+          "p2o5": 0.6,
+          "k2o": 0.27,
+          "source": "Montana State University Extension, Soil Fertility, 'Nutrient Uptake & Removal' (tables sourced there to Fertilizer Guidelines for Montana Crops and Manitoba Agriculture)",
+          "url": "https://landresources.montana.edu/soilfertility/nutuptake.html",
+          "page": "Table 'Estimated nutrient removal in harvested portion of corn', row 'Corn - grain'"
+        }
+      ],
+      "nFixationLbPerAcre": {
+        "low": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for maize. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        },
+        "high": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for maize. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        }
+      }
+    },
+    {
+      "cropId": "cotton",
+      "yieldUnit": "bale of cotton lint",
+      "yieldUnitNote": "Bale weight is not printed in the Arkansas table, so no conversion to pounds or tonnes is made. Enter yield in bales per acre.",
+      "removalPerUnit": {
+        "n": {
+          "value": 32,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Cotton Lint (bale)', column N",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bale of lint."
+        },
+        "p2o5": {
+          "value": 14,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Cotton Lint (bale)', column P2O5",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bale of lint."
+        },
+        "k2o": {
+          "value": 19,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Cotton Lint (bale)', column K2O",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bale of lint."
+        }
+      },
+      "removalAlternatives": [],
+      "nFixationLbPerAcre": {
+        "low": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for cotton. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        },
+        "high": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for cotton. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        }
+      }
+    },
+    {
+      "cropId": "rice",
+      "yieldUnit": "bushel of rice (paddy)",
+      "yieldUnitNote": "Bushel weight is not printed in the Arkansas table, so no conversion to pounds or tonnes is made. Enter yield in bushels per acre.",
+      "removalPerUnit": {
+        "n": {
+          "value": 0.57,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Rice (bushels)', column N",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel. The Arkansas table is for Arkansas rice; no California rice removal table was read."
+        },
+        "p2o5": {
+          "value": 0.3,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Rice (bushels)', column P2O5",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel. The Arkansas table is for Arkansas rice; no California rice removal table was read."
+        },
+        "k2o": {
+          "value": 0.16,
+          "source": "Roberts T, Kirkpatrick W, Slaton N, Norman R. Estimating Nutrient Removal for Row Crops Grown in Arkansas. University of Arkansas Division of Agriculture, publication FSA2176 (2015)",
+          "page": "Table 1 (p. 2), row 'Rice (bushels)', column K2O",
+          "url": "https://www.uaex.uada.edu/publications/pdf/FSA-2176.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel. The Arkansas table is for Arkansas rice; no California rice removal table was read."
+        }
+      },
+      "removalAlternatives": [],
+      "nFixationLbPerAcre": {
+        "low": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for rice. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        },
+        "high": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for rice. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        }
+      }
+    },
+    {
+      "cropId": "sunflower",
+      "yieldUnit": "bushel of seed (28 lb)",
+      "yieldUnitNote": "Montana State prints 28 lb per bushel for sunflower seed.",
+      "removalPerUnit": {
+        "n": {
+          "value": 0.8,
+          "source": "Montana State University Extension, Soil Fertility, 'Nutrient Uptake & Removal' (tables sourced there to Fertilizer Guidelines for Montana Crops and Manitoba Agriculture)",
+          "page": "Table 'Estimated nutrient removal in harvested sunflower seed', row 'Sunflower' footnote b (Manitoba Agriculture, median of a published range), column N",
+          "url": "https://landresources.montana.edu/soilfertility/nutuptake.html",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel (28 lb). The same table's other row (footnote a, Fertilizer Guidelines for Montana Crops) prints 1.06 N, 0.32 P2O5, 0.24 K2O. Row b was used because the Nebraska table (29.1 lb N and 13.0 lb P2O5 per 1000 lb of seed, about 0.81 and 0.36 per 28 lb bushel) agrees with it."
+        },
+        "p2o5": {
+          "value": 0.31,
+          "source": "Montana State University Extension, Soil Fertility, 'Nutrient Uptake & Removal' (tables sourced there to Fertilizer Guidelines for Montana Crops and Manitoba Agriculture)",
+          "page": "Table 'Estimated nutrient removal in harvested sunflower seed', row 'Sunflower' footnote b (Manitoba Agriculture, median of a published range), column P2O5",
+          "url": "https://landresources.montana.edu/soilfertility/nutuptake.html",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel (28 lb). The same table's other row (footnote a, Fertilizer Guidelines for Montana Crops) prints 1.06 N, 0.32 P2O5, 0.24 K2O. Row b was used because the Nebraska table (29.1 lb N and 13.0 lb P2O5 per 1000 lb of seed, about 0.81 and 0.36 per 28 lb bushel) agrees with it."
+        },
+        "k2o": {
+          "value": 0.25,
+          "source": "Montana State University Extension, Soil Fertility, 'Nutrient Uptake & Removal' (tables sourced there to Fertilizer Guidelines for Montana Crops and Manitoba Agriculture)",
+          "page": "Table 'Estimated nutrient removal in harvested sunflower seed', row 'Sunflower' footnote b (Manitoba Agriculture, median of a published range), column K2O",
+          "url": "https://landresources.montana.edu/soilfertility/nutuptake.html",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel (28 lb). The same table's other row (footnote a, Fertilizer Guidelines for Montana Crops) prints 1.06 N, 0.32 P2O5, 0.24 K2O. Row b was used because the Nebraska table (29.1 lb N and 13.0 lb P2O5 per 1000 lb of seed, about 0.81 and 0.36 per 28 lb bushel) agrees with it."
+        }
+      },
+      "removalAlternatives": [
+        {
+          "label": "Montana State, footnote a (Fertilizer Guidelines for Montana Crops)",
+          "unit": "lb per bushel (28 lb)",
+          "n": 1.06,
+          "p2o5": 0.32,
+          "k2o": 0.24,
+          "source": "Montana State University Extension, Soil Fertility, 'Nutrient Uptake & Removal' (tables sourced there to Fertilizer Guidelines for Montana Crops and Manitoba Agriculture)",
+          "url": "https://landresources.montana.edu/soilfertility/nutuptake.html",
+          "page": "Table 'Estimated nutrient removal in harvested sunflower seed', row 'Sunflower' footnote a"
+        },
+        {
+          "label": "Nebraska, sunflower oil grain",
+          "unit": "lb per 1000 lb of seed",
+          "n": 29.1,
+          "p2o5": 13,
+          "k2o": null,
+          "source": "University of Nebraska-Lincoln Extension, CNMP Reference Tables (Nebraska CNMP Manure Application Workbook)",
+          "url": "https://water.unl.edu/ianr/extension/water/sites/unl.edu.ianr.extension.water/files/media/file/CNMPReferenceTablesSec7.pdf",
+          "page": "Table R-1 'Plant nutrient uptake and removal in the harvested part of the crop' (PDF page 2), row 'Sunflower, oil (Grain)'",
+          "note": "Printed per 1000 lb of seed, not per bushel; table prints N and P2O5 only."
+        }
+      ],
+      "nFixationLbPerAcre": {
+        "low": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for sunflower. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        },
+        "high": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for sunflower. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        }
+      }
+    },
+    {
+      "cropId": "sugar-beet",
+      "yieldUnit": "ton of roots",
+      "yieldUnitNote": "The Nebraska table prints 'lbs./ton' for beet roots and does not say which ton; no conversion is made. Enter yield in tons per acre.",
+      "removalPerUnit": {
+        "n": {
+          "value": 3.5,
+          "source": "University of Nebraska-Lincoln Extension, CNMP Reference Tables (Nebraska CNMP Manure Application Workbook)",
+          "page": "Table R-1 'Plant nutrient uptake and removal in the harvested part of the crop' (PDF page 2), row 'Sugar beet roots', column N",
+          "url": "https://water.unl.edu/ianr/extension/water/sites/unl.edu.ianr.extension.water/files/media/file/CNMPReferenceTablesSec7.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per ton of roots. Root removal only. The same table prints beet tops at 5.5 lb N and 1.3 lb P2O5 per ton of beets; tops are not counted as removed here because the sources read do not say whether tops are taken off the field."
+        },
+        "p2o5": {
+          "value": 1.6,
+          "source": "University of Nebraska-Lincoln Extension, CNMP Reference Tables (Nebraska CNMP Manure Application Workbook)",
+          "page": "Table R-1 'Plant nutrient uptake and removal in the harvested part of the crop' (PDF page 2), row 'Sugar beet roots', column P2O5",
+          "url": "https://water.unl.edu/ianr/extension/water/sites/unl.edu.ianr.extension.water/files/media/file/CNMPReferenceTablesSec7.pdf",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per ton of roots. Root removal only. The same table prints beet tops at 5.5 lb N and 1.3 lb P2O5 per ton of beets; tops are not counted as removed here because the sources read do not say whether tops are taken off the field."
+        },
+        "k2o": {
+          "value": null,
+          "source": "University of Nebraska-Lincoln Extension, CNMP Reference Tables (Nebraska CNMP Manure Application Workbook)",
+          "page": "Table R-1 'Plant nutrient uptake and removal in the harvested part of the crop' (PDF page 2), row 'Sugar beet roots', column K2O",
+          "url": "https://water.unl.edu/ianr/extension/water/sites/unl.edu.ianr.extension.water/files/media/file/CNMPReferenceTablesSec7.pdf",
+          "note": "Unknown: this table prints no K2O value for this crop. Root removal only. The same table prints beet tops at 5.5 lb N and 1.3 lb P2O5 per ton of beets; tops are not counted as removed here because the sources read do not say whether tops are taken off the field."
+        }
+      },
+      "removalAlternatives": [],
+      "nFixationLbPerAcre": {
+        "low": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for sugar beet. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        },
+        "high": {
+          "value": null,
+          "source": "No published nitrogen-fixation figure for this crop was read",
+          "page": "n/a",
+          "note": "Unknown for sugar beet. No nitrogen-fixation figure was read for this crop in any source opened, and no value is assumed. Replenishment is reported as unknown, not zero."
+        }
+      }
+    },
+    {
+      "cropId": "dry-bean",
+      "yieldUnit": "bushel of beans (60 lb)",
+      "yieldUnitNote": "Montana State prints 60 lb per bushel for dry bean.",
+      "removalPerUnit": {
+        "n": {
+          "value": 3,
+          "source": "Montana State University Extension, Soil Fertility, 'Nutrient Uptake & Removal' (tables sourced there to Fertilizer Guidelines for Montana Crops and Manitoba Agriculture)",
+          "page": "Table 'Estimated nutrient removal in harvested dry bean', row 'Dry bean', column N",
+          "url": "https://landresources.montana.edu/soilfertility/nutuptake.html",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel (60 lb). The Montana State page heads this table 'Fertilizer Guidelines for Montana Crops'; the uptake graph just above it cites Heard and Brolley (2008), Manitoba. The Nebraska table prints 4.1 lb N and 1.1 lb P2O5 per hundredweight (cwt), which is about 2.5 lb N and 0.66 lb P2O5 per 60 lb bushel, so the two sources differ by roughly a fifth."
+        },
+        "p2o5": {
+          "value": 0.79,
+          "source": "Montana State University Extension, Soil Fertility, 'Nutrient Uptake & Removal' (tables sourced there to Fertilizer Guidelines for Montana Crops and Manitoba Agriculture)",
+          "page": "Table 'Estimated nutrient removal in harvested dry bean', row 'Dry bean', column P2O5",
+          "url": "https://landresources.montana.edu/soilfertility/nutuptake.html",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel (60 lb). The Montana State page heads this table 'Fertilizer Guidelines for Montana Crops'; the uptake graph just above it cites Heard and Brolley (2008), Manitoba. The Nebraska table prints 4.1 lb N and 1.1 lb P2O5 per hundredweight (cwt), which is about 2.5 lb N and 0.66 lb P2O5 per 60 lb bushel, so the two sources differ by roughly a fifth."
+        },
+        "k2o": {
+          "value": 0.92,
+          "source": "Montana State University Extension, Soil Fertility, 'Nutrient Uptake & Removal' (tables sourced there to Fertilizer Guidelines for Montana Crops and Manitoba Agriculture)",
+          "page": "Table 'Estimated nutrient removal in harvested dry bean', row 'Dry bean', column K2O",
+          "url": "https://landresources.montana.edu/soilfertility/nutuptake.html",
+          "note": "Published for another region and quoting a wide-area average, not measured in California; real removal depends on variety, yield and grain moisture. Unit: lb per bushel (60 lb). The Montana State page heads this table 'Fertilizer Guidelines for Montana Crops'; the uptake graph just above it cites Heard and Brolley (2008), Manitoba. The Nebraska table prints 4.1 lb N and 1.1 lb P2O5 per hundredweight (cwt), which is about 2.5 lb N and 0.66 lb P2O5 per 60 lb bushel, so the two sources differ by roughly a fifth."
+        }
+      },
+      "removalAlternatives": [
+        {
+          "label": "Nebraska, dry beans",
+          "unit": "lb per hundredweight (cwt)",
+          "n": 4.1,
+          "p2o5": 1.1,
+          "k2o": null,
+          "source": "University of Nebraska-Lincoln Extension, CNMP Reference Tables (Nebraska CNMP Manure Application Workbook)",
+          "url": "https://water.unl.edu/ianr/extension/water/sites/unl.edu.ianr.extension.water/files/media/file/CNMPReferenceTablesSec7.pdf",
+          "page": "Table R-1 'Plant nutrient uptake and removal in the harvested part of the crop' (PDF page 2), row 'Dry Beans'",
+          "note": "Table prints N and P2O5 only."
+        }
+      ],
+      "nFixationLbPerAcre": {
+        "low": {
+          "value": null,
+          "source": "UC IPM Pest Management Guidelines: Dry Beans, nitrogen fixation by bean type (lb nitrogen/acre/season)",
+          "page": "Table of nitrogen fixation by bean type",
+          "url": "https://ipm.ucanr.edu/PMG/r52900411.html",
+          "note": "Unknown for the catalog crop 'Dry bean'. The source prints a rate per bean type, not one for dry beans in general: vine limas 80-100, blackeyes 80-120, vine common 70, bush lima (large) 60, bush common 20-40, California early light red kidney 20, full-season kidney 40 (lb nitrogen/acre/season). The catalog does not say which bean type, so no single figure is chosen. The source also says fixation is limited in heavy clay soils."
+        },
+        "high": {
+          "value": null,
+          "source": "UC IPM Pest Management Guidelines: Dry Beans, nitrogen fixation by bean type (lb nitrogen/acre/season)",
+          "page": "Table of nitrogen fixation by bean type",
+          "url": "https://ipm.ucanr.edu/PMG/r52900411.html",
+          "note": "Unknown for the catalog crop 'Dry bean'. See the note on the low value: the printed range across bean types is 20 to 120 lb nitrogen/acre/season, too wide to use for an unspecified type."
+        }
+      }
+    }
+  ],
+  "rotationCredits": []
+}
