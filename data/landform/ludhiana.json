@@ -1,0 +1,34 @@
+{
+ "id": "ludhiana",
+ "kind": "demo-pin",
+ "name": "Ludhiana, Punjab",
+ "lat": 30.9,
+ "lon": 75.85,
+ "fetchedAt": "2026-11-16T01:30:48.032Z",
+ "sda": {
+  "pinLat": 30.9,
+  "pinLon": 75.85,
+  "endpoint": "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest",
+  "mukeyQuery": "SELECT * FROM SDA_Get_Mukey_from_intersection_with_WktWgs84('point(75.85 30.9)')",
+  "fetchedAt": "2026-11-16T01:30:48.168Z",
+  "mukeyResponse": {},
+  "componentQuery": null,
+  "componentResponse": null
+ },
+ "terrain": {
+  "tileId": "NASADEM_HGT_n30e075",
+  "stacSearchUrl": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "assetUrl": "https://nasademeuwest.blob.core.windows.net/nasadem-cog/v001/NASADEM_HGT_n30e075.tif",
+  "fetchedAt": "2026-11-16T01:30:48.032Z",
+  "pinLat": 30.9,
+  "pinLon": 75.85,
+  "windowRows": 43,
+  "windowCols": 43,
+  "resDegLon": 0.0002777777777777778,
+  "resDegLat": 0.0002777777777777778,
+  "windowWest": 75.84388888888888,
+  "windowNorth": 30.905833333333334,
+  "noData": -32768,
+  "gridFile": "ludhiana-grid.json"
+ }
+}

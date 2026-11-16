@@ -1,0 +1,142 @@
+{
+ "id": "orange-cove",
+ "kind": "sample-point",
+ "name": "Orange Cove foothills, CA (sample point, not a demo pin)",
+ "lat": 36.68,
+ "lon": -119.28,
+ "fetchedAt": "2026-11-16T01:30:49.588Z",
+ "sda": {
+  "pinLat": 36.68,
+  "pinLon": -119.28,
+  "endpoint": "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest",
+  "mukeyQuery": "SELECT * FROM SDA_Get_Mukey_from_intersection_with_WktWgs84('point(-119.28 36.68)')",
+  "fetchedAt": "2026-11-16T01:30:49.845Z",
+  "mukeyResponse": {
+   "Table": [
+    [
+     "mukey"
+    ],
+    [
+     "464407"
+    ]
+   ]
+  },
+  "componentQuery": "SELECT mu.mukey, mu.muname, c.cokey, c.compname, c.comppct_r, c.slope_r, c.drainagecl, c.hydgrp, c.taxclname, h.hzname, h.hzdept_r, h.hzdepb_r, h.sandtotal_r, h.claytotal_r, h.silttotal_r, h.om_r, h.awc_r, h.kffact, h.ksat_r, h.ph1to1h2o_r FROM mapunit mu INNER JOIN component c ON c.mukey=mu.mukey LEFT JOIN chorizon h ON h.cokey=c.cokey WHERE mu.mukey='464407' AND c.comppct_r>=15 ORDER BY c.comppct_r DESC, c.cokey, h.hzdept_r",
+  "componentResponse": {
+   "Table": [
+    [
+     "mukey",
+     "muname",
+     "cokey",
+     "compname",
+     "comppct_r",
+     "slope_r",
+     "drainagecl",
+     "hydgrp",
+     "taxclname",
+     "hzname",
+     "hzdept_r",
+     "hzdepb_r",
+     "sandtotal_r",
+     "claytotal_r",
+     "silttotal_r",
+     "om_r",
+     "awc_r",
+     "kffact",
+     "ksat_r",
+     "ph1to1h2o_r"
+    ],
+    [
+     "464407",
+     "Pollasky sandy loam, 2 to 9 percent slopes",
+     "28225079",
+     "Pollasky",
+     "85",
+     "6",
+     "Well drained",
+     "B",
+     "Coarse-loamy, mixed, nonacid, thermic Typic Xerorthents",
+     "A",
+     "0",
+     "20",
+     "68",
+     "12.5",
+     "19.5",
+     "0.75",
+     "0.12",
+     ".20",
+     "28",
+     "6.7"
+    ],
+    [
+     "464407",
+     "Pollasky sandy loam, 2 to 9 percent slopes",
+     "28225079",
+     "Pollasky",
+     "85",
+     "6",
+     "Well drained",
+     "B",
+     "Coarse-loamy, mixed, nonacid, thermic Typic Xerorthents",
+     "C",
+     "20",
+     "99",
+     "68",
+     "12.5",
+     "19.5",
+     "0.25",
+     "0.12",
+     ".24",
+     "28",
+     "6.7"
+    ],
+    [
+     "464407",
+     "Pollasky sandy loam, 2 to 9 percent slopes",
+     "28225079",
+     "Pollasky",
+     "85",
+     "6",
+     "Well drained",
+     "B",
+     "Coarse-loamy, mixed, nonacid, thermic Typic Xerorthents",
+     "Cr",
+     "99",
+     "152",
+     null,
+     null,
+     null,
+     null,
+     "0",
+     null,
+     "0.5",
+     null
+    ]
+   ]
+  }
+ },
+ "terrain": {
+  "tileId": "NASADEM_HGT_n36w120",
+  "stacSearchUrl": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "assetUrl": "https://nasademeuwest.blob.core.windows.net/nasadem-cog/v001/NASADEM_HGT_n36w120.tif",
+  "fetchedAt": "2026-11-16T01:30:49.588Z",
+  "pinLat": 36.68,
+  "pinLon": -119.28,
+  "windowRows": 43,
+  "windowCols": 43,
+  "resDegLon": 0.0002777777777777778,
+  "resDegLat": 0.0002777777777777778,
+  "windowWest": -119.28611111111111,
+  "windowNorth": 36.685833333333335,
+  "noData": -32768,
+  "gridFile": "orange-cove-grid.json"
+ },
+ "landUse": {
+  "source": "USDA NASS Cropland Data Layer (CropScape point query)",
+  "year": 2023,
+  "url": "https://nassgeodata.gmu.edu/axis2/services/CDLService/GetCDLValue?year=2023&x=-2040607.9&y=1766101.5",
+  "value": "176",
+  "category": "Grass/Pasture",
+  "fetchedAt": "2026-11-16T01:30:51.406Z"
+ }
+}

@@ -1,0 +1,112 @@
+{
+ "id": "fresno",
+ "kind": "demo-pin",
+ "name": "Fresno, CA",
+ "lat": 36.74,
+ "lon": -119.79,
+ "fetchedAt": "2026-11-16T01:30:45.573Z",
+ "sda": {
+  "pinLat": 36.74,
+  "pinLon": -119.79,
+  "endpoint": "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest",
+  "mukeyQuery": "SELECT * FROM SDA_Get_Mukey_from_intersection_with_WktWgs84('point(-119.79 36.74)')",
+  "fetchedAt": "2026-11-16T01:30:45.817Z",
+  "mukeyResponse": {
+   "Table": [
+    [
+     "mukey"
+    ],
+    [
+     "464331"
+    ]
+   ]
+  },
+  "componentQuery": "SELECT mu.mukey, mu.muname, c.cokey, c.compname, c.comppct_r, c.slope_r, c.drainagecl, c.hydgrp, c.taxclname, h.hzname, h.hzdept_r, h.hzdepb_r, h.sandtotal_r, h.claytotal_r, h.silttotal_r, h.om_r, h.awc_r, h.kffact, h.ksat_r, h.ph1to1h2o_r FROM mapunit mu INNER JOIN component c ON c.mukey=mu.mukey LEFT JOIN chorizon h ON h.cokey=c.cokey WHERE mu.mukey='464331' AND c.comppct_r>=15 ORDER BY c.comppct_r DESC, c.cokey, h.hzdept_r",
+  "componentResponse": {
+   "Table": [
+    [
+     "mukey",
+     "muname",
+     "cokey",
+     "compname",
+     "comppct_r",
+     "slope_r",
+     "drainagecl",
+     "hydgrp",
+     "taxclname",
+     "hzname",
+     "hzdept_r",
+     "hzdepb_r",
+     "sandtotal_r",
+     "claytotal_r",
+     "silttotal_r",
+     "om_r",
+     "awc_r",
+     "kffact",
+     "ksat_r",
+     "ph1to1h2o_r"
+    ],
+    [
+     "464331",
+     "Hanford sandy loam",
+     "28224903",
+     "Hanford",
+     "85",
+     "1",
+     "Well drained",
+     "A",
+     "Coarse-loamy, mixed, nonacid, thermic Typic Xerorthents",
+     "Ap",
+     "0",
+     "41",
+     "68",
+     "12.5",
+     "19.5",
+     "0.75",
+     "0.13",
+     ".24",
+     "28",
+     "6.7"
+    ],
+    [
+     "464331",
+     "Hanford sandy loam",
+     "28224903",
+     "Hanford",
+     "85",
+     "1",
+     "Well drained",
+     "A",
+     "Coarse-loamy, mixed, nonacid, thermic Typic Xerorthents",
+     "C",
+     "41",
+     "183",
+     "68",
+     "12.5",
+     "19.5",
+     "0.25",
+     "0.13",
+     ".24",
+     "28",
+     "6.7"
+    ]
+   ]
+  }
+ },
+ "terrain": {
+  "tileId": "NASADEM_HGT_n36w120",
+  "stacSearchUrl": "https://planetarycomputer.microsoft.com/api/stac/v1/search",
+  "assetUrl": "https://nasademeuwest.blob.core.windows.net/nasadem-cog/v001/NASADEM_HGT_n36w120.tif",
+  "fetchedAt": "2026-11-16T01:30:45.573Z",
+  "pinLat": 36.74,
+  "pinLon": -119.79,
+  "windowRows": 43,
+  "windowCols": 43,
+  "resDegLon": 0.0002777777777777778,
+  "resDegLat": 0.0002777777777777778,
+  "windowWest": -119.79611111111112,
+  "windowNorth": 36.74611111111111,
+  "noData": -32768,
+  "gridFile": "fresno-grid.json"
+ }
+}
