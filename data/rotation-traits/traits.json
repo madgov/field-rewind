@@ -1,0 +1,1128 @@
+{
+ "compiledOn": "2026-11-15",
+ "description": "Soil-health, rotation and drought-proxy traits for rotation crops. Every field is {value, status, source}. status 'unknown' (value null) means no source was found in the documents opened; it is shown as 'no sourced value' and never imputed.",
+ "rotationPrinciple": {
+  "statement": "Rotating to a crop that is not a host of the same pests and diseases breaks their cycles. This tool uses 'different botanical family' as a rough stand-in for 'not a host'; the sources below say 'unrelated or non-susceptible hosts' and 'nonhost crop', not 'different family', and host ranges differ by pest.",
+  "quotes": [
+   {
+    "text": "Rotate with unrelated or non-susceptible hosts",
+    "source": {
+     "title": "UC ANR slide deck 'Cultural Practices for Pest and Disease Management in Vegetables' (PDF title), hosted by UC ANR",
+     "url": "https://ucanr.edu/sites/default/files/2011-02/75495.pdf",
+     "page_or_table": "Slide 3 'Crop rotation'"
+    }
+   },
+   {
+    "text": "Breaks pest cycles",
+    "source": {
+     "title": "UC ANR slide deck 'Cultural Practices for Pest and Disease Management in Vegetables'",
+     "url": "https://ucanr.edu/sites/default/files/2011-02/75495.pdf",
+     "page_or_table": "Slide 4 'Crop rotation'"
+    }
+   },
+   {
+    "text": "Enhances soil quality - Maintains balance between the accumulation and decomposition of organic matter - Improves soil structure - Prevents erosion",
+    "source": {
+     "title": "UC ANR slide deck 'Cultural Practices for Pest and Disease Management in Vegetables'",
+     "url": "https://ucanr.edu/sites/default/files/2011-02/75495.pdf",
+     "page_or_table": "Slide 6 'Crop rotation' (general statement about crop rotation, not crop specific)"
+    }
+   },
+   {
+    "text": "Rotation to a nonhost crop can significantly reduce pest numbers and types in the field.",
+    "source": {
+     "title": "UC IPM Pest Management Guidelines: Alfalfa, 'Crop Rotation Impacts on Pests' (UC ANR Publication 3430, text updated 04/24)",
+     "url": "https://ipm.ucanr.edu/agriculture/alfalfa/crop-rotation-impacts-on-pests/",
+     "page_or_table": "Page text"
+    }
+   }
+  ]
+ },
+ "crops": [
+  {
+   "id": "winter-wheat",
+   "name": "Winter wheat",
+   "scientificName": "Triticum aestivum",
+   "itisTsn": 42237,
+   "inCatalog": true,
+   "kind": "cash-crop",
+   "notes": "",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened states a forage use for this crop."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a qualitative drought-tolerance statement for this crop."
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Poaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Triticum aestivum",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=42237",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Poaceae (TSN 42237); read through the ITIS web service getFullHierarchyFromTSN"
+     },
+     "note": "Scientific name Triticum aestivum used for the lookup; every Triticum species is in the same family."
+    },
+    "nitrogenFixing": {
+     "value": false,
+     "status": "sourced",
+     "source": {
+      "title": "Putnam D., Pettygrove S. (UC Davis), Characterizing N Fertilizer Requirements of Crops Following Alfalfa, CDFA Fertilizer Research and Education Program final report, project 12-0385-SA (2013-2015)",
+      "url": "https://www.cdfa.ca.gov/is/ffldrs/frep/pdfs/completedprojects/12-0385-SA_Putnam.pdf",
+      "page_or_table": "Abstract (p. 1)"
+     },
+     "note": "Quote: 'portion of this N benefits succeeding non-legume crops grown in rotation after the crop is plowed down. This residual nitrogen reduces the fertilizer N requirement of fertilizer-requiring crops such as corn, wheat, tomato, and cotton'. The report treats wheat as a non-legume, fertilizer-requiring crop.",
+     "basis": "explicit"
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 1.5,
+      "maxM": 1.8
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Winter Wheat' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.'"
+    },
+    "depletionFractionP": {
+     "value": 0.55,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Winter Wheat' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating."
+    }
+   }
+  },
+  {
+   "id": "maize-grain",
+   "name": "Maize (grain corn)",
+   "scientificName": "Zea mays",
+   "itisTsn": 42269,
+   "inCatalog": true,
+   "kind": "cash-crop",
+   "notes": "",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": true,
+     "status": "sourced",
+     "source": {
+      "title": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
+      "url": "https://esmis.nal.usda.gov/concern/publications/vm40xr56k",
+      "page_or_table": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36), row 'Corn for silage'"
+     },
+     "note": "The NASS California table has a separate row for corn grown for silage (animal feed), so the crop is documented as having a forage/silage use in California. The table gives planting and harvest dates, not yields or feed value."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a qualitative drought-tolerance statement for this crop."
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Poaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Zea mays",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=42269",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Poaceae (TSN 42269); read through the ITIS web service getFullHierarchyFromTSN"
+     }
+    },
+    "nitrogenFixing": {
+     "value": false,
+     "status": "sourced",
+     "source": {
+      "title": "Putnam D., Pettygrove S. (UC Davis), Characterizing N Fertilizer Requirements of Crops Following Alfalfa, CDFA Fertilizer Research and Education Program final report, project 12-0385-SA (2013-2015)",
+      "url": "https://www.cdfa.ca.gov/is/ffldrs/frep/pdfs/completedprojects/12-0385-SA_Putnam.pdf",
+      "page_or_table": "Abstract (p. 1)"
+     },
+     "note": "Quote: 'portion of this N benefits succeeding non-legume crops grown in rotation after the crop is plowed down. This residual nitrogen reduces the fertilizer N requirement of fertilizer-requiring crops such as corn, wheat, tomato, and cotton'. The report treats maize (corn) as a non-legume, fertilizer-requiring crop.",
+     "basis": "explicit"
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 1.0,
+      "maxM": 1.7
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Maize, Field (grain) (field corn)' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.'"
+    },
+    "depletionFractionP": {
+     "value": 0.55,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Maize, Field (grain) (field corn)' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating."
+    }
+   }
+  },
+  {
+   "id": "cotton",
+   "name": "Cotton",
+   "scientificName": "Gossypium hirsutum",
+   "itisTsn": 21711,
+   "inCatalog": true,
+   "kind": "cash-crop",
+   "notes": "",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened states a forage use for this crop."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a qualitative drought-tolerance statement for this crop."
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Malvaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Gossypium hirsutum",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=21711",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Malvaceae (TSN 21711); read through the ITIS web service getFullHierarchyFromTSN"
+     },
+     "note": "Upland cotton species used for the lookup."
+    },
+    "nitrogenFixing": {
+     "value": false,
+     "status": "sourced",
+     "source": {
+      "title": "Putnam D., Pettygrove S. (UC Davis), Characterizing N Fertilizer Requirements of Crops Following Alfalfa, CDFA Fertilizer Research and Education Program final report, project 12-0385-SA (2013-2015)",
+      "url": "https://www.cdfa.ca.gov/is/ffldrs/frep/pdfs/completedprojects/12-0385-SA_Putnam.pdf",
+      "page_or_table": "Abstract (p. 1)"
+     },
+     "note": "Quote: 'portion of this N benefits succeeding non-legume crops grown in rotation after the crop is plowed down. This residual nitrogen reduces the fertilizer N requirement of fertilizer-requiring crops such as corn, wheat, tomato, and cotton'. The report treats cotton as a non-legume, fertilizer-requiring crop.",
+     "basis": "explicit"
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 1.0,
+      "maxM": 1.7
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Cotton' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.'"
+    },
+    "depletionFractionP": {
+     "value": 0.65,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Cotton' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating. Row is under group 'g. Fibre Crops'."
+    }
+   }
+  },
+  {
+   "id": "rice",
+   "name": "Rice (paddy)",
+   "scientificName": "Oryza sativa",
+   "itisTsn": 41976,
+   "inCatalog": true,
+   "kind": "cash-crop",
+   "notes": "",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened states a forage use for this crop."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a qualitative drought-tolerance statement for this crop."
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Poaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Oryza sativa",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=41976",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Poaceae (TSN 41976); read through the ITIS web service getFullHierarchyFromTSN"
+     }
+    },
+    "nitrogenFixing": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No document opened states whether this crop fixes nitrogen. Searched: UC ANR/UC IPM pages and the FAO-56 tables read for this project; none address it. Not inferred from family."
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 0.5,
+      "maxM": 1.0
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Rice' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.'"
+    },
+    "depletionFractionP": {
+     "value": 0.2,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Rice' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating. FAO footnote 4 on this row: 'The value for p for rice is 0.20 of saturation.' This is defined against saturation, not against plant-available water like the other rows, so it is NOT comparable with the other crops' p and is excluded from comparisons.",
+     "comparable": false
+    }
+   }
+  },
+  {
+   "id": "sunflower",
+   "name": "Sunflower",
+   "scientificName": "Helianthus annuus",
+   "itisTsn": 36616,
+   "inCatalog": true,
+   "kind": "cash-crop",
+   "notes": "In the crop catalog but excluded from the replay (heat threshold unsourced).",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened states a forage use for this crop."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a qualitative drought-tolerance statement for this crop."
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Asteraceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Helianthus annuus",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=36616",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Asteraceae (TSN 36616); read through the ITIS web service getFullHierarchyFromTSN"
+     }
+    },
+    "nitrogenFixing": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No document opened states whether this crop fixes nitrogen. Searched: UC ANR/UC IPM pages and the FAO-56 tables read for this project; none address it. Not inferred from family."
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 0.8,
+      "maxM": 1.5
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Sunflower' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.'"
+    },
+    "depletionFractionP": {
+     "value": 0.45,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Sunflower' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating."
+    }
+   }
+  },
+  {
+   "id": "sugar-beet",
+   "name": "Sugar beet (autumn-planted)",
+   "scientificName": "Beta vulgaris",
+   "itisTsn": 20681,
+   "inCatalog": true,
+   "kind": "cash-crop",
+   "notes": "In the crop catalog but excluded from the replay (heat threshold unsourced).",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened states a forage use for this crop."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a qualitative drought-tolerance statement for this crop."
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Amaranthaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Beta vulgaris",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=20681",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Amaranthaceae (TSN 20681); read through the ITIS web service getFullHierarchyFromTSN"
+     },
+     "note": "ITIS places Beta vulgaris in Amaranthaceae (older texts use Chenopodiaceae)."
+    },
+    "nitrogenFixing": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No document opened states whether this crop fixes nitrogen. Searched: UC ANR/UC IPM pages and the FAO-56 tables read for this project; none address it. Not inferred from family."
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 0.7,
+      "maxM": 1.2
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Sugar Beet' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.'"
+    },
+    "depletionFractionP": {
+     "value": 0.55,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Sugar Beet' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating. FAO footnote 3: 'Sugar beets often experience late afternoon wilting in arid climates even at p < 0.55, with usually only minor impact on sugar yield.'"
+    }
+   }
+  },
+  {
+   "id": "dry-bean",
+   "name": "Dry bean",
+   "scientificName": "Phaseolus vulgaris",
+   "itisTsn": 26857,
+   "inCatalog": true,
+   "kind": "cash-crop",
+   "notes": "In the crop catalog but excluded from the replay (planting window unsourced).",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened states a forage use for this crop."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a qualitative drought-tolerance statement for this crop."
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "The UC IPM page gives N fixed per season by bean type (see nitrogenFixing note) but no credit to a following crop. Not converted into a credit."
+    },
+    "family": {
+     "value": "Fabaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Phaseolus vulgaris",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=26857",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Fabaceae (TSN 26857); read through the ITIS web service getFullHierarchyFromTSN"
+     }
+    },
+    "nitrogenFixing": {
+     "value": true,
+     "status": "sourced",
+     "source": {
+      "title": "UC IPM Pest Management Guidelines: Dry Beans, Nitrogen Budget (UC ANR Publication 3446, reviewed 12/08)",
+      "url": "https://ipm.ucanr.edu/PMG/r52900411.html",
+      "page_or_table": "Section 'Nitrogen Budget', table 'Nitrogen fixation rates characteristic of well-nodulated bean types'"
+     },
+     "note": "Quote: 'Grain legumes are very efficient at using available soil N and often adjust their symbiotic N fixation'. The same page's table 'Nitrogen fixation rates characteristic of well-nodulated bean types' (lb N/acre/season): vine limas 80-100; blackeyes (cowpeas) 80-120; vine common 70; bush lima (large) 60; bush common 20-40; California early light red kidney 20; full-season kidney 40. That is N fixed by the crop in a season, not a documented credit to the next crop. Page dated 12/08; not checked for a newer version.",
+     "basis": "explicit"
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 0.6,
+      "maxM": 0.9
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Beans, dry and Pulses' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.'"
+    },
+    "depletionFractionP": {
+     "value": 0.45,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Beans, dry and Pulses' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating."
+    }
+   }
+  },
+  {
+   "id": "alfalfa",
+   "name": "Alfalfa (perennial forage legume)",
+   "scientificName": "Medicago sativa",
+   "itisTsn": 183623,
+   "inCatalog": false,
+   "kind": "candidate",
+   "notes": "Not in the crop catalog: see docs/crop-sources.md for the blocking fields. Perennial multi-cutting crop; the replay models one annual season per crop.",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": true,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Alfalfa - for hay' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Table 22 groups alfalfa under 'j. Forages' with the row 'Alfalfa - for hay'; the NASS California table also has a 'Hay, alfalfa' row (planting dates printed as (NA)). Forage use is documented; no yield or feed-quality figure was read."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a qualitative drought-tolerance statement for this crop."
+    },
+    "nCredit": {
+     "value": {
+      "minLbPerAcre": 70,
+      "maxLbPerAcre": 130,
+      "unit": "lb N/acre",
+      "conditions": "Credit to a following WHEAT crop after many years of alfalfa was plowed down, estimated at 3 California sites (Davis, Kearney, Tulelake), field trials roughly 2011-2015. The same report says earlier California estimates were 40-80 lb N/acre, and that amounts should be adjusted to the status of the alfalfa stand. It does not apply to a single year of alfalfa in a short rotation."
+     },
+     "status": "sourced",
+     "source": {
+      "title": "Putnam D., Pettygrove S. (UC Davis), Characterizing N Fertilizer Requirements of Crops Following Alfalfa, CDFA Fertilizer Research and Education Program final report, project 12-0385-SA (2013-2015)",
+      "url": "https://www.cdfa.ca.gov/is/ffldrs/frep/pdfs/completedprojects/12-0385-SA_Putnam.pdf",
+      "page_or_table": "Abstract (p. 1) and Section G results"
+     },
+     "note": "Quote: 'We estimate the legume N credit at the three sites to range from approximately 70 to 130 lb. N ac-1, which was higher than previous estimates in California of 40-80 lb. N ac-1.' Per-site first-year estimates quoted in the report: 114 (Davis), 82 (Kearney), 119 (Tulelake) lb N/acre."
+    },
+    "family": {
+     "value": "Fabaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Medicago sativa",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=183623",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Fabaceae (TSN 183623); read through the ITIS web service getFullHierarchyFromTSN"
+     }
+    },
+    "nitrogenFixing": {
+     "value": true,
+     "status": "sourced",
+     "source": {
+      "title": "Putnam D., Pettygrove S. (UC Davis), Characterizing N Fertilizer Requirements of Crops Following Alfalfa, CDFA Fertilizer Research and Education Program final report, project 12-0385-SA (2013-2015)",
+      "url": "https://www.cdfa.ca.gov/is/ffldrs/frep/pdfs/completedprojects/12-0385-SA_Putnam.pdf",
+      "page_or_table": "Abstract (p. 1)"
+     },
+     "note": "Quote: 'Alfalfa is a high-yielding leguminous perennial crop grown in large acreage in California, which fixes significant amounts of atmospheric nitrogen in association with N-fixing bacteria'. Same abstract: 'Alfalfa may fix from 350 to nearly 1,000 lbs of N per year'.",
+     "basis": "explicit"
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 1.0,
+      "maxM": 2.0
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Alfalfa - for hay' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.' Row used: 'for hay' (the 'for seed' row prints 1.0-3.0 m)."
+    },
+    "depletionFractionP": {
+     "value": 0.55,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Alfalfa - for hay' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating."
+    }
+   }
+  },
+  {
+   "id": "safflower",
+   "name": "Safflower",
+   "scientificName": "Carthamus tinctorius",
+   "itisTsn": 501305,
+   "inCatalog": false,
+   "kind": "candidate",
+   "notes": "Not in the crop catalog: heat threshold not found in any source opened (see docs/crop-sources.md).",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": "Deep, aggressive root system that can improve water infiltration.",
+     "status": "sourced",
+     "source": {
+      "title": "UC ANR Publication 21565, Safflower Production in California (UC Agriculture and Natural Resources)",
+      "url": "https://oilseeds.ucdavis.edu/sites/g/files/dgvnsk14771/files/inline-files/21565e.pdf",
+      "page_or_table": "Section 'Crop Rotation' (printed p. 9)"
+     },
+     "note": "Quote: 'Its aggressive and deep-penetrating root system can improve water infiltration rates.' Same section: 'It is a good rotation crop for wheat, barley, tomatoes, corn, or sugarbeets'."
+    },
+    "forage": {
+     "value": true,
+     "status": "sourced",
+     "source": {
+      "title": "UC ANR Publication 21565, Safflower Production in California (UC Agriculture and Natural Resources)",
+      "url": "https://oilseeds.ucdavis.edu/sites/g/files/dgvnsk14771/files/inline-files/21565e.pdf",
+      "page_or_table": "Section 'Crop Rotation' (printed p. 10) and Table 3"
+     },
+     "note": "Quote: 'safflower residues provide good aftermath grazing for sheep and cattle'. Table 3 gives residue crude protein 7.2 percent and TDN 45.0 (as printed). This is grazing of residues after harvest, not a forage crop."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": "Thought to be drought-resistant, but needs adequate soil moisture for a satisfactory crop.",
+     "status": "sourced",
+     "source": {
+      "title": "UC ANR Publication 21565, Safflower Production in California (UC Agriculture and Natural Resources)",
+      "url": "https://oilseeds.ucdavis.edu/sites/g/files/dgvnsk14771/files/inline-files/21565e.pdf",
+      "page_or_table": "Section 'Water Use' (printed p. 7)"
+     },
+     "note": "Quote: 'Safflower is thought to be a drought-resistant crop... safflower does not produce a satisfactory crop without adequate soil moisture.'"
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Asteraceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Carthamus tinctorius",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=501305",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Asteraceae (TSN 501305); read through the ITIS web service getFullHierarchyFromTSN"
+     }
+    },
+    "nitrogenFixing": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No document opened states whether this crop fixes nitrogen. Searched: UC ANR/UC IPM pages and the FAO-56 tables read for this project; none address it. Not inferred from family. (UC ANR Pub. 21565 gives N fertilizer rates of 75 to 175 lb/acre for irrigated safflower but does not state N fixation.)"
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 1.0,
+      "maxM": 2.0
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Safflower' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.' UC ANR Pub. 21565 (printed p. 5) reports roots found at a depth of 12 feet (3.7 m) at Davis on a deep, well-drained Yolo loam, far deeper than FAO's range; the FAO range is used for consistency with the other crops."
+    },
+    "depletionFractionP": {
+     "value": 0.6,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Safflower' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating."
+    }
+   }
+  },
+  {
+   "id": "sorghum",
+   "name": "Sorghum (grain)",
+   "scientificName": "Sorghum bicolor",
+   "itisTsn": 42108,
+   "inCatalog": false,
+   "kind": "candidate",
+   "notes": "Not in the crop catalog: no California planting dates (NASS California table has no sorghum row) (see docs/crop-sources.md).",
+   "traits": {
+    "residueRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a residue/organic-matter statement for this crop."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened states a forage use for this crop."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a qualitative drought-tolerance statement for this crop."
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Poaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Sorghum bicolor",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=42108",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Poaceae (TSN 42108); read through the ITIS web service getFullHierarchyFromTSN"
+     }
+    },
+    "nitrogenFixing": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No document opened states whether this crop fixes nitrogen. Searched: UC ANR/UC IPM pages and the FAO-56 tables read for this project; none address it. Not inferred from family."
+    },
+    "rootDepthM": {
+     "value": {
+      "minM": 1.0,
+      "maxM": 2.0
+     },
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Sorghum - grain' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "Zr is printed as a range; the upper end is used as the maximum effective rooting depth. FAO footnote 1: 'The larger values for Zr are for soils having no significant layering or other characteristics that can restrict rooting depth. The smaller values for Zr may be used for irrigation scheduling and the larger values for modeling soil water stress or for rainfed conditions.'"
+    },
+    "depletionFractionP": {
+     "value": 0.55,
+     "status": "sourced",
+     "source": {
+      "title": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 8, Table 22",
+      "url": "https://www.fao.org/4/x0490e/x0490e0e.htm",
+      "page_or_table": "Table 22, row 'Sorghum - grain' (printed columns: Maximum Root Depth Zr (m); Depletion Fraction p)"
+     },
+     "note": "p is the average fraction of Total Available Soil Water that can be depleted from the root zone before moisture stress (reduction in ET) occurs (FAO-56 Chapter 8, Eq. 83 text). Table 22 values apply for ETc of about 5 mm/day (footnote 2: p = p table 22 + 0.04 (5 - ETc)). Used here ONLY as a proxy for drought tolerance: a higher p means more of the stored water can be used before stress; it is not a measured drought rating."
+    }
+   }
+  },
+  {
+   "id": "cereal-rye",
+   "name": "Cereal rye (winter cover crop)",
+   "scientificName": "Secale cereale",
+   "itisTsn": 42090,
+   "inCatalog": false,
+   "kind": "cover-crop",
+   "notes": "Winter cover crop; not a catalog crop, so the replay cannot judge its water use. The source document says that with proper management winter cover crop ET can be similar to bare soil in the Sacramento and San Joaquin Valleys (p. 2); the replay does not model this.",
+   "traits": {
+    "residueRole": {
+     "value": "Cover cropping adds organic matter (general statement, no amount).",
+     "status": "sourced",
+     "source": {
+      "title": "Cover Cropping in California's Water Scarce Environments (Smither-Kopperl [USDA NRCS], Wauters, Light [UC ANR], Johnson, Kaveh, Zhou; Sustainable Conservation, 2025)",
+      "url": "https://suscon.org/wp-content/uploads/2025/05/Cover-Cropping-in-Californias-Water-Scarce-Environments-5.2.25.pdf",
+      "page_or_table": "Section 'Water Benefits of Cover Crops' (printed p. 2)"
+     },
+     "note": "The document lists 'Increased organic matter, water-holding capacity, and soil moisture' as a water-related benefit of cover cropping in general; it is not a species-specific statement and no amount is given."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened states a forage use for this crop."
+    },
+    "erosionCover": {
+     "value": "Reduced erosion; nutrient capture.",
+     "status": "sourced",
+     "source": {
+      "title": "Cover Cropping in California's Water Scarce Environments (Smither-Kopperl [USDA NRCS], Wauters, Light [UC ANR], Johnson, Kaveh, Zhou; Sustainable Conservation, 2025)",
+      "url": "https://suscon.org/wp-content/uploads/2025/05/Cover-Cropping-in-Californias-Water-Scarce-Environments-5.2.25.pdf",
+      "page_or_table": "Table 'Drought Tolerant Species Selection' (printed p. 6), row 'Cereal Rye (Secale cereal)'"
+     },
+     "note": "Row prints: 'Annual; Tolerates flooding; Suitable for early termination; Moderate drought tolerance; Reduced erosion; Nutrient capture'. Cover cropping in general is credited with 'Reduced runoff and soil erosion' (p. 2). No erosion percentage is given."
+    },
+    "droughtToleranceQualitative": {
+     "value": "Moderate drought tolerance.",
+     "status": "sourced",
+     "source": {
+      "title": "Cover Cropping in California's Water Scarce Environments (Smither-Kopperl [USDA NRCS], Wauters, Light [UC ANR], Johnson, Kaveh, Zhou; Sustainable Conservation, 2025)",
+      "url": "https://suscon.org/wp-content/uploads/2025/05/Cover-Cropping-in-Californias-Water-Scarce-Environments-5.2.25.pdf",
+      "page_or_table": "Table 'Drought Tolerant Species Selection' (printed p. 6), row 'Cereal Rye (Secale cereal)'"
+     }
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Poaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Secale cereale",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=42090",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Poaceae (TSN 42090); read through the ITIS web service getFullHierarchyFromTSN"
+     }
+    },
+    "nitrogenFixing": {
+     "value": false,
+     "status": "sourced",
+     "source": {
+      "title": "Cover Cropping in California's Water Scarce Environments (Smither-Kopperl [USDA NRCS], Wauters, Light [UC ANR], Johnson, Kaveh, Zhou; Sustainable Conservation, 2025)",
+      "url": "https://suscon.org/wp-content/uploads/2025/05/Cover-Cropping-in-Californias-Water-Scarce-Environments-5.2.25.pdf",
+      "page_or_table": "Table 'Drought Tolerant Species Selection' (printed p. 6)"
+     },
+     "note": "The table lists Cereal Rye (Secale cereal) under 'Grasses & Cereals' with key benefit 'Nutrient capture'; the nitrogen fixers are listed under a separate heading 'Legumes (Nitrogen Fixers)'. This is the document's own grouping; it does not state 'does not fix nitrogen' in words.",
+     "basis": "grouping"
+    },
+    "rootDepthM": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "FAO-56 Table 22 has no row for cereal rye as a cover crop; its 'Rye Grass hay' row is a different species and was not substituted."
+    },
+    "depletionFractionP": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "FAO-56 Table 22 has no row for cereal rye as a cover crop; 'Rye Grass hay' is a different species and was not substituted."
+    }
+   }
+  },
+  {
+   "id": "common-vetch",
+   "name": "Common vetch (winter legume cover crop)",
+   "scientificName": "Vicia sativa",
+   "itisTsn": 26355,
+   "inCatalog": false,
+   "kind": "cover-crop",
+   "notes": "Winter legume cover crop; not a catalog crop. No N amount, erosion statement or forage statement was found in the documents opened.",
+   "traits": {
+    "residueRole": {
+     "value": "Cover cropping adds organic matter (general statement, no amount).",
+     "status": "sourced",
+     "source": {
+      "title": "Cover Cropping in California's Water Scarce Environments (Smither-Kopperl [USDA NRCS], Wauters, Light [UC ANR], Johnson, Kaveh, Zhou; Sustainable Conservation, 2025)",
+      "url": "https://suscon.org/wp-content/uploads/2025/05/Cover-Cropping-in-Californias-Water-Scarce-Environments-5.2.25.pdf",
+      "page_or_table": "Section 'Water Benefits of Cover Crops' (printed p. 2)"
+     },
+     "note": "The document lists 'Increased organic matter, water-holding capacity, and soil moisture' as a water-related benefit of cover cropping in general; it is not a species-specific statement and no amount is given."
+    },
+    "soilStructureRole": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives a soil-structure statement for this crop."
+    },
+    "forage": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened states a forage use for this crop."
+    },
+    "erosionCover": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No source opened gives an erosion-cover statement for this crop."
+    },
+    "droughtToleranceQualitative": {
+     "value": "Low to moderate drought tolerance.",
+     "status": "sourced",
+     "source": {
+      "title": "Cover Cropping in California's Water Scarce Environments (Smither-Kopperl [USDA NRCS], Wauters, Light [UC ANR], Johnson, Kaveh, Zhou; Sustainable Conservation, 2025)",
+      "url": "https://suscon.org/wp-content/uploads/2025/05/Cover-Cropping-in-Californias-Water-Scarce-Environments-5.2.25.pdf",
+      "page_or_table": "Table 'Drought Tolerant Species Selection' (printed p. 6), row 'Common Vetch'"
+     }
+    },
+    "nCredit": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "No documented N credit (value, units, conditions) for this crop was found in the documents opened."
+    },
+    "family": {
+     "value": "Fabaceae",
+     "status": "sourced",
+     "source": {
+      "title": "Integrated Taxonomic Information System (ITIS), hierarchy for Vicia sativa (common vetch)",
+      "url": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=26355",
+      "page_or_table": "Taxonomic hierarchy, rank Family = Fabaceae (TSN 26355, common name 'common vetch', species Vicia sativa)"
+     },
+     "note": "The cover-crop document names 'Common Vetch' without a Latin name; ITIS lists the common name 'common vetch' on Vicia sativa."
+    },
+    "nitrogenFixing": {
+     "value": true,
+     "status": "sourced",
+     "source": {
+      "title": "Cover Cropping in California's Water Scarce Environments (Smither-Kopperl [USDA NRCS], Wauters, Light [UC ANR], Johnson, Kaveh, Zhou; Sustainable Conservation, 2025)",
+      "url": "https://suscon.org/wp-content/uploads/2025/05/Cover-Cropping-in-Californias-Water-Scarce-Environments-5.2.25.pdf",
+      "page_or_table": "Table 'Drought Tolerant Species Selection' (printed p. 6), group 'Legumes (Nitrogen Fixers)'"
+     },
+     "note": "Common Vetch is a row of the group headed 'Legumes (Nitrogen Fixers)'. Row prints: 'Annual; Mow to maintain biomass; Can become weedy; Low to moderate drought tolerance'. The document gives no amount of N fixed.",
+     "basis": "explicit"
+    },
+    "rootDepthM": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "FAO-56 Table 22 has no row for common vetch."
+    },
+    "depletionFractionP": {
+     "value": null,
+     "status": "unknown",
+     "source": null,
+     "note": "FAO-56 Table 22 has no row for common vetch."
+    }
+   }
+  }
+ ]
+}
