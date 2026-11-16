@@ -48,7 +48,7 @@ Put these in `.env.local` or `.env` (both are git-ignored; never commit them; `.
 
 | Name | Purpose |
 | --- | --- |
-| `CIMIS_APP_KEY` | CIMIS Web API key. Register at https://et.water.ca.gov |
+| `CIMIS_APP_KEY` | CIMIS Web API key (sent in the `Ocp-Apim-Subscription-Key` header). Register at https://cimis.water.ca.gov/ and get it from your account page. The old registration site no longer exists. |
 | `OPENET_API_KEY` | OpenET API key. Register at https://account.etdata.org |
 | `GEMINI_API_KEY` | Google Gemini API key (free tier works), from Google AI Studio. Enables the AI summary on `/replay`. |
 | `GEMINI_MODEL` | Optional. First model to try, e.g. `gemini-3.6-flash`. If it is busy, out of quota or missing, the route tries other free-tier models and names the one that answered. |
@@ -75,8 +75,8 @@ The app runs without any of the keys. Without the CIMIS and OpenET keys those pa
 - **FAO-56 Penman-Monteith ET0** (Allen et al. 1998, https://www.fao.org/4/x0490e/x0490e00.htm), with a unit test against the paper's worked example. Details: `docs/et0-mapping.md`.
 - **Crop parameters** (crop factors, stage lengths, planting windows, heat thresholds), each with its source: `data/crops/catalog.json`, explained in `docs/crop-sources.md`. A crop with any unsourced value is excluded.
 - **Effective rainfall**: USDA Soil Conservation Service monthly formula as used in FAO CROPWAT.
-- **CIMIS station 47 (Brentwood)**, https://et.water.ca.gov, for a station-versus-POWER ET0 check: `docs/cimis-check.md`.
-- **OpenET** (https://openetdata.org), satellite actual ET, optional panel: `docs/openet-check.md`.
+- **CIMIS station 47 (Brentwood)**, https://cimis.water.ca.gov/, daily ASCE ETo for a station-versus-POWER ET0 check, 2010 to 2025: `docs/cimis-check.md`.
+- **OpenET** (https://openetdata.org), satellite actual ET, monthly Ensemble 2015 to 2026 for Brentwood and Fresno (the API serves nothing earlier and limits a request to 10 years): `docs/openet-check.md`.
 - **Field-condition layers** (all labelled with their own origin line; US-only layers say "not available" elsewhere):
   - NASA POWER soil wetness, frost and surface heat, regional climate, about 50 km grid: `docs/power-extra.md`.
   - Landsat Collection 2 Level-2 NDVI (30 m, one pixel per pin) and, for Brentwood, ORNL MODIS 250 m: `docs/ndvi.md`.
@@ -119,7 +119,7 @@ On `/replay`, section 5 can send the computed results to Google Gemini and show 
 - Up to 10 missing ET0 days per season add 0 to crop water use; up to 10 missing rain days add 0 rain. Beyond 10 the season is grey.
 - In the water gauge, a short season's red part is drawn at least a small fixed height (4% of the vessel) so a near miss stays visible; the gauge says so when this applies.
 - The runtime cache uses 0.5 degree cells, which differ from POWER's native grids.
-- CIMIS and OpenET comparisons have never run, because no API keys are set. Their parsers are unverified against real responses.
+- CIMIS and OpenET saved data came from the first real requests on 2026-11-16, and both clients had to be corrected against the real APIs (CIMIS moved to a new API and header; OpenET limits a request to 10 years and starts in 2015). Only Brentwood has a CIMIS check, only Brentwood and Fresno have OpenET (US only), and CIMIS QC flag letters other than N are carried but not interpreted. The legacy CIMIS API is past its announced end date, so a re-fetch depends on the new one.
 - Only 4 of the 7 catalog crops are usable; the others lack a sourced value and are excluded.
 - The effective-rainfall formula was verified from a secondary source (training slides), not an FAO page.
 - Heat thresholds and planting windows were not re-verified against the source papers.
@@ -137,7 +137,7 @@ On `/replay`, section 5 can send the computed results to Google Gemini and show 
 
 ## Status of CIMIS and OpenET
 
-Not run. Exact blocker: `CIMIS_APP_KEY` and `OPENET_API_KEY` are not set, so `data/cimis` and `data/openet` hold no saved responses and both panels show a no-key message.
+Both have run. `data/cimis/station47.json` (5,844 daily values, 2010 to 2025) and `data/openet/brentwood.json`, `data/openet/fresno.json` (142 monthly values each, 2015 to October 2026) were fetched on 2026-11-16 and every screen labels them "saved response from 2026-11-16". The keys are needed only to re-fetch (`scripts/fetch-cimis.ts`, `scripts/fetch-openet.ts`); the site reads the saved files, so the deployed site does not need them.
 
 ## 60-second demo (no keys needed)
 

@@ -26,12 +26,13 @@ async function main() {
     console.error(NO_KEY_MESSAGE);
     process.exit(2);
   }
-  const { result, raw, request } = await fetchOpenEtMonthly(pin.lat, pin.lon, { apiKey });
+  const { result, raw, request, chunks } = await fetchOpenEtMonthly(pin.lat, pin.lon, { apiKey });
   if ((result.status !== "ok" && result.status !== "partial") || !request) {
     console.error(`OpenET fetch for ${pinId} failed: status=${result.status} ${result.message ?? ""}`);
     process.exit(1);
   }
-  const out = { pinId, lon: pin.lon, lat: pin.lat, fetchedAt: result.fetchedAt, request, response: raw };
+  // `request` is the whole range; `chunks` lists the windows actually requested (OpenET limits one request to 10 years), and `response` is their records joined in order, unaltered.
+  const out = { pinId, lon: pin.lon, lat: pin.lat, fetchedAt: result.fetchedAt, request, chunks, response: raw };
   await mkdir(path.join(root, "data", "openet"), { recursive: true });
   const file = path.join(root, "data", "openet", `${pinId}.json`);
   await writeFile(file, JSON.stringify(out) + "\n");

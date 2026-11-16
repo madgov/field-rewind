@@ -4,6 +4,7 @@ import {
   DEFAULT_MAX_RETRIES,
   DEFAULT_TIMEOUT_MS,
   MAX_BACKOFF_MS,
+  MAX_RANGE_YEARS,
   MONTHLY_START,
   NO_KEY_MESSAGE,
   OPENET_POINT_URL,
@@ -30,6 +31,8 @@ export type OpenEtOptions = {
 };
 
 export type OpenEtFetch = {
+  /** The date windows actually requested, one request each. OpenET rejects a range longer than 10 years. */
+  chunks?: [string, string][];
   result: OpenEtResult;
   /** Raw response body (parsed JSON) when the call succeeded; never contains the key. */
   raw: unknown;
@@ -59,6 +62,26 @@ export function buildOpenEtBody(lat: number, lon: number, start: string, end: st
     units: "mm",
     file_format: "JSON",
   };
+}
+
+const addDays = (iso: string, n: number): string => new Date(Date.parse(`${iso}T00:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);
+
+/**
+ * Split [start, end] into windows of at most `years` calendar years, in order, with no gap and no overlap.
+ * Found with the first real key: OpenET answers HTTP 404 {"detail":"Date range cannot exceed 10 years."} for a longer range.
+ */
+export function splitDateRange(start: string, end: string, years = MAX_RANGE_YEARS): [string, string][] {
+  const out: [string, string][] = [];
+  let cur = start;
+  while (cur <= end) {
+    const y = Number(cur.slice(0, 4)) + years;
+    const next = `${String(y).padStart(4, "0")}${cur.slice(4)}`; // same month and day, `years` later
+    const windowEnd = addDays(next, -1);
+    const e = windowEnd < end ? windowEnd : end;
+    out.push([cur, e]);
+    cur = addDays(e, 1);
+  }
+  return out;
 }
 
 class HttpFail extends Error {
@@ -142,7 +165,7 @@ function lastDayOfPreviousMonth(d: Date): string {
   return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 0)).toISOString().slice(0, 10);
 }
 
-/** Monthly Ensemble ET (mm) at one point. Default range: 2000-01-01 to the end of last month. */
+/** Monthly Ensemble ET (mm) at one point. Default range: 2015-01-01 (the first month the real API serves) to the end of last month. */
 export async function fetchOpenEtMonthly(lat: number, lon: number, opts: OpenEtOptions & { start?: string; end?: string } = {}): Promise<OpenEtFetch> {
   const now = (opts.now ?? (() => new Date()))();
   const start = opts.start ?? MONTHLY_START;
@@ -182,25 +205,40 @@ export async function fetchOpenEtMonthly(lat: number, lon: number, opts: OpenEtO
   const sleep = opts.sleep ?? defaultSleep;
   const baseDelay = opts.backoffBaseMs ?? DEFAULT_BACKOFF_BASE_MS;
 
-  let raw: unknown;
-  for (let n = 0; ; n++) {
-    try {
-      raw = await attempt(fetchImpl, request, apiKey, timeoutMs);
-      break;
-    } catch (e) {
-      if (!(e instanceof HttpFail)) throw e;
-      if (retryable(e) && n < maxRetries) {
-        const ra = e.retryAfter ? Number(e.retryAfter) : NaN;
-        await sleep(Math.min(Number.isFinite(ra) ? ra * 1000 : baseDelay * 2 ** n, MAX_BACKOFF_MS));
-        continue;
+  const chunks = splitDateRange(start, end);
+  const merged: unknown[] = [];
+  for (const [cs, ce] of chunks) {
+    const chunkBody = buildOpenEtBody(lat, lon, cs, ce);
+    let rawChunk: unknown;
+    for (let n = 0; ; n++) {
+      try {
+        rawChunk = await attempt(fetchImpl, chunkBody, apiKey, timeoutMs);
+        break;
+      } catch (e) {
+        if (!(e instanceof HttpFail)) throw e;
+        if (retryable(e) && n < maxRetries) {
+          const ra = e.retryAfter ? Number(e.retryAfter) : NaN;
+          await sleep(Math.min(Number.isFinite(ra) ? ra * 1000 : baseDelay * 2 ** n, MAX_BACKOFF_MS));
+          continue;
+        }
+        // Any failed window fails the whole fetch: a series with a silent hole is never returned or saved.
+        if (e.kind === "http") {
+          const m = mapHttp(e);
+          const f = fail({ status: m.status, reason: m.reason, httpStatus: e.status, message: scrub(`${m.message} (window ${cs} to ${ce})`, apiKey) }, request);
+          return { ...f, chunks };
+        }
+        const f = fail({ status: "error", reason: e.kind, message: scrub(`${e.message}${n > 0 ? ` (after ${n + 1} attempts)` : ""} (window ${cs} to ${ce})`, apiKey) }, request);
+        return { ...f, chunks };
       }
-      if (e.kind === "http") {
-        const m = mapHttp(e);
-        return fail({ status: m.status, reason: m.reason, httpStatus: e.status, message: scrub(m.message, apiKey) }, request);
-      }
-      return fail({ status: "error", reason: e.kind, message: scrub(e.message + (n > 0 ? ` (after ${n + 1} attempts)` : ""), apiKey) }, request);
     }
+    const inner = rawChunk && typeof rawChunk === "object" && !Array.isArray(rawChunk) ? ((rawChunk as Record<string, unknown>).data ?? (rawChunk as Record<string, unknown>).results ?? (rawChunk as Record<string, unknown>).result) : rawChunk;
+    if (!Array.isArray(inner)) {
+      const f = fail({ status: "error", reason: "shape", httpStatus: 200, message: `OpenET response for ${cs} to ${ce} is not a list of monthly records.` }, request);
+      return { ...f, chunks };
+    }
+    merged.push(...inner);
   }
+  const raw: unknown = merged;
 
   const fetchedAt = now.toISOString();
   let norm;
@@ -213,10 +251,10 @@ export async function fetchOpenEtMonthly(lat: number, lon: number, opts: OpenEtO
   const { series, coverage } = describeCoverage(norm.series, start, end, fetchedAt);
   const common = { series, coverage, unitsReported: norm.unitsReported, fetchedAt, httpStatus: 200 };
   if (coverage.withData === 0) {
-    return { result: { ...base, ...common, status: "no-coverage", message: "OpenET returned no ET values for this point and range (empty or all null)." }, raw, request };
+    return { result: { ...base, ...common, status: "no-coverage", message: "OpenET returned no ET values for this point and range (empty or all null)." }, raw, request, chunks };
   }
   if (coverage.missingMonths.length > 0) {
-    return { result: { ...base, ...common, status: "partial", message: `${coverage.missingMonths.length} of ${coverage.requestedMonths} requested months have no value.` }, raw, request };
+    return { result: { ...base, ...common, status: "partial", message: `${coverage.missingMonths.length} of ${coverage.requestedMonths} requested months have no value.` }, raw, request, chunks };
   }
-  return { result: { ...base, ...common, status: "ok" }, raw, request };
+  return { result: { ...base, ...common, status: "ok" }, raw, request, chunks };
 }

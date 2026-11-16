@@ -34,10 +34,13 @@ describe("splitDays", () => {
 });
 
 describe("key redaction", () => {
-  it("redacts the key in URLs", () => {
-    const u = buildCimisUrl(KEY, "2020-01-01", "2020-01-05");
-    expect(u).toContain(KEY);
-    const r = redactUrl(u);
+  it("builds the new-API URL for station 47 with no key in it", () => {
+    const u = buildCimisUrl("2020-01-01", "2020-01-05");
+    expect(u).toBe("https://et.water.ca.gov/StationWeb/GetDataByStationNumber?stationNbrs=47&startDate=2020-01-01&endDate=2020-01-05&isHourly=false&unitOfMeasure=M&dataItems=day-asce-eto");
+    expect(u).not.toContain("appKey");
+  });
+  it("still redacts an appKey= value quoted in any text (legacy-style URLs in old files or errors)", () => {
+    const r = redactUrl(`https://et.water.ca.gov/api/data?appKey=${KEY}&targets=47`);
     expect(r).toContain("appKey=REDACTED&targets=47");
     expect(r).not.toContain(KEY);
   });
@@ -48,8 +51,10 @@ describe("key redaction", () => {
     const ok = vi.fn(async () => jsonRes(200, body([rec("2020-01-01", "1")])));
     const a = await fetchCimis({ appKey: KEY, fetchImpl: ok, start: "2020-01-01", end: "2020-01-02" });
     expect(JSON.stringify(a)).not.toContain(KEY);
-    expect(a.result.sourceUrls[0]).toContain("appKey=REDACTED");
-    expect((ok.mock.calls[0] as unknown as [string])[0]).toContain(KEY); // the real request did carry it
+    expect(a.result.sourceUrls[0]).toContain("StationWeb/GetDataByStationNumber");
+    const [reqUrl, reqInit] = ok.mock.calls[0] as unknown as [string, { headers: Record<string, string> }];
+    expect(reqUrl).not.toContain(KEY); // the key is never in the URL
+    expect(reqInit.headers["Ocp-Apim-Subscription-Key"]).toBe(KEY); // it travels in the header the new API requires
 
     const bad = vi.fn(async () => jsonRes(403, `"[ERR1006-INVALID APP KEY] Invalid application key [${KEY}]."`));
     const b = await fetchCimis({ appKey: KEY, fetchImpl: bad, start: "2020-01-01", end: "2020-01-02", sleep: noSleep });
@@ -123,7 +128,8 @@ describe("fetchCimis chunking and results", () => {
     expect(r.result.days.map((d) => d.date)).toEqual(["2020-01-01", "2020-01-05", "2020-01-09"]);
     expect((f.mock.calls[0] as unknown[])[1]).toMatchObject({ headers: { Accept: "application/json" } });
     const q = new URL((f.mock.calls[0] as unknown as [string])[0]).searchParams;
-    expect(q.get("targets")).toBe("47");
+    expect(q.get("stationNbrs")).toBe("47");
+    expect(q.get("isHourly")).toBe("false");
     expect(q.get("dataItems")).toBe("day-asce-eto");
     expect(q.get("unitOfMeasure")).toBe("M");
   });

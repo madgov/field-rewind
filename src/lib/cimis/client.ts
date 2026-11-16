@@ -1,6 +1,7 @@
 import {
   CIMIS_BASE_URL,
   CIMIS_DATA_ITEM,
+  CIMIS_KEY_HEADER,
   CIMIS_STATION,
   CIMIS_UNIT_OF_MEASURE,
   DEFAULT_BACKOFF_BASE_MS,
@@ -46,15 +47,15 @@ export class CimisFetchError extends Error {
   }
 }
 
-/** Request URL. Contains the key: pass through redactUrl before storing or showing. */
-export function buildCimisUrl(appKey: string, start: string, end: string): string {
+/** Request URL. The key is NOT in it: it travels in the Ocp-Apim-Subscription-Key header. */
+export function buildCimisUrl(start: string, end: string): string {
   const q = new URLSearchParams({
-    appKey,
-    targets: String(CIMIS_STATION),
+    stationNbrs: String(CIMIS_STATION),
     startDate: start,
     endDate: end,
-    dataItems: CIMIS_DATA_ITEM,
+    isHourly: "false",
     unitOfMeasure: CIMIS_UNIT_OF_MEASURE,
+    dataItems: CIMIS_DATA_ITEM,
   });
   return `${CIMIS_BASE_URL}?${q.toString()}`;
 }
@@ -83,7 +84,7 @@ async function attemptOnce(url: string, key: string, fetchImpl: FetchLike, timeo
     let res: Response;
     let text: string;
     try {
-      res = await fetchImpl(url, { signal: ctrl.signal, headers: { Accept: "application/json" } });
+      res = await fetchImpl(url, { signal: ctrl.signal, headers: { Accept: "application/json", [CIMIS_KEY_HEADER]: key } });
       text = await res.text();
     } catch (e) {
       if (timedOut) throw new CimisFetchError("timeout", `CIMIS request timed out after ${timeoutMs} ms`);
@@ -143,7 +144,7 @@ export type CimisRawFetch = {
 
 /** Fetch one range; on ERR2112 (data volume) split in half, down to single days. */
 async function fetchRange(key: string, start: string, end: string, opts: CimisClientOptions, out: CimisRawFetch): Promise<void> {
-  const url = buildCimisUrl(key, start, end);
+  const url = buildCimisUrl(start, end);
   try {
     const body = await fetchCimisUrl(url, key, opts);
     out.responses.push(body);

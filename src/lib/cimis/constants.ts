@@ -1,5 +1,13 @@
 export const CIMIS_STATION = 47 as const;
-export const CIMIS_BASE_URL = "https://et.water.ca.gov/api/data";
+/**
+ * CIMIS "latest" Web API. Read on 2026-11-16 from the new CIMIS site's own API documentation code (the page is a JavaScript app, so
+ * it cannot be fetched as text) and confirmed with a real key: GET <host>/StationWeb/GetDataByStationNumber, key in the
+ * Ocp-Apim-Subscription-Key header, JSON in the same Data.Providers[].Records[] shape, unit "(mm)" when unitOfMeasure=M.
+ * The legacy form (https://et.water.ca.gov/api/data?appKey=...) is a separate "v1" route; the CIMIS notice said the legacy site and
+ * API would stay up only through 31 July 2026. A key from the new site was rejected by the legacy route ("Request Rejected").
+ */
+export const CIMIS_BASE_URL = "https://et.water.ca.gov/StationWeb/GetDataByStationNumber";
+export const CIMIS_KEY_HEADER = "Ocp-Apim-Subscription-Key";
 export const CIMIS_DATA_ITEM = "day-asce-eto";
 /** Metric: ETo in mm. */
 export const CIMIS_UNIT_OF_MEASURE = "M";

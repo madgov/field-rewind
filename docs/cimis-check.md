@@ -1,7 +1,24 @@
 # CIMIS station check (Stage 4)
 
-Status: **the comparison has NOT been run.** No CIMIS app key exists on this machine, so there is no saved
-response (`data/cimis/station47.json` does not exist) and this document contains no comparison numbers.
+Status: **run on 2026-11-16 with a real key.** `data/cimis/station47.json` holds 5,844 real daily values (2010-01-01 to
+2025-12-31, unit "(mm)", fetched 2026-11-16 05:27 UTC). The comparison numbers are computed by the app from that file and
+shown in "How we know"; this document does not repeat them.
+
+## The API changed (found on first contact with a real key)
+CIMIS moved to a new website and Web API in June 2026. Its own legacy site (https://cimis-legacy.water.ca.gov/) says the legacy
+website and API would stay up "through July 31, 2026". The old registration host `wwwcimis.water.ca.gov` no longer resolves.
+- New site, registration and key: https://cimis.water.ca.gov/ (the site is a JavaScript app; its page text cannot be fetched, so the
+  API details below were read from the site's own code bundle and then confirmed with a real key).
+- The client now calls `GET https://et.water.ca.gov/StationWeb/GetDataByStationNumber?stationNbrs=47&startDate=...&endDate=...&isHourly=false&unitOfMeasure=M&dataItems=day-asce-eto`
+  with the key in the `Ocp-Apim-Subscription-Key` header (never in the URL) and `Accept: application/json`.
+- The response has the same `Data.Providers[].Records[]` shape as the legacy docs; the unit string is "(mm)" for `unitOfMeasure=M`.
+- The key issued by the new site was rejected by the legacy route (`/api/data?appKey=`, "Request Rejected"). The legacy route still
+  answered unauthenticated station lookups on 2026-11-16, but the client no longer uses it.
+- The CIMIS notice also says the new system's default ETo is the ASCE Reference Penman-Monteith equation, while the legacy system
+  used the CIMIS Penman equation. The data item requested here is `day-asce-eto`, the ASCE form.
+- QC flags seen in the real data: none (5,366 records), R (340), H (124), A (8), E (4), N (2). Only the 2 `N` records were nulled.
+  CIMIS's own definition of these letters could not be read (their flag pages are part of the JavaScript app), so the other flags are
+  carried but not interpreted; the treatment below is unchanged.
 
 ## What is compared
 
@@ -69,14 +86,14 @@ retrieved (they are a JavaScript app). Evidence in the docs by example only: `N`
 - Every other flag, including blank, `R` (documented example: value present), `H`, `I`, `Y`, `P`: value kept, flag carried.
 - Counts per flag, and how many became null, are returned (`CimisResult.flags`) and printed by the fetch script.
 
-**Check these letters against the first real response and CIMIS's QC documentation before trusting the numbers.**
+**The real response is in; the meaning of the letters still has to be checked against CIMIS's QC documentation, which could not be read.**
 
 ## Get a key and run it
 
-1. Register (free) at https://et.water.ca.gov and obtain an app key.
-2. Put `CIMIS_APP_KEY=...` in `.env.local` (server-side only, never commit it).
-3. Run `npx tsx scripts/fetch-cimis.ts`. It writes `data/cimis/station47.json` (raw responses, key redacted as
-   `appKey=REDACTED`) and prints day counts and per-flag counts. Without a key it exits 1 and writes nothing.
+1. Register (free) at https://cimis.water.ca.gov/ (the Register link, which opens the "register my account" page) and obtain an app key from your account page.
+2. Put `CIMIS_APP_KEY=...` in `.env` or `.env.local` (server-side only, never commit it).
+3. Run `npx tsx scripts/fetch-cimis.ts`. It writes `data/cimis/station47.json` (raw responses; the key is never in the URL or the file)
+   and prints day counts and per-flag counts. Without a key it exits 1 and writes nothing.
 
 ## For the UI
 

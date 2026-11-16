@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { buildOpenEtBody, fetchOpenEtMonthly, type FetchLike } from "./client";
+import { buildOpenEtBody, fetchOpenEtMonthly, splitDateRange, type FetchLike } from "./client";
 import { NO_KEY_MESSAGE, OPENET_POINT_URL } from "./constants";
 
 const KEY = "SECRET-KEY-123";
@@ -106,5 +106,42 @@ describe("openet client", () => {
   it("flags provisional months (last 120 days before fetch)", async () => {
     const r = await fetchOpenEtMonthly(...Q, opts(vi.fn(async () => resp(200, rows(["2023-12", "2024-01", "2024-02", "2024-03"]))), { start: "2023-12-01", end: "2024-03-31" }));
     expect(r.result.coverage?.provisionalMonths).toEqual(["2023-12", "2024-01", "2024-02", "2024-03"]);
+  });
+});
+
+describe("10-year request limit (found with the first real key)", () => {
+  it("splits 2000-01-01 to 2026-10-31 into three gapless windows of at most 9 years", () => {
+    const w = splitDateRange("2000-01-01", "2026-10-31");
+    expect(w).toEqual([["2000-01-01", "2008-12-31"], ["2009-01-01", "2017-12-31"], ["2018-01-01", "2026-10-31"]]);
+  });
+  it("keeps a short range as one window and handles a mid-year start", () => {
+    expect(splitDateRange("2023-01-01", "2023-03-31")).toEqual([["2023-01-01", "2023-03-31"]]);
+    const w = splitDateRange("2000-06-15", "2020-01-10");
+    expect(w[0][0]).toBe("2000-06-15");
+    expect(w[w.length - 1][1]).toBe("2020-01-10");
+    for (let i = 1; i < w.length; i++) expect(Date.parse(w[i][0]) - Date.parse(w[i - 1][1])).toBe(86_400_000);
+  });
+  it("makes one request per window, sends each window's own dates, and joins the records in order", async () => {
+    const months = (y: number) => Array.from({ length: 12 }, (_, i) => `${y}-${String(i + 1).padStart(2, "0")}`);
+    const f = vi.fn(async (_u: string, init?: { body?: string }) => {
+      const [s, e] = JSON.parse(init!.body!).date_range as [string, string];
+      const ys = Array.from({ length: Number(e.slice(0, 4)) - Number(s.slice(0, 4)) + 1 }, (_, i) => Number(s.slice(0, 4)) + i);
+      return resp(200, rows(ys.flatMap(months)));
+    });
+    const r = await fetchOpenEtMonthly(...Q, { apiKey: KEY, fetchImpl: f as unknown as FetchLike, now: NOW, sleep: async () => {}, start: "2000-01-01", end: "2023-12-31" });
+    expect(f).toHaveBeenCalledTimes(3);
+    expect(r.chunks).toHaveLength(3);
+    expect(r.result.status).toBe("ok");
+    expect(r.result.series).toHaveLength(24 * 12);
+    expect(JSON.stringify(r)).not.toContain(KEY);
+  });
+  it("one failing window fails the whole fetch, never a series with a hole", async () => {
+    let n = 0;
+    const f = vi.fn(async () => (++n === 2 ? resp(404, { detail: "Date range cannot exceed 10 years." }) : resp(200, rows(["2000-01"]))));
+    const r = await fetchOpenEtMonthly(...Q, { apiKey: KEY, fetchImpl: f as unknown as FetchLike, now: NOW, sleep: async () => {}, start: "2000-01-01", end: "2023-12-31" });
+    expect(r.result.status).toBe("error");
+    expect(r.result.message).toMatch(/window 2009-01-01 to 2017-12-31/);
+    expect(r.raw).toBeNull();
+    expect(f).toHaveBeenCalledTimes(2);
   });
 });

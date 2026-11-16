@@ -13,7 +13,7 @@ export { fetchOpenEtMonthly, buildOpenEtBody } from "./client";
 export { normalizeOpenEt } from "./normalize";
 export type * from "./types";
 
-export type SavedOpenEtFile = { pinId: string; lon: number; lat: number; fetchedAt: string; request: OpenEtRequestBody; response: unknown };
+export type SavedOpenEtFile = { pinId: string; lon: number; lat: number; fetchedAt: string; request: OpenEtRequestBody; /** Windows actually requested (one request each); absent in files saved before the 10-year limit was found. */ chunks?: [string, string][]; response: unknown };
 
 export type SavedOpenEt =
   | { status: "no-saved-data"; pinId: string; nextStep: string }
