@@ -1,6 +1,6 @@
 # Audit of the Stage 7 additions against CLAUDE.md
 
-Date: 2026-11-16. Scope: nutrient data, rotation comparison, budget and priorities, local notes, the AI advisor, the what-if panel, `/glossary`, `/satellite-vs-ground`, and the footer links. Method: read the code and data, ran the full test suite (907 tests), lint, typecheck and a production build, and probed the built pages and routes with curl. No browser was available, so nothing was clicked, resized or printed.
+Date: 2026-11-16. Scope: nutrient data, rotation comparison, budget and priorities, local notes, the AI advisor, the what-if panel, `/glossary`, `/satellite-vs-ground`, and the footer links. Method: read the code and data, ran the full test suite (907 tests), lint, typecheck and a production build, and probed the built pages and routes with curl. A browser pass was added later the same day (see below).
 
 ## Hard rules
 
@@ -22,8 +22,15 @@ Date: 2026-11-16. Scope: nutrient data, rotation comparison, budget and prioriti
 - **Land-cover label.** NASS says Cropland Data Layer pixels are 10 m from 2024 while the app called the layer "30 m". The app's label and wording now say 30 m through 2023 and 10 m from 2024. The saved ground-truth files still carry the older source name until they are re-fetched.
 - **Misnamed section numbers** in two docs after the what-if panel became section 4.
 
+## Browser and print checks (2026-11-16)
+Run with Playwright's headless Chromium against the production build, on the example farm, at 1280x900 and 390x844. 73 checks; 71 pass. The scripted checks cover: the what-if sliders (drag, result, reset), the budget form (10000 / 200 per acre-foot / 100 acres gives 152 mm, applies to the page's supply, a zero budget is refused), yields, priorities (order, arrows, climate label), nutrient sources (16 links), metric toggle, the free-tier notice, the AI block's five states (not connected, rejected, rate limit, ok, stale), print (one A4 page, the new sections hidden), no horizontal scroll, no console or page errors, labels on every control, the footer links, and the home, shift, conditions, glossary, satellite and Ludhiana pages at phone width.
+- The AI block states were exercised with a stubbed `/api/advisor` response so no Gemini quota was spent; the stubs are test inputs, not app data.
+- Fixed because of these checks: the two "Where this comes from" and "Based on" toggles were under 44 px; priority rows were 28 px tall on desktop; source links were 17 px tall; yield inputs did not line up when labels wrapped.
+- The two remaining "failures" are inline links inside a sentence (the expert-quote source names, 36 px tall), which are exempt from the 44 px target rule as text links. Checkboxes and radios are 22 px boxes inside label rows that are 44 px or taller, so the tap area is the whole row.
+- Not covered: colour contrast measurement, a screen reader, keyboard tab order beyond the sliders, and real iOS or Android browsers (only Chromium with a phone-sized viewport and touch enabled).
+
 ## Open items (not fixed)
-- **Never seen in a browser:** form typing, the priority arrows, slider dragging and animation, the AI block's states, phone-width layout, keyboard order, colour contrast and print. The new sections are direct children of the page container that the print rule hides, but print was not previewed.
+- **Browser coverage is partial:** see the section above. Colour contrast, a screen reader and real phones were not tested.
 - **AI reliability.** On the free tier the first reply often fails the check and is retried once, models are sometimes busy (HTTP 503), and quota ran out after about 25 test calls. Passing summaries were seen for Brentwood and Ludhiana. Fresno has not been re-run to a result since the last fixes. The sustainability advice in passing summaries is thin.
 - **Privacy.** On the free tier Google says content may be used to improve its products. The page says so next to the button; money, field size and typed rotation names are not sent.
 - **What-if panel.** Slider values are not in the share link, and the main strips and gauges are not redrawn for the what-if; the panel has its own side-by-side view.
