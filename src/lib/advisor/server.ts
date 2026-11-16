@@ -137,6 +137,30 @@ export function validateRequest(raw: unknown): { ok: true; req: AdvisorRequest }
   };
 }
 
+/**
+ * The replay engine compares 2 or 3 rotations, but a farmer may describe just one. Each rotation is replayed on its own (no figure of
+ * one depends on another), so a single rotation is run alongside a stand-in copy and only the farmer's own rotation is kept.
+ * Nothing from the stand-in reaches the payload.
+ */
+export function forReplayEngine(rotations: AdvisorRequest["rotations"]): AdvisorRequest["rotations"] {
+  return rotations.length === 1 ? [rotations[0], { name: `${rotations[0].name} (stand-in, discarded)`, sequence: rotations[0].sequence }] : rotations;
+}
+
+export function keepRotations<T extends ReturnType<typeof replay>>(rep: T, n: number): T {
+  if (rep.status !== "ok" || rep.rotations.length === n) return rep;
+  const rotations = rep.rotations.slice(0, n);
+  // The engine's grey-season note counts every rotation it ran, so it is recounted for the kept ones (same wording as the engine).
+  const grey = rotations.reduce((s, r) => s + r.totals.insufficient, 0);
+  const notes = rep.notes
+    .filter((x) => !/could not be judged because of missing weather data/.test(x))
+    .concat(grey > 0 ? [`${grey} ${grey === 1 ? "crop-season" : "crop-seasons"} across these rotations could not be judged because of missing weather data (grey).`] : []);
+  return { ...rep, rotations, notes };
+}
+
+function keepScenarioRotations(s: ReturnType<typeof runScenarioReplay>, n: number): ReturnType<typeof runScenarioReplay> {
+  return { ...s, replay: keepRotations(s.replay, n) };
+}
+
 export async function buildAdvisorRequestPayload(req: AdvisorRequest, deps: AdvisorDeps = {}): Promise<BuiltAdvisor> {
   const d = { ...defaultDeps, ...deps };
   const lat = req.exampleFarm ? DEMO_PINS.find((p) => p.id === EXAMPLE_FARM_PIN)!.lat : req.lat;
@@ -146,11 +170,16 @@ export async function buildAdvisorRequestPayload(req: AdvisorRequest, deps: Advi
   if (power.status === "error" || power.status === "no-coverage") return { error: power.message ?? "The climate record could not be read for this spot.", status: 502 };
 
   const { renamed, key } = anonymizeRotations(req.rotations);
-  const rep = replay(power, usableCrops(), { rotations: renamed, supplyMm: req.supplyMm });
+  const rep = keepRotations(replay(power, usableCrops(), { rotations: forReplayEngine(renamed), supplyMm: req.supplyMm }), renamed.length);
   if (rep.status === "unavailable") return { error: `${rep.reason} ${rep.nextStep}`.trim(), status: 422 };
   // The what-if runs on the server through the existing engine; crop names (not letters) are used inside its sentences.
   const scenarioView = req.scenario
-    ? buildScenarioView(rep, runScenarioReplay(power, usableCrops(), { rotations: renamed, supplyMm: req.supplyMm, scenario: req.scenario }), req.scenario, renamed.map((r) => r.sequence.map((id) => CROP_CATALOG.crops.find((c) => c.id === id)?.name ?? id).join(", then ")))
+    ? buildScenarioView(
+        rep,
+        keepScenarioRotations(runScenarioReplay(power, usableCrops(), { rotations: forReplayEngine(renamed), supplyMm: req.supplyMm, scenario: req.scenario }), renamed.length),
+        req.scenario,
+        renamed.map((r) => r.sequence.map((id) => CROP_CATALOG.crops.find((c) => c.id === id)?.name ?? id).join(", then ")),
+      )
     : null;
 
   // Soil and land cover do not depend on each other, so they load together (a new place can take tens of seconds).

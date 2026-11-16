@@ -16,7 +16,15 @@ export const DEFAULT_GEMINI_MODEL = "gemini-3.8-flash";
 export const FREE_TIER_NOTICE =
   "This summary is written by Google's free Gemini service. On the free tier Google says content sent to it may be used to improve its products. What is sent is the computed results shown on this page, your yields and priorities, and your location rounded to the 50 km grid. No money amounts (budget, water price, water cost) and no field size are sent.";
 
-export type ModelRequest = { system: string; user: string; schema: object; /** Reasons the previous reply was rejected, for the one repair attempt. */ feedback?: string[] };
+export type ModelRequest = {
+  system: string;
+  user: string;
+  schema: object;
+  /** Reasons the previous reply was rejected, for the one repair attempt. */
+  feedback?: string[];
+  /** Time left for this whole call, fallbacks included. No attempt is started or allowed to run past it. */
+  remainingMs?: number;
+};
 /** `model` is the model that actually answered (it can differ from the first choice when that one was busy). */
 export type ModelCaller = (req: ModelRequest) => Promise<{ text: string; model?: string }>;
 
@@ -46,7 +54,7 @@ Rules, all of them strict:
 7. Nutrient figures are published averages of what leaves in the harvested crop. They are not a soil test. Say so once, in the nutrients section.
 8. Do not mention profit, income, price, cost, revenue, money or any currency, and do not recommend fertilizer products or amounts. No money figures are in the package.
 9. If landCover.notCropland is true, do not call the place a field or a farm.
-10. Follow the farmer's priorities in the package, in order. Do not hide a trade-off: if a rotation is best on one priority and worst on another, say so.
+10. Follow the farmer's priorities in the package, in order. Do not hide a trade-off: if a rotation is best on one priority and worst on another, say so. If the package has only one rotation, say plainly that there is nothing to compare, and do not rank it or call it best or worst.
 11. Say P and K as "phosphorus" and "potassium", never as P2O5 or K2O.
 12. Never print a raw field value or code such as none-known or not-available; say "unknown" or "not available" in plain words. If the package's limits say the place looks to be outside California, say in the first section that the crop values are California values and may not match local practice there. If landCover.notCropland is true, say in the first section that the satellite record does not class this point as cropland.
 13. If scenario.status is "ok", describe the what-if only from the scenario section, always as a what-if applied to the real record and not a forecast, using its own sentences and counts, and mention its caveats (cooler settings, humidity limited at 100 percent). If scenario.status is "not-applied" or "not-available", do not mention any what-if. Never say what rain or temperature will be.
@@ -119,7 +127,7 @@ export function createGeminiCaller(
   const timeoutMs = opts.timeoutMs ?? ATTEMPT_TIMEOUT_MS;
   const busyRetryDelayMs = opts.busyRetryDelayMs ?? 1500;
 
-  const once = async (model: string, { system, user, schema }: ModelRequest): Promise<{ text: string; model: string }> => {
+  const once = async (model: string, { system, user, schema }: ModelRequest, attemptMs: number): Promise<{ text: string; model: string }> => {
     try {
       const res = await ai.models.generateContent({
         model,
@@ -131,7 +139,7 @@ export function createGeminiCaller(
           // Gemini counts its private thinking against this limit. A first live run with 8192 came back cut off mid-sentence.
           maxOutputTokens: 16384,
           thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
-          abortSignal: AbortSignal.timeout(timeoutMs),
+          abortSignal: AbortSignal.timeout(attemptMs),
         },
       });
       const blocked = res.promptFeedback?.blockReason;
@@ -150,22 +158,27 @@ export function createGeminiCaller(
         throw new ModelError("unavailable", `Gemini returned HTTP ${e.status} for ${model}.`);
       }
       const name = (e as { name?: string } | null)?.name;
-      if (name === "TimeoutError" || name === "AbortError") throw new ModelError("unavailable", `${model} did not answer within ${Math.round(timeoutMs / 1000)} seconds.`);
+      if (name === "TimeoutError" || name === "AbortError") throw new ModelError("unavailable", `${model} did not answer within ${Math.round(attemptMs / 1000)} seconds.`);
       throw new ModelError("unavailable", "Gemini could not be reached.");
     }
   };
 
   return async (req) => {
+    const deadline = Date.now() + (req.remainingMs ?? Number.POSITIVE_INFINITY);
+    // An attempt shorter than this is not worth starting: a full reply takes several seconds.
+    const MIN_ATTEMPT_MS = Math.min(4_000, timeoutMs);
+    const attemptMs = () => Math.min(timeoutMs, deadline - Date.now());
     let last: ModelError | null = null;
     for (const model of list) {
+      if (attemptMs() < MIN_ATTEMPT_MS) break;
       try {
         try {
-          return await once(model, req);
+          return await once(model, req, attemptMs());
         } catch (e) {
           // "High demand" (503) is usually a spike of a few seconds, so this model gets one more try before the next model is used.
-          if (e instanceof ModelError && e.kind === "unavailable" && /HTTP 503/.test(e.message)) {
+          if (e instanceof ModelError && e.kind === "unavailable" && /HTTP 503/.test(e.message) && attemptMs() - busyRetryDelayMs >= MIN_ATTEMPT_MS) {
             await new Promise((r) => setTimeout(r, busyRetryDelayMs));
-            return await once(model, req);
+            return await once(model, req, attemptMs());
           }
           throw e;
         }
@@ -176,6 +189,6 @@ export function createGeminiCaller(
         if (!["unavailable", "rate-limited", "model-missing"].includes(e.kind)) throw e;
       }
     }
-    throw last ?? new ModelError("unavailable", "No Gemini model is configured.");
+    throw last ?? new ModelError("unavailable", "No Gemini model answered in the time available.");
   };
 }

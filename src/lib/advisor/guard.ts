@@ -1,6 +1,7 @@
 /**
- * The check on the model's reply. This, not the prompt, is what keeps the AI text honest. A reply is shown only if every test passes;
- * otherwise NONE of the model's text is shown and the reasons are returned. No retry, no repair, no partial display.
+ * The check on the model's reply. This, not the prompt, is what keeps the AI text honest. Every number shown must exist in the
+ * computed payload that was sent to the model. A paragraph that fails any test is dropped (never edited); a section left empty is
+ * dropped; if nothing is left, or the reply as a whole is malformed or misstates what is not available, none of it is shown.
  */
 import { DECADES } from "../replay/types";
 import { ADVISOR_SECTION_IDS } from "./model";
@@ -10,7 +11,8 @@ export type AdvisorParagraph = { text: string; facts: string[] };
 export type AdvisorSection = { id: (typeof ADVISOR_SECTION_IDS)[number]; heading: string; paragraphs: AdvisorParagraph[] };
 export type AdvisorReply = { sections: AdvisorSection[]; notAvailable: string[] };
 
-export type GuardResult = { ok: true; reply: AdvisorReply } | { ok: false; reasons: string[] };
+/** `dropped` paragraphs failed a test and were removed; `droppedReasons` says why. Zero when the whole reply passed. */
+export type GuardResult = { ok: true; reply: AdvisorReply; dropped: number; droppedReasons: string[] } | { ok: false; reasons: string[] };
 
 /** Numerals that may appear anywhere because the app's own labels state them: the 1986 to 2025 replay (40 seasons), the 1985 record start, the 50 km grid. */
 export const GLOBAL_NUMERALS: readonly string[] = [
@@ -124,33 +126,35 @@ export function checkReply(raw: string, payload: AdvisorPayload): GuardResult {
   const parsed = parseReply(raw);
   if (!parsed.reply) return { ok: false, reasons: [parsed.reason!] };
   const reply = parsed.reply;
-  const reasons: string[] = [];
-  const allowedGlobal = new Set<string>(GLOBAL_NUMERALS);
+  const replyReasons: string[] = [];
+  const droppedReasons: string[] = [];
+  let dropped = 0;
+  // Every numeral anywhere in the package sent to the model, plus the app's own fixed labels. A number outside this set is not from
+  // the data. Which path the model cited does not widen or narrow this: citation slips are bookkeeping, not invented figures.
+  const payloadAllowed = numeralsIn(payload, new Set<string>(GLOBAL_NUMERALS));
+  const kept: AdvisorSection[] = [];
 
   for (const s of reply.sections) {
-    if (/\d/.test(s.heading)) reasons.push(`The heading "${s.heading}" contains a number.`);
+    if (/\d/.test(s.heading)) {
+      dropped += s.paragraphs.length;
+      droppedReasons.push(`The heading "${s.heading}" contains a number, so the ${s.id} section was removed.`);
+      continue;
+    }
+    const paragraphs: AdvisorParagraph[] = [];
     s.paragraphs.forEach((para, pi) => {
       const where = `${s.id} paragraph ${pi + 1}`;
-      if (para.facts.length === 0) {
-        reasons.push(`${where} cites no facts.`);
-        return;
-      }
-      const allowed = new Set<string>(allowedGlobal);
+      const reasons: string[] = [];
+      if (para.facts.length === 0) reasons.push(`${where} cites no facts.`);
       const quotable: string[] = [];
       for (const f of para.facts) {
         const broad = !(f.includes(".") || /\[\d+\]$/.test(f));
         const v = resolvePath(payload, f);
-        if (v === undefined) reasons.push(`${where} cites "${f}", which is not in the data package.`);
-        else if (broad) reasons.push(`${where} cites "${f}", which is too broad.`);
-        else {
-          numeralsIn(v, allowed);
-          stringsIn(v, quotable);
-        }
+        if (v !== undefined && !broad) stringsIn(v, quotable);
       }
       // A sentence copied word for word from a cited string is the data's own wording, not the model's, so the word checks skip it.
       const text = stripQuotes(para.text, quotable);
       for (const n of replyNumerals(para.text))
-        if (!allowed.has(n) && !allowed.has(String(Number(n)))) reasons.push(`${where} contains the number ${n}, which is not at any path it cites.`);
+        if (!payloadAllowed.has(n) && !payloadAllowed.has(String(Number(n)))) reasons.push(`${where} contains the number ${n}, which is not anywhere in your data.`);
       const w = NUMBER_WORDS.exec(text);
       if (w) reasons.push(`${where} spells a quantity as a word ("${w[0]}"); numbers must be digits copied from the data.`);
       if (MONEY.test(text)) reasons.push(`${where} talks about money or price; no prices are connected.`);
@@ -160,13 +164,20 @@ export function checkReply(raw: string, payload: AdvisorPayload): GuardResult {
         reasons.push(`${where} calls the point your field or farm, but the satellite record says it is not cropland.`);
       if (/\b(will|going to) (be|have|happen|get)\b|\bforecast(s|ed)?\b|\bpredict/i.test(text) && !/not a forecast|not predict/i.test(text))
         reasons.push(`${where} sounds like a forecast; the replay is the past record.`);
+      if (reasons.length) {
+        dropped++;
+        droppedReasons.push(...reasons);
+      } else paragraphs.push(para);
     });
+    if (paragraphs.length) kept.push({ ...s, paragraphs });
   }
 
   const missing = unavailableSections(payload).filter((k) => !reply.notAvailable.includes(k));
-  if (missing.length) reasons.push(`The reply does not say that ${missing.join(", ")} ${missing.length === 1 ? "is" : "are"} not available.`);
+  if (missing.length) replyReasons.push(`The reply does not say that ${missing.join(", ")} ${missing.length === 1 ? "is" : "are"} not available.`);
   const bogus = reply.notAvailable.filter((k) => !(TOP_LEVEL_UNAVAILABLE as readonly string[]).includes(k) || !unavailableSections(payload).includes(k));
-  if (bogus.length) reasons.push(`The reply lists ${bogus.join(", ")} as not available, but they are available.`);
+  if (bogus.length) replyReasons.push(`The reply lists ${bogus.join(", ")} as not available, but they are available.`);
 
-  return reasons.length ? { ok: false, reasons } : { ok: true, reply };
+  if (replyReasons.length) return { ok: false, reasons: [...replyReasons, ...droppedReasons] };
+  if (kept.length === 0) return { ok: false, reasons: droppedReasons.length ? droppedReasons : ["The reply had no paragraphs."] };
+  return { ok: true, reply: { sections: kept, notAvailable: reply.notAvailable }, dropped, droppedReasons };
 }

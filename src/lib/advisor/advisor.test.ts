@@ -4,7 +4,7 @@ import type { AdvisorRequest } from "./server";
 import { checkReply, resolvePath, unavailableSections } from "./guard";
 import { ModelError, forModel } from "./model";
 import type { ModelCaller } from "./model";
-import { NOT_CONNECTED_MESSAGE, runAdvisor } from "./run";
+import { MODEL_BUDGET_MS, NOT_CONNECTED_MESSAGE, runAdvisor } from "./run";
 import type { AdvisorPayload } from "./payload";
 
 const REQ: AdvisorRequest = {
@@ -98,22 +98,50 @@ describe("checkReply", () => {
   it("rejects a made-up figure", () => {
     const r = checkReply(reply({ text: "Wheat then maize was short of water in 987 of 40 seasons." }), sent);
     expect(r.ok).toBe(false);
-    if (!r.ok) expect(r.reasons.join(" ")).toMatch(/987/);
+    if (!r.ok) expect(r.reasons.join(" ")).toMatch(/987, which is not anywhere in your data/);
   });
 
-  it("rejects a real figure that is not at a path the paragraph cites", () => {
-    if (sent.water.status !== "ok") throw new Error();
-    const other = sent.water.rotations[1].seasonsShort;
-    const mine = sent.water.rotations[0].seasonsShort;
-    if (other === mine) return; // cannot tell them apart on this record
-    const r = checkReply(reply({ text: `It was short in ${other} seasons.` }), sent);
-    expect(r.ok).toBe(false);
+  it("accepts a real figure from the package even when the paragraph cites the wrong path", () => {
+    // Live Gemini replies cited the wrong paths for real figures (35 C threshold, 41 years, period years); those are not made up.
+    const r = checkReply(reply({ text: "Hot days are days over 35 C, counted from 1985 to 2025.", facts: ["water.supplyMm"] }), sent);
+    expect(r.ok).toBe(true);
+    if (r.ok) expect(r.dropped).toBe(0);
   });
 
-  it("rejects paths that do not exist, paths that are too broad, and paragraphs with no facts", () => {
-    expect(checkReply(reply({ facts: ["water.rotations[7].seasonsShort"] }), sent).ok).toBe(false);
-    expect(checkReply(reply({ facts: ["water"] }), sent).ok).toBe(false);
+  it("drops only the paragraph with a number not in the package and shows the rest", () => {
+    const raw = JSON.stringify({
+      sections: [
+        { id: "water", heading: "Water", paragraphs: [{ text: defaultText(), facts: ["water.rotations[0].seasonsShort"] }, { text: "It was short in 987 seasons.", facts: ["water.supplyMm"] }] },
+        { id: "plan", heading: "Plan", paragraphs: [{ text: "Yields of 4321 are expected.", facts: ["water.supplyMm"] }] },
+      ],
+      notAvailable: [],
+    });
+    const r = checkReply(raw, sent);
+    expect(r.ok).toBe(true);
+    if (r.ok) {
+      expect(r.dropped).toBe(2);
+      expect(r.reply.sections.map((x) => x.id)).toEqual(["water"]);
+      expect(r.reply.sections[0].paragraphs).toHaveLength(1);
+      expect(JSON.stringify(r.reply)).not.toMatch(/987|4321/);
+      expect(r.droppedReasons.join(" ")).toMatch(/987/);
+    }
+  });
+
+  it("rejects the reply when every paragraph fails", () => {
+    const raw = JSON.stringify({
+      sections: [
+        { id: "water", heading: "Water", paragraphs: [{ text: "Short in 987 seasons.", facts: ["water.supplyMm"] }] },
+        { id: "plan", heading: "Plan", paragraphs: [{ text: "This will earn more profit.", facts: ["limits[0]"] }] },
+      ],
+      notAvailable: [],
+    });
+    expect(checkReply(raw, sent).ok).toBe(false);
+  });
+
+  it("a paragraph with no facts is dropped; a wrong or broad path alone is citation bookkeeping, not a made-up figure", () => {
     expect(checkReply(reply({ facts: [] }), sent).ok).toBe(false);
+    expect(checkReply(reply({ facts: ["water.rotations[7].seasonsShort"] }), sent).ok).toBe(true);
+    expect(checkReply(reply({ facts: ["water"] }), sent).ok).toBe(true);
   });
 
   it("rejects numbers spelled as words and numbers in headings", () => {
@@ -248,6 +276,31 @@ describe("runAdvisor", () => {
     expect(out.status === "ok" && out.attempts).toBe(1);
   });
 
+  it("a reply with one bad paragraph is shown without it, and says how many were removed", async () => {
+    const raw = JSON.stringify({
+      sections: [{ id: "water", heading: "Water", paragraphs: [{ text: defaultText(), facts: ["water.rotations[0].seasonsShort"] }, { text: "Short in 987 seasons.", facts: ["water.supplyMm"] }] }],
+      notAvailable: [],
+    });
+    let n = 0;
+    const out = await runAdvisor(sent, async () => { n++; return { text: raw }; }, "m");
+    expect(n).toBe(1);
+    expect(out.status).toBe("ok");
+    if (out.status === "ok") {
+      expect(out.droppedParagraphs).toBe(1);
+      expect(JSON.stringify(out.reply)).not.toMatch(/987/);
+    }
+    const clean = await runAdvisor(sent, good, "m");
+    expect(clean.status === "ok" && clean.droppedParagraphs).toBeUndefined();
+  });
+
+  it("passes the time left to the model caller, and it stays within the budget", async () => {
+    let seen: number | undefined;
+    await runAdvisor(sent, async (req) => { seen = req.remainingMs; return { text: reply() }; }, "m");
+    expect(seen).toBeGreaterThan(0);
+    expect(seen).toBeLessThanOrEqual(MODEL_BUDGET_MS);
+    expect(MODEL_BUDGET_MS).toBeLessThan(60_000);
+  });
+
   it("no repair attempt when the first one used up the time", async () => {
     let t = 0;
     const clock = () => new Date((t += 30_000));
@@ -338,5 +391,37 @@ describe("rotation names are replaced before anything is sent", () => {
     expect(text).not.toMatch(/Secret name|Other 88/);
     expect(text).toContain("Rotation A (Winter wheat)");
     expect(b.rotationKey[0]).toContain("Secret name 77");
+  });
+});
+
+describe("one rotation", () => {
+  it("is accepted end to end: the payload has just that rotation, no ranking, and says there is nothing to compare", async () => {
+    const one = { ...REQ, rotations: [REQ.rotations[0]] };
+    expect(validateRequest(one).ok).toBe(true);
+    const b = await buildAdvisorRequestPayload(one);
+    if ("error" in b) throw new Error(b.error);
+    const p = forModel(b.payload, b.placeName);
+    if (p.water.status !== "ok" || sent.water.status !== "ok") throw new Error("water");
+    expect(p.water.rotations).toHaveLength(1);
+    // Same figures as when it is replayed next to another rotation: nothing from the stand-in leaks in.
+    expect(p.water.rotations[0]).toEqual(sent.water.rotations[0]);
+    expect(JSON.stringify(p)).not.toMatch(/stand-in/);
+    expect(p.nutrients.rotations).toHaveLength(1);
+    for (const v of Object.values(p.nutrients.orderedByRemoval)) expect(v).toEqual({ comparable: false, names: [] });
+    expect(p.priorities.length).toBeGreaterThan(0);
+    for (const pr of p.priorities) {
+      expect(pr.best).toEqual([]);
+      expect(pr.comparable).toBe(false);
+    }
+    expect(p.limits.join(" ")).toMatch(/nothing to compare/);
+    expect(b.rotationKey).toHaveLength(1);
+  });
+
+  it("a what-if on one rotation keeps only that rotation", async () => {
+    const b = await buildAdvisorRequestPayload({ ...REQ, rotations: [REQ.rotations[0]], scenario: { rainFactor: 0.8, tempDeltaC: 1, humidity: "hold-vapour-pressure" } });
+    if ("error" in b) throw new Error(b.error);
+    if (b.payload.scenario.status !== "ok") throw new Error(b.payload.scenario.status);
+    expect(b.payload.scenario.rotations).toHaveLength(1);
+    expect(JSON.stringify(b.payload)).not.toMatch(/stand-in/);
   });
 });

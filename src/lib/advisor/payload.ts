@@ -170,6 +170,9 @@ export type AdvisorPayload = {
   limits: string[];
 };
 
+export const SINGLE_ROTATION_LIMIT =
+  "Only one rotation was described, so there is nothing to compare it with. Do not rank or compare rotations or call this one best or worst; describe this rotation on its own and say plainly that there is no other rotation to compare.";
+
 const na = (reason: string): NotAvailable => ({ status: "not-available", reason });
 
 function round(v: number | null, dp = 2): number | null {
@@ -334,10 +337,17 @@ export function buildAdvisorPayload(i: AdvisorInputs): AdvisorPayload {
   const yieldsEntered: Record<string, number | null> = {};
   for (const id of cropIds) yieldsEntered[id] = typeof i.yields[id] === "number" ? (i.yields[id] as number) : null;
 
+  const single = i.rotations.length === 1;
   const priorities =
     i.replay.status === "ok"
-      ? viewPriorities({ order: i.priorityOrder, rotations: i.replay.rotations, nutrients: nutrients.rotations, price: i.price })
+      ? viewPriorities({ order: i.priorityOrder, rotations: i.replay.rotations, nutrients: nutrients.rotations, price: i.price }).map((p) =>
+          // One rotation has nothing to be ranked against: no "best", not comparable. Its own figures stay in rows.
+          single ? { ...p, best: [], comparable: false } : p,
+        )
       : [];
+  if (single)
+    for (const k of Object.keys(nutrients.orderedByRemoval) as (keyof typeof nutrients.orderedByRemoval)[])
+      nutrients.orderedByRemoval[k] = { comparable: false, names: [] };
 
   const limits = [
     `Climate is ${CLIMATE_LABEL}. It is reanalysis, not a farm sensor.`,
@@ -351,6 +361,7 @@ export function buildAdvisorPayload(i: AdvisorInputs): AdvisorPayload {
     "Water need comes from FAO-56 crop coefficients; irrigation losses, salinity, and the water already in the soil are not modelled.",
   ];
   limits.push(TERRAIN_CAVEAT);
+  if (single) limits.push(SINGLE_ROTATION_LIMIT);
   const scenario = scenarioSection(i.scenario);
   if (scenario.status === "ok") limits.push(`${scenario.label} Describe it only as a what-if, never as a prediction.`);
   const landCover = landCoverSection(i.groundTruth);
