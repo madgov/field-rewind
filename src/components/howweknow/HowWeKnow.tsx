@@ -13,6 +13,7 @@ import CimisSection from "./CimisSection";
 import DataSources from "./DataSources";
 import Example18 from "./Example18";
 import HowWeKnowShell from "./HowWeKnowShell";
+import LayerSources from "./LayerSources";
 import MethodSteps from "./MethodSteps";
 import OpenEtSection from "./OpenEtSection";
 import { buildExcludedCrops } from "./excluded";
@@ -45,6 +46,7 @@ export default async function HowWeKnow({ page, power, place }: { page: "replay"
       <Example18 />
       <DataSources power={header} cimis={cimis} openet={openet} />
       <Caveat50km />
+      <LayerSources lat={power.lat} lon={power.lon} useLoaded={false} />
       <section className="hk-block" aria-labelledby="hk-crops-h">
         <h3 id="hk-crops-h" className="hk-h3">Where the crop numbers come from</h3>
         <CropSources crops={usableCrops()} excluded={buildExcludedCrops()} compiledOn={CROP_CATALOG.compiledOn} />

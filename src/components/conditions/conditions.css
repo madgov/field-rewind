@@ -1,0 +1,180 @@
+/* Stage 6: Field conditions page. Uses tokens from globals.css and shift.css. */
+.cx-hero .sh-hero__title { max-width: 22ch; }
+.cx-herolinks { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
+.cx-herolinks .btn { background: rgba(0,0,0,0.2); color: var(--paper); border-color: rgba(244,236,216,0.6); }
+.cx-herolinks .btn:hover { background: rgba(0,0,0,0.35); }
+
+.cx-nav { background: var(--paper); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 500; }
+.cx-nav ul { max-width: 1100px; margin: 0 auto; padding: 0 12px; list-style: none; display: flex; gap: 4px; overflow-x: auto; }
+.cx-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; white-space: nowrap; font-weight: 600; font-size: 0.92rem; text-decoration: none; }
+.cx-nav a:hover { text-decoration: underline; }
+
+.cx-main { gap: 44px; }
+.cx-section { min-width: 0; scroll-margin-top: 56px; display: grid; gap: 12px; }
+.cx-section__head { display: grid; gap: 8px; }
+.cx-section__title { margin: 0; }
+.cx-section__tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.cx-label { font-size: 0.82rem; color: var(--muted); border: 1px dashed var(--line); border-radius: 6px; padding: 2px 8px; }
+.cx-headline { margin: 0; font-family: Georgia, "Iowan Old Style", serif; font-size: clamp(1.15rem, 3.6vw, 1.5rem); line-height: 1.3; overflow-wrap: anywhere; }
+.cx-origin { margin: 0; font-size: 0.88rem; color: var(--muted); }
+.cx-note { margin: 4px 0; font-size: 0.92rem; color: var(--soil-soft); overflow-wrap: anywhere; }
+.cx-h3 { margin: 0 0 8px; font-size: 1.05rem; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.cx-linkrow { margin: 0; }
+
+/* badges: colour plus a distinct shape */
+.cx-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 7px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; border: 1px solid currentColor; background: var(--paper); line-height: 1.3; }
+.cx-badge svg { flex: none; }
+.cx-badge--satellite { color: #14566f; }
+.cx-badge--reanalysis { color: #7a4a00; }
+.cx-badge--interpolated { color: #4b3a8f; }
+.cx-badge--gauge { color: #1f4d2b; }
+.cx-badge--terrain { color: #6b3a1c; }
+.cx-badge--soilsurvey { color: #5f5946; }
+.cx-badgekey { margin: 6px 0 0; padding-left: 18px; font-size: 0.86rem; color: var(--soil-soft); display: grid; gap: 4px; }
+
+/* notices and problems */
+.cx-notice { border: 1px solid var(--line); border-left: 5px solid var(--sun); background: var(--paper); padding: 10px 12px; border-radius: 10px; font-size: 0.92rem; overflow-wrap: anywhere; }
+.cx-notice--info { border-left-color: var(--relief); }
+.cx-notice--warn { border-left-color: var(--pressure); }
+.cx-notice__title { margin: 0 0 4px; font-weight: 700; }
+.cx-notice p { margin: 4px 0; }
+.cx-problem { border: 2px dashed #b9ad85; background: #f6efdb; padding: 12px 14px; border-radius: 12px; font-size: 0.95rem; overflow-wrap: anywhere; }
+.cx-problem--error { border-color: var(--pressure); background: var(--pressure-bg); }
+.cx-problem__title { margin: 0 0 6px; font-weight: 700; }
+.cx-problem p { margin: 4px 0; }
+.cx-problem code { font-size: 0.85rem; word-break: break-word; }
+.cx-loading__text { margin: 0; color: var(--soil-soft); }
+.cx-skel span { height: 150px; }
+
+/* details */
+.cx-more { border: 1px solid var(--line); border-radius: 10px; background: var(--paper); }
+.cx-more > summary { cursor: pointer; padding: 12px 14px; min-height: 44px; font-weight: 600; display: flex; align-items: center; }
+.cx-more__body { padding: 0 14px 12px; display: grid; gap: 8px; font-size: 0.94rem; overflow-wrap: anywhere; }
+.cx-more__body p { margin: 0; }
+.cx-more__body ul { margin: 0; padding-left: 20px; }
+
+/* charts */
+.cx-figure { margin: 0; display: grid; gap: 6px; min-width: 0; }
+.cx-figcap { font-weight: 700; font-size: 0.95rem; }
+.cx-chartscroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); padding: 6px; max-width: 100%; }
+.cx-chart { display: block; width: 100%; height: auto; font-family: inherit; }
+.cx-grid { stroke: var(--line); stroke-width: 1; }
+.cx-axis { font-size: 10px; fill: var(--soil-soft); }
+.cx-axis--title { font-size: 10px; }
+.cx-zero { stroke: var(--soil); stroke-width: 1.4; }
+.cx-mean { stroke: var(--soil); stroke-width: 1.5; stroke-dasharray: 5 3; }
+.cx-meanlabel { font-size: 10px; fill: var(--soil); font-weight: 700; stroke: var(--paper); stroke-width: 3.5px; paint-order: stroke; stroke-linejoin: round; }
+.cx-bar { fill: #2f6f8f; }
+.cx-chart--a .cx-bar, .cx-chart--frost .cx-bar { fill: #2f6f8f; }
+.cx-chart--hotDays .cx-bar { fill: #9c3314; }
+.cx-chart--rainPower .cx-bar, .cx-chart--rainDaymet .cx-bar { fill: #3a6ea5; }
+.cx-chart--peakNdvi .cx-bar { fill: #2f7a44; }
+.cx-bar--neg { fill: #b4651f; }
+.cx-chart--soilAnomaly .cx-bar { fill: #3a6ea5; }
+.cx-chart--soilAnomaly .cx-bar--neg { fill: #b4651f; }
+.cx-bar--weak { fill-opacity: 0.45; stroke: var(--soil); stroke-width: 1; stroke-dasharray: 3 2; }
+.cx-highlight { fill: none; stroke: var(--soil); stroke-width: 2; }
+.cx-line { stroke-width: 2; }
+.cx-line--a { stroke: #7a4a00; stroke-dasharray: 6 3; }
+.cx-line--b { stroke: #2f6f8f; }
+.cx-mk--a { fill: #7a4a00; }
+.cx-mk--b { fill: #2f6f8f; }
+.cx-dot { fill: #2f7a44; fill-opacity: 0.55; }
+.cx-peak { fill: #1f4d2b; stroke: var(--paper); stroke-width: 1; }
+.cx-peak--sparse { fill: var(--paper); stroke: #1f4d2b; stroke-width: 1.8; }
+.cx-peakline { stroke: #1f4d2b; stroke-width: 1.2; }
+.cx-stress { fill: #b4421f; stroke: var(--paper); stroke-width: 0.8; }
+.cx-modis { stroke: #14566f; stroke-width: 1.6; }
+.cx-err { stroke: var(--soil-soft); stroke-width: 1.4; }
+.cx-key { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.85rem; color: var(--soil-soft); }
+.cx-key li { display: flex; align-items: center; gap: 6px; }
+.cx-table { font-size: 0.88rem; }
+.cx-table > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 600; }
+.cx-table table { border-collapse: collapse; display: block; max-width: 100%; overflow-x: auto; }
+.cx-table th, .cx-table td { border: 1px solid var(--line); padding: 4px 8px; text-align: left; white-space: nowrap; }
+
+/* cards */
+.cx-cols { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+.cx-card { border: 1px solid var(--line); border-radius: 12px; background: var(--paper); padding: 14px; display: grid; gap: 8px; min-width: 0; overflow-wrap: anywhere; }
+.cx-card p { margin: 0; }
+.cx-card--blocked { border-style: dashed; border-width: 2px; background: #f6efdb; }
+.cx-lines { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.cx-facts { margin: 0; display: grid; gap: 8px; }
+.cx-facts > div { display: grid; gap: 2px; }
+.cx-facts dt { font-weight: 700; font-size: 0.9rem; }
+.cx-facts dd { margin: 0; }
+.cx-src { display: block; font-size: 0.8rem; color: var(--muted); }
+.cx-usonly, .cx-erosion-label, .cx-meaning, .cx-landcover, .cx-hot { margin: 0; }
+.cx-timeline { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; max-height: 260px; overflow-y: auto; }
+.cx-timeline li { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 0.9rem; }
+.cx-timeline__year { font-weight: 700; min-width: 3.2em; }
+.cx-timeline__agree { color: var(--muted); }
+.cx-sources { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 0.9rem; overflow-wrap: anywhere; }
+
+/* yearly view */
+.cx-harm { display: grid; gap: 14px; min-width: 0; }
+.cx-scrub { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.cx-scrub__label { display: flex; align-items: center; gap: 8px; font-weight: 600; flex: 1 1 220px; }
+.cx-scrub__year { font-size: 1.3rem; min-width: 3.4em; font-variant-numeric: tabular-nums; }
+.cx-range { flex: 1; min-width: 0; width: 100%; min-height: 44px; accent-color: var(--leaf); }
+.cx-yearcard { border: 2px solid var(--soil); border-radius: 12px; background: var(--paper); padding: 12px 14px; }
+.cx-yeargrid { margin: 0; display: grid; gap: 6px; grid-template-columns: minmax(0, 1fr); }
+.cx-yeargrid > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 10px; border-bottom: 1px dotted var(--line); padding-bottom: 4px; }
+.cx-yeargrid dt { font-weight: 600; }
+.cx-yeargrid dd { margin: 0; font-variant-numeric: tabular-nums; }
+.cx-yeargrid .is-gap dd { color: var(--muted); font-style: italic; }
+.cx-rows { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); }
+.cx-row { margin: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); padding: 8px; min-width: 0; display: grid; gap: 6px; }
+.cx-row__cap { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.cx-row__name { font-weight: 700; }
+.cx-row__res { font-size: 0.82rem; color: var(--muted); }
+.cx-row__none { margin: 0; padding: 10px; border: 2px dashed #b9ad85; border-radius: 8px; background: #f6efdb; font-size: 0.9rem; overflow-wrap: anywhere; }
+.cx-row__note { margin: 0; font-size: 0.84rem; color: var(--soil-soft); }
+.cx-res { margin: 0; padding-left: 20px; display: grid; gap: 4px; font-size: 0.9rem; }
+.cx-row svg { max-width: 100%; }
+
+/* map */
+.cx-mapwrap { display: grid; gap: 10px; min-width: 0; }
+.cx-layers { border: 1px solid var(--line); border-radius: 10px; background: var(--paper); padding: 8px 12px 10px; margin: 0; display: grid; gap: 8px; min-width: 0; }
+.cx-layers legend { font-weight: 700; padding: 0 4px; }
+.cx-layers__row { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.cx-radio { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+.cx-radio.is-disabled { color: var(--muted); }
+.cx-check, .cx-opacity { display: flex; align-items: center; gap: 8px; min-height: 44px; flex-wrap: wrap; }
+.cx-opacity input { min-height: 44px; accent-color: var(--leaf); }
+.cx-maplayermsg { margin: 0; padding: 8px 12px; border: 2px dashed #b9ad85; border-radius: 10px; background: #f6efdb; font-size: 0.9rem; overflow-wrap: anywhere; }
+.cx-timeline-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.cx-timeline-ctl input[type="range"] { flex: 1 1 160px; min-width: 0; min-height: 44px; accent-color: var(--leaf); }
+.cx-timeline-ctl__now { margin: 0; flex-basis: 100%; font-weight: 600; font-variant-numeric: tabular-nums; }
+.cx-play { min-width: 96px; }
+.cx-map { height: 420px; width: 100%; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; position: relative; z-index: 0; }
+.cx-map .leaflet-container { height: 100%; width: 100%; font: inherit; }
+.cx-map-loading { height: 420px; display: grid; place-items: center; color: var(--soil-soft); border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
+.cx-leaflet { height: 100%; width: 100%; }
+.cx-raster { image-rendering: pixelated; image-rendering: crisp-edges; }
+.cx-edge-tip { font-size: 0.75rem; padding: 2px 6px; }
+.cx-readout { margin: 0; min-height: 2.6em; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); font-size: 0.92rem; overflow-wrap: anywhere; }
+.cx-overlaylabel { margin: 0; font-size: 0.88rem; overflow-wrap: anywhere; }
+.cx-legend { border: 1px solid var(--line); border-radius: 10px; background: var(--paper); padding: 8px 12px; min-width: 0; }
+.cx-legend__title { margin: 0 0 6px; font-weight: 700; font-size: 0.92rem; }
+.cx-legend__bins { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); font-size: 0.84rem; }
+.cx-legend__bins li { display: flex; align-items: center; gap: 6px; }
+.cx-legend__sw { flex: none; width: 22px; height: 14px; border: 1px solid var(--soil); border-radius: 2px; }
+.cx-legend__sw--hatch { background: repeating-linear-gradient(45deg, var(--hatch-a) 0 2px, var(--hatch-b) 2px 6px); }
+
+/* how we know additions */
+.cx-layersources .hk-sources { display: grid; gap: 14px; }
+.cx-layersources li { overflow-wrap: anywhere; }
+
+@media (min-width: 720px) {
+  .cx-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cx-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cx-yeargrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cx-skel span { animation: none !important; }
+}
+
+.cx-toplink { margin: 0; font-weight: 600; }
+.cx-toplink a { display: inline-flex; align-items: center; min-height: 44px; }
+.cx-herolinks .btn { text-decoration: none; }

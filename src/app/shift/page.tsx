@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import ShiftContent, { LoadingState } from "@/components/shift/ShiftContent";
 import "@/components/shift/shift.css";
+import "@/components/conditions/conditions.css";
 
 export const metadata: Metadata = {
   title: "Field shift | Field Rewind",

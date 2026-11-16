@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { getPowerData } from "@/lib/power";
 import { validateCoordinates } from "@/lib/power/grid";
 import { computeShift } from "@/lib/shift/compute";
@@ -26,6 +27,8 @@ function parse(v: string | string[] | undefined): number {
 
 export default async function ShiftContent({ searchParams }: { searchParams: Promise<Params> }) {
   const sp = await searchParams;
+  // Reading the clock (live fetch cache age, saved-vs-live decisions) must happen at request time, not while prerendering.
+  await connection();
   const lat = parse(sp.lat);
   const lon = parse(sp.lon);
   const bad = validateCoordinates(lat, lon);
@@ -66,6 +69,7 @@ export default async function ShiftContent({ searchParams }: { searchParams: Pro
     <>
       <Hero tone={heroTone(metrics)} place={place} gridText={gridText} headline={shift.overallHeadline} detail={shift.overallDetail} />
       <main className="sh-main">
+        <p className="cx-toplink"><Link href={`/conditions?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`}>Field conditions for this spot: soil wetness, frost, vegetation, terrain, ground checks</Link></p>
         {power.status === "partial" && <PartialNotice power={power} mode="shift" />}
         <aside className="sh-cta" aria-labelledby="cta-h">
           <div>

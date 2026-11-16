@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { usableCrops } from "@/lib/crops/catalog";
 import { cropRegionNotice } from "@/lib/crops/region";
 import { getPowerData, loadSavedDemoPin } from "@/lib/power";
@@ -24,6 +25,8 @@ function parse(v: string | string[] | undefined): number {
 
 export default async function ReplayContent({ searchParams }: { searchParams: Promise<Params> }) {
   const sp = await searchParams;
+  // Reading the clock must happen at request time, not while prerendering.
+  await connection();
   // Example farm: the committed saved Brentwood response only. It never goes through the live path, so it cannot contact NASA.
   const exampleFarm = sp[EXAMPLE_FARM_PARAM] === "1";
   const lat = exampleFarm ? exampleFarmPin().lat : parse(sp.lat);
@@ -88,6 +91,9 @@ export default async function ReplayContent({ searchParams }: { searchParams: Pr
             <li className={`chip ${power.origin === "saved" ? "chip--saved" : ""}`} data-testid="origin-chip">{powerOriginLine(power)}</li>
             <li className="chip">{gridText}</li>
           </ul>
+          <p className="cx-herolinks">
+            <Link className="btn btn--ghost" href={`/conditions?lat=${lat.toFixed(4)}&lon=${lon.toFixed(4)}`}>Field conditions for this spot</Link>
+          </p>
         </div>
       </header>
       {power.status === "partial" && <div className="rp-partial"><PartialNotice power={power} mode="replay" /></div>}

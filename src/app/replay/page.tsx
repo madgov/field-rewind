@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import ReplayContent, { ReplayLoading } from "@/components/replay/ReplayContent";
 import "@/components/shift/shift.css";
+import "@/components/conditions/conditions.css";
 import "@/components/replay/replay.css";
 
 export const metadata: Metadata = {

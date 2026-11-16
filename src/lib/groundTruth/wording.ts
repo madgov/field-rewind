@@ -4,7 +4,7 @@
  */
 import { formatUtc } from "../power/label";
 import { groundOriginLine } from "./label";
-import type { CdlHistory, GaugeProductStats, GroundTruthOk, Layer, PairStats, WellFact } from "./types";
+import type { CdlHistory, GaugeProductStats, GroundTruthOk, PairStats, WellFact } from "./types";
 
 function finite(n: number): number {
   if (!Number.isFinite(n)) throw new Error(`Refusing to put a non-finite number (${n}) into wording.`);
@@ -13,7 +13,6 @@ function finite(n: number): number {
 const num = (n: number, d = 1) => finite(n).toFixed(d);
 const abs = (n: number, d = 1) => Math.abs(finite(n)).toFixed(d);
 const r2 = (n: number | null) => (n === null ? "not defined (no variation)" : finite(n).toFixed(2));
-const higherLower = (diff: number, tiny = 0.05) => (Math.abs(diff) < tiny ? "about the same as" : diff > 0 ? "higher than" : "lower than");
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 const dateLong = (iso: string) => formatUtc(`${iso}T00:00:00Z`).replace(/, 00:00 UTC$/, "");
 

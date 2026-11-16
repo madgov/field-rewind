@@ -1,5 +1,9 @@
 import type { NextConfig } from "next";
 
+// Saved responses for the Field conditions layers (all read at runtime via process.cwd()). /shift and /replay read them too, for the
+// "How we know" panel's saved-response dates.
+const LAYER_DATA = ["./data/power-extra/**", "./data/ndvi/**", "./data/landform/**", "./data/ground-truth/**"];
+
 const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
@@ -11,8 +15,9 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/power": ["./data/power/*.json"],
     "/dev": ["./data/power/*.json"],
-    "/shift": ["./data/power/*.json", "./data/cimis/*.json", "./data/openet/*.json"],
-    "/replay": ["./data/power/*.json", "./data/cimis/*.json", "./data/openet/*.json"],
+    "/shift": ["./data/power/*.json", "./data/cimis/*.json", "./data/openet/*.json", ...LAYER_DATA],
+    "/replay": ["./data/power/*.json", "./data/cimis/*.json", "./data/openet/*.json", ...LAYER_DATA],
+    "/conditions": ["./data/power/*.json", "./data/cimis/*.json", "./data/openet/*.json", ...LAYER_DATA],
   },
 };
 

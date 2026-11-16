@@ -23,6 +23,9 @@ export default function CoordinatePanel({ pin }: { pin: Pin | null }) {
       <Link className="panel__link" href={`/replay?lat=${pin.lat.toFixed(4)}&lon=${pin.lon.toFixed(4)}`}>
         Replay 40 seasons with your crops and water
       </Link>
+      <Link className="panel__link" href={`/conditions?lat=${pin.lat.toFixed(4)}&lon=${pin.lon.toFixed(4)}`}>
+        Field conditions: soil, heat, vegetation, terrain
+      </Link>
       <dl className="panel__list">
         <div>
           <dt>Latitude</dt>

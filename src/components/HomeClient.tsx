@@ -5,7 +5,7 @@ import Link from "next/link";
 import { DEMO_PINS } from "@/lib/demoPins";
 import PinPicker from "./PinPicker";
 import CoordinatePanel from "./CoordinatePanel";
-import { EXAMPLE_FARM_LABEL, exampleFarmHref } from "./replay/exampleFarm";
+import { EXAMPLE_FARM_LABEL, EXAMPLE_FARM_PARAM, exampleFarmHref } from "./replay/exampleFarm";
 import { samePin, type Pin } from "./geo";
 
 export default function HomeClient() {
@@ -29,6 +29,7 @@ export default function HomeClient() {
             <p className="examplefarm__text">
               Opens the 40-season replay for Brentwood with three example rotations and an example water supply, using a saved NASA weather response. It needs no connection to NASA. The rotations and supply are a constructed example, not a real farm&rsquo;s records.
             </p>
+            <p className="examplefarm__text"><Link href={`/conditions?${EXAMPLE_FARM_PARAM}=1`}>See the same example farm&rsquo;s field conditions (soil wetness, frost, satellite greenness, terrain)</Link></p>
           </div>
           <Link className="examplefarm__btn" href={exampleFarmHref()}>{EXAMPLE_FARM_LABEL}</Link>
         </section>
