@@ -1,3 +1,4 @@
+import { HEAT_THRESHOLD_UNKNOWN_TEXT } from "@/lib/crops/heat";
 import type { Crop, Sourced } from "@/lib/crops/types";
 
 export type ExcludedCrop = {
@@ -45,7 +46,7 @@ export default function CropSources({ crops, excluded, compiledOn }: { crops: Cr
             {rows(c).map((r) => (
               <li key={r.label} className="src__row">
                 <span className="src__label">{r.label}</span>
-                <strong className="src__val">{String(r.f.value)}{r.unit}</strong>
+                <strong className="src__val">{r.f.value === null || r.f.value === undefined ? (r.f === c.heatThresholdC ? HEAT_THRESHOLD_UNKNOWN_TEXT : "unknown (no sourced value)") : `${String(r.f.value)}${r.unit}`}</strong>
                 <Cite f={r.f} />
               </li>
             ))}

@@ -11,7 +11,11 @@ export function getCrop(id: string): Crop | undefined {
   return CROP_CATALOG.crops.find((c) => c.id === id);
 }
 
-/** Every Sourced value a crop must carry to be used in the replay, as [field path, value]. */
+/**
+ * Every WATER parameter a crop must carry to be used in the replay, as [field path, value].
+ * The heat threshold is not here: it only feeds the information-only hot-day count and never
+ * changes the water result. See heatThresholdKnown().
+ */
 function requiredFields(crop: Crop): [string, Sourced<unknown>][] {
   return [
     ["kc.ini", crop.kc.ini],
@@ -24,11 +28,18 @@ function requiredFields(crop: Crop): [string, Sourced<unknown>][] {
     ["planting.windowStart", crop.planting.windowStart],
     ["planting.windowEnd", crop.planting.windowEnd],
     ["planting.defaultDate", crop.planting.defaultDate],
-    ["heatThresholdC", crop.heatThresholdC],
   ];
 }
 
-/** A crop is usable only if every Sourced value is non-null. */
+/** True when the crop has a sourced heat threshold. When false, hot days are reported as unknown (null), never 0. */
+export function heatThresholdKnown(crop: Crop): boolean {
+  const v = crop.heatThresholdC.value;
+  return typeof v === "number" && Number.isFinite(v);
+}
+
+export { HEAT_THRESHOLD_UNKNOWN_TEXT } from "./heat";
+
+/** A crop is usable for the water replay only if every water parameter is sourced (non-null). */
 export function isCropUsable(crop: Crop): CropUsability {
   const missing = requiredFields(crop)
     .filter(([, f]) => f.value === null || f.value === undefined)

@@ -1,3 +1,4 @@
+import { HEAT_THRESHOLD_UNKNOWN_TEXT } from "@/lib/crops/heat";
 import type { SeasonResult } from "@/lib/replay/types";
 import { describeSeason, displayedFigures } from "@/lib/replay/wording";
 import { formatMm, formatTempC, formatTempF } from "@/lib/shift/units";
@@ -68,7 +69,9 @@ export default function Gauge({ name, s }: { name: string; s: SeasonResult }) {
       </div>
       {!grey && (
         <p className="gauge__heat">
-          Hot days (over {formatTempC(s.heatThresholdC)}, {formatTempF(s.heatThresholdC)}): {s.heatDays ?? 0}. Shown for information only; they do not change the result.
+          {s.heatThresholdC === null || s.heatDays === null
+            ? `${HEAT_THRESHOLD_UNKNOWN_TEXT}. Hot days never change the result.`
+            : `Hot days (over ${formatTempC(s.heatThresholdC)}, ${formatTempF(s.heatThresholdC)}): ${s.heatDays}. Shown for information only; they do not change the result.`}
         </p>
       )}
       {missingBits.length > 0 && !grey && (

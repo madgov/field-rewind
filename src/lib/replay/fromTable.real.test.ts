@@ -47,7 +47,10 @@ describe("replayFromSeasonTable equals replay() on the saved Brentwood record", 
   it("the table holds only usable crops, 40 seasons each, and nothing from the 15k-day record", () => {
     expect(Object.keys(table.needs).sort()).toEqual(usableCrops().map((c) => c.id).sort());
     for (const list of Object.values(table.needs)) expect(list).toHaveLength(40);
-    expect(JSON.stringify(table).length).toBeLessThan(250_000);
+    // Size scales with the number of usable crops (40 seasons each); the daily record itself must not ride along.
+    const size = JSON.stringify(table).length;
+    expect(size).toBeLessThan(40_000 * usableCrops().length);
+    expect(size).toBeLessThan(JSON.stringify(power.days).length / 2);
   });
 
   it("reports a missing table entry instead of guessing", () => {

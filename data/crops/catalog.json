@@ -558,25 +558,25 @@
       },
       "planting": {
         "windowStart": {
-          "value": null,
-          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
-          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36): no dry-bean row exists for California",
-          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
-          "note": "Unknown (window start). The NASS California table lists no dry edible beans. FAO-56 Table 11 prints only the month 'June' for the row used. UC IPM page https://ipm.ucanr.edu/agriculture/dry-beans/planting-to-stand-establishment was read and gives no planting dates; UC ANR Publication 8402 (Common Dry Bean Production in California) could not be opened."
+          "value": "06-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Beans (dry)', region 'Pakistan, Calif.', plant date column prints 'June' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'June' for this row (FAO row's planting month, region 'Pakistan, Calif.'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
         },
         "windowEnd": {
-          "value": null,
-          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
-          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36): no dry-bean row exists for California",
-          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
-          "note": "Unknown (window end). The NASS California table lists no dry edible beans. FAO-56 Table 11 prints only the month 'June' for the row used. UC IPM page https://ipm.ucanr.edu/agriculture/dry-beans/planting-to-stand-establishment was read and gives no planting dates; UC ANR Publication 8402 (Common Dry Bean Production in California) could not be opened."
+          "value": "06-30",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Beans (dry)', region 'Pakistan, Calif.', plant date column prints 'June' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'June' for this row (FAO row's planting month, region 'Pakistan, Calif.'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
         },
         "defaultDate": {
-          "value": null,
-          "source": "USDA NASS, Field Crops: Usual Planting and Harvesting Dates (Agricultural Handbook 628, October 2010)",
-          "page": "Table 'Usual Planting and Harvesting Dates by Crop - California' (p. 36): no dry-bean row exists for California",
-          "url": "https://usda.library.cornell.edu/concern/publications/vm40xr56k",
-          "note": "Unknown (default date; only the month 'June' is printed in Table 11). The NASS California table lists no dry edible beans. FAO-56 Table 11 prints only the month 'June' for the row used. UC IPM page https://ipm.ucanr.edu/agriculture/dry-beans/planting-to-stand-establishment was read and gives no planting dates; UC ANR Publication 8402 (Common Dry Bean Production in California) could not be opened."
+          "value": "06-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Beans (dry)', region 'Pakistan, Calif.', plant date column prints 'June' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'June' for this row (FAO row's planting month, region 'Pakistan, Calif.'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
         }
       },
       "heatThresholdC": {
@@ -585,6 +585,1593 @@
         "page": "Table 2 p. 590, row 'Dry bean', column Tfp, entry '32 (yield)'; text p. 588 and p. 593",
         "url": "https://doi.org/10.1007/s10584-011-0028-6",
         "note": "Tfp = failure-point temperature at which yield fails to zero (Luo p. 584). Cited to Prasad et al. 2002 and Laing et al. 1984. Text p. 593: high temperature (32/27 C day/night) shortly before and at anthesis reduced pod set and seed set substantially (Gross and Kigel 1994); pollen production per flower reduced above 31/21 C and pollen viability dramatically reduced above 34/24 C (Prasad et al. 2002). Day vs mean basis of the 32 C is not stated in the table."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "grain-sorghum",
+      "name": "Grain sorghum (milo)",
+      "kc": {
+        "ini": {
+          "value": 0.3,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sorghum - grain', Kc ini inherited from group header 'i. Cereals'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'i. Cereals' (0.3); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.1,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sorghum - grain', column Kc mid (printed '1.00-1.10')",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed range 1.00-1.10 with no stated condition; the higher printed value is used (catalog convention for unconditioned ranges)."
+        },
+        "end": {
+          "value": 0.55,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sorghum - grain', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sorghum', region 'USA, Pakis., Med.', plant date 'May/June', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "dev": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sorghum', region 'USA, Pakis., Med.', plant date 'May/June', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 40,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sorghum', region 'USA, Pakis., Med.', plant date 'May/June', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sorghum', region 'USA, Pakis., Med.', plant date 'May/June', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "05-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sorghum', region 'USA, Pakis., Med.', plant date column prints 'May/June' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'May/June' for this row (FAO row's planting month, region 'USA, Pakis., Med.'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "06-30",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sorghum', region 'USA, Pakis., Med.', plant date column prints 'May/June' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'May/June' for this row (FAO row's planting month, region 'USA, Pakis., Med.'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "05-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sorghum', region 'USA, Pakis., Med.', plant date column prints 'May/June' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'May/June' for this row (FAO row's planting month, region 'USA, Pakis., Med.'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "barley",
+      "name": "Barley",
+      "kc": {
+        "ini": {
+          "value": 0.3,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Barley', Kc ini inherited from group header 'i. Cereals'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'i. Cereals' (0.3); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Barley', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Barley', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        },
+        "dev": {
+          "value": 50,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        },
+        "mid": {
+          "value": 60,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "12-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date column prints 'Dec' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "12-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date column prints 'Dec' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "12-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date column prints 'Dec' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": true
+    },
+    {
+      "id": "oats",
+      "name": "Oats",
+      "kc": {
+        "ini": {
+          "value": 0.3,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Oats', Kc ini inherited from group header 'i. Cereals'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'i. Cereals' (0.3); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Oats', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Oats', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        },
+        "dev": {
+          "value": 50,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        },
+        "mid": {
+          "value": 60,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "12-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date column prints 'Dec' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "12-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date column prints 'Dec' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "12-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date column prints 'Dec' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": true
+    },
+    {
+      "id": "spring-wheat",
+      "name": "Spring wheat",
+      "kc": {
+        "ini": {
+          "value": 0.3,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Spring Wheat', Kc ini inherited from group header 'i. Cereals'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'i. Cereals' (0.3); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Spring Wheat', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Spring Wheat', column Kc end (printed '0.25-0.4', footnote 10)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 10: 'The higher value is for hand-harvested crops.' The lower value 0.25 is used for machine-harvested grain."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        },
+        "dev": {
+          "value": 50,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        },
+        "mid": {
+          "value": 60,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date 'Dec', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has one shared row group 'Barley/Oats/Wheat'; the 'Calif. Desert, USA' December row (20/50/60/30, total 160) is used, the only California row in the group."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "12-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date column prints 'Dec' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "12-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date column prints 'Dec' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "12-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Barley/Oats/Wheat', region 'Calif. Desert, USA', plant date column prints 'Dec' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": true
+    },
+    {
+      "id": "millet",
+      "name": "Millet (pearl millet, bajra)",
+      "kc": {
+        "ini": {
+          "value": 0.3,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Millet', Kc ini inherited from group header 'i. Cereals'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'i. Cereals' (0.3); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Millet', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.3,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Millet', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Millet', region 'Pakistan', plant date 'June', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California, Mediterranean or arid-region millet row; the 'Pakistan' June row is used (the other row is 'Central USA', April). Table 11/12 say 'Millet' without naming the species."
+        },
+        "dev": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Millet', region 'Pakistan', plant date 'June', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California, Mediterranean or arid-region millet row; the 'Pakistan' June row is used (the other row is 'Central USA', April). Table 11/12 say 'Millet' without naming the species."
+        },
+        "mid": {
+          "value": 40,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Millet', region 'Pakistan', plant date 'June', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California, Mediterranean or arid-region millet row; the 'Pakistan' June row is used (the other row is 'Central USA', April). Table 11/12 say 'Millet' without naming the species."
+        },
+        "late": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Millet', region 'Pakistan', plant date 'June', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California, Mediterranean or arid-region millet row; the 'Pakistan' June row is used (the other row is 'Central USA', April). Table 11/12 say 'Millet' without naming the species."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "06-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Millet', region 'Pakistan', plant date column prints 'June' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'June' for this row (FAO row's planting month, region 'Pakistan'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "06-30",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Millet', region 'Pakistan', plant date column prints 'June' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'June' for this row (FAO row's planting month, region 'Pakistan'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "06-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Millet', region 'Pakistan', plant date column prints 'June' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'June' for this row (FAO row's planting month, region 'Pakistan'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "safflower",
+      "name": "Safflower",
+      "kc": {
+        "ini": {
+          "value": 0.35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Safflower', Kc ini inherited from group header 'h. Oil Crops'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'h. Oil Crops' (0.35); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Safflower', column Kc mid (printed '1.0-1.15', footnote 9)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 9: 'The lower values are for rainfed crops having less dense plant populations.' The irrigated (higher) value 1.15 is used."
+        },
+        "end": {
+          "value": 0.25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Safflower', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Safflower', region 'California, USA', plant date 'April', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "dev": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Safflower', region 'California, USA', plant date 'April', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 45,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Safflower', region 'California, USA', plant date 'April', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Safflower', region 'California, USA', plant date 'April', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "04-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Safflower', region 'California, USA', plant date column prints 'April' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'April' for this row (FAO row's planting month, region 'California, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "04-30",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Safflower', region 'California, USA', plant date column prints 'April' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'April' for this row (FAO row's planting month, region 'California, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "04-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Safflower', region 'California, USA', plant date column prints 'April' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'April' for this row (FAO row's planting month, region 'California, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "lentil",
+      "name": "Lentil",
+      "kc": {
+        "ini": {
+          "value": 0.4,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Lentil', Kc ini inherited from group header 'e. Legumes (Leguminosae)'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'e. Legumes (Leguminosae)' (0.4); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.1,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Lentil', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.3,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Lentil', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lentil', region 'Arid Region', plant date 'Oct/Nov', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "dev": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lentil', region 'Arid Region', plant date 'Oct/Nov', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 70,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lentil', region 'Arid Region', plant date 'Oct/Nov', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 40,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lentil', region 'Arid Region', plant date 'Oct/Nov', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "10-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lentil', region 'Arid Region', plant date column prints 'Oct/Nov' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Oct/Nov' for this row (FAO row's planting month, region 'Arid Region'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "11-30",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lentil', region 'Arid Region', plant date column prints 'Oct/Nov' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Oct/Nov' for this row (FAO row's planting month, region 'Arid Region'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "10-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lentil', region 'Arid Region', plant date column prints 'Oct/Nov' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Oct/Nov' for this row (FAO row's planting month, region 'Arid Region'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": true
+    },
+    {
+      "id": "soybean",
+      "name": "Soybean",
+      "kc": {
+        "ini": {
+          "value": 0.4,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Soybeans', Kc ini inherited from group header 'e. Legumes (Leguminosae)'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'e. Legumes (Leguminosae)' (0.4); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Soybeans', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.5,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Soybeans', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Soybeans', region 'Japan', plant date 'June', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California, Mediterranean or arid-region soybean row. Rows are 'Tropics' (Dec), 'Central USA' (May, development printed '30/35', ambiguous) and 'Japan' (June). The 'Japan' June row is used because it is the only temperate row with single printed values; it is a humid-climate row."
+        },
+        "dev": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Soybeans', region 'Japan', plant date 'June', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California, Mediterranean or arid-region soybean row. Rows are 'Tropics' (Dec), 'Central USA' (May, development printed '30/35', ambiguous) and 'Japan' (June). The 'Japan' June row is used because it is the only temperate row with single printed values; it is a humid-climate row."
+        },
+        "mid": {
+          "value": 75,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Soybeans', region 'Japan', plant date 'June', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California, Mediterranean or arid-region soybean row. Rows are 'Tropics' (Dec), 'Central USA' (May, development printed '30/35', ambiguous) and 'Japan' (June). The 'Japan' June row is used because it is the only temperate row with single printed values; it is a humid-climate row."
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Soybeans', region 'Japan', plant date 'June', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California, Mediterranean or arid-region soybean row. Rows are 'Tropics' (Dec), 'Central USA' (May, development printed '30/35', ambiguous) and 'Japan' (June). The 'Japan' June row is used because it is the only temperate row with single printed values; it is a humid-climate row."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "06-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Soybeans', region 'Japan', plant date column prints 'June' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'June' for this row (FAO row's planting month, region 'Japan'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "06-30",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Soybeans', region 'Japan', plant date column prints 'June' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'June' for this row (FAO row's planting month, region 'Japan'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "06-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Soybeans', region 'Japan', plant date column prints 'June' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'June' for this row (FAO row's planting month, region 'Japan'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "groundnut",
+      "name": "Groundnut (peanut)",
+      "kc": {
+        "ini": {
+          "value": 0.4,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Groundnut (Peanut)', Kc ini inherited from group header 'e. Legumes (Leguminosae)'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'e. Legumes (Leguminosae)' (0.4); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Groundnut (Peanut)', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.6,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Groundnut (Peanut)', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Groundnut', region 'Mediterranean', plant date 'May/June', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 'Mediterranean' row 35/45/35/25 (total 140). Its plant-date cell renders as 'May May/June' because of a merged cell spanning the rows above; 'May/June' is read as the Mediterranean entry."
+        },
+        "dev": {
+          "value": 45,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Groundnut', region 'Mediterranean', plant date 'May/June', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 'Mediterranean' row 35/45/35/25 (total 140). Its plant-date cell renders as 'May May/June' because of a merged cell spanning the rows above; 'May/June' is read as the Mediterranean entry."
+        },
+        "mid": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Groundnut', region 'Mediterranean', plant date 'May/June', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 'Mediterranean' row 35/45/35/25 (total 140). Its plant-date cell renders as 'May May/June' because of a merged cell spanning the rows above; 'May/June' is read as the Mediterranean entry."
+        },
+        "late": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Groundnut', region 'Mediterranean', plant date 'May/June', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 'Mediterranean' row 35/45/35/25 (total 140). Its plant-date cell renders as 'May May/June' because of a merged cell spanning the rows above; 'May/June' is read as the Mediterranean entry."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "05-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Groundnut', region 'Mediterranean', plant date column prints 'May/June' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'May/June' for this row (FAO row's planting month, region 'Mediterranean'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "06-30",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Groundnut', region 'Mediterranean', plant date column prints 'May/June' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'May/June' for this row (FAO row's planting month, region 'Mediterranean'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "05-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Groundnut', region 'Mediterranean', plant date column prints 'May/June' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'May/June' for this row (FAO row's planting month, region 'Mediterranean'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "potato",
+      "name": "Potato",
+      "kc": {
+        "ini": {
+          "value": 0.5,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Potato', Kc ini inherited from group header 'd. Roots and Tubers'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'd. Roots and Tubers' (0.5); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Potato', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.75,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Potato', column Kc end (printed '0.75' with footnote 4)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 4: Kc end is about 0.40 for long-season potatoes with vine kill; the printed 0.75 is used (no vine kill assumed)."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Potato', region 'Calif. Desert, USA', plant date 'Dec', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "dev": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Potato', region 'Calif. Desert, USA', plant date 'Dec', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 50,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Potato', region 'Calif. Desert, USA', plant date 'Dec', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 25,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Potato', region 'Calif. Desert, USA', plant date 'Dec', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "12-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Potato', region 'Calif. Desert, USA', plant date column prints 'Dec' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "12-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Potato', region 'Calif. Desert, USA', plant date column prints 'Dec' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "12-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Potato', region 'Calif. Desert, USA', plant date column prints 'Dec' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Dec' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": true
+    },
+    {
+      "id": "processing-tomato",
+      "name": "Processing tomato",
+      "kc": {
+        "ini": {
+          "value": 0.6,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Tomato', Kc ini inherited from group header 'b. Vegetables - Solanum Family (Solanaceae)'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'b. Vegetables - Solanum Family (Solanaceae)' (0.6); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Tomato', column Kc mid (printed '1.15' with footnote 2)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 2: use 1.20 for tomatoes grown on stakes 1.5-2 m tall. Processing tomatoes are not staked, so 1.15 is used."
+        },
+        "end": {
+          "value": 0.9,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Tomato', column Kc end (printed '0.70-0.90')",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Printed range 0.70-0.90 with no stated condition; the higher printed value is used (catalog convention for unconditioned ranges, as for cotton and rice)."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Tomato', region 'Calif., USA', plant date 'Apr/May', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "dev": {
+          "value": 40,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Tomato', region 'Calif., USA', plant date 'Apr/May', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 50,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Tomato', region 'Calif., USA', plant date 'Apr/May', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Tomato', region 'Calif., USA', plant date 'Apr/May', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "04-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Tomato', region 'Calif., USA', plant date column prints 'Apr/May' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Apr/May' for this row (FAO row's planting month, region 'Calif., USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "05-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Tomato', region 'Calif., USA', plant date column prints 'Apr/May' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Apr/May' for this row (FAO row's planting month, region 'Calif., USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "04-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Tomato', region 'Calif., USA', plant date column prints 'Apr/May' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Apr/May' for this row (FAO row's planting month, region 'Calif., USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "onion",
+      "name": "Onion (dry bulb)",
+      "kc": {
+        "ini": {
+          "value": 0.7,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Onions - dry', Kc ini inherited from group header 'a. Small Vegetables'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'a. Small Vegetables' (0.7); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.05,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Onions - dry', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.75,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Onions - dry', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Onion (dry)', region 'Calif.', plant date 'Jan.', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 row prints plant date 'Oct; Jan.' and region 'Arid Region; Calif.'; the California reading (January) is used. Stage lengths 20/35/110/45 (total 210) are shared by both readings."
+        },
+        "dev": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Onion (dry)', region 'Calif.', plant date 'Jan.', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 row prints plant date 'Oct; Jan.' and region 'Arid Region; Calif.'; the California reading (January) is used. Stage lengths 20/35/110/45 (total 210) are shared by both readings."
+        },
+        "mid": {
+          "value": 110,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Onion (dry)', region 'Calif.', plant date 'Jan.', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 row prints plant date 'Oct; Jan.' and region 'Arid Region; Calif.'; the California reading (January) is used. Stage lengths 20/35/110/45 (total 210) are shared by both readings."
+        },
+        "late": {
+          "value": 45,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Onion (dry)', region 'Calif.', plant date 'Jan.', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 row prints plant date 'Oct; Jan.' and region 'Arid Region; Calif.'; the California reading (January) is used. Stage lengths 20/35/110/45 (total 210) are shared by both readings."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "01-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Onion (dry)', region 'Calif.', plant date column prints 'Jan.' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Jan.' for this row (FAO row's planting month, region 'Calif.'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "01-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Onion (dry)', region 'Calif.', plant date column prints 'Jan.' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Jan.' for this row (FAO row's planting month, region 'Calif.'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "01-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Onion (dry)', region 'Calif.', plant date column prints 'Jan.' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Jan.' for this row (FAO row's planting month, region 'Calif.'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "carrot",
+      "name": "Carrot",
+      "kc": {
+        "ini": {
+          "value": 0.7,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Carrots', Kc ini inherited from group header 'a. Small Vegetables'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'a. Small Vegetables' (0.7); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.05,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Carrots', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.95,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Carrots', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Carrots', region 'Calif. Desert, USA', plant date 'Oct', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "dev": {
+          "value": 50,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Carrots', region 'Calif. Desert, USA', plant date 'Oct', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 90,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Carrots', region 'Calif. Desert, USA', plant date 'Oct', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Carrots', region 'Calif. Desert, USA', plant date 'Oct', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "10-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Carrots', region 'Calif. Desert, USA', plant date column prints 'Oct' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Oct' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "10-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Carrots', region 'Calif. Desert, USA', plant date column prints 'Oct' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Oct' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "10-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Carrots', region 'Calif. Desert, USA', plant date column prints 'Oct' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Oct' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": true
+    },
+    {
+      "id": "lettuce",
+      "name": "Lettuce",
+      "kc": {
+        "ini": {
+          "value": 0.7,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Lettuce', Kc ini inherited from group header 'a. Small Vegetables'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'a. Small Vegetables' (0.7); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Lettuce', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.95,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Lettuce', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lettuce', region 'Mediterranean', plant date 'April', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has three Mediterranean lettuce rows (April, Nov/Jan, Feb) and one 'Arid Region' row (Oct/Nov); the first Mediterranean row (April, 20/30/15/10, total 75) is used."
+        },
+        "dev": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lettuce', region 'Mediterranean', plant date 'April', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has three Mediterranean lettuce rows (April, Nov/Jan, Feb) and one 'Arid Region' row (Oct/Nov); the first Mediterranean row (April, 20/30/15/10, total 75) is used."
+        },
+        "mid": {
+          "value": 15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lettuce', region 'Mediterranean', plant date 'April', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has three Mediterranean lettuce rows (April, Nov/Jan, Feb) and one 'Arid Region' row (Oct/Nov); the first Mediterranean row (April, 20/30/15/10, total 75) is used."
+        },
+        "late": {
+          "value": 10,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lettuce', region 'Mediterranean', plant date 'April', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has three Mediterranean lettuce rows (April, Nov/Jan, Feb) and one 'Arid Region' row (Oct/Nov); the first Mediterranean row (April, 20/30/15/10, total 75) is used."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "04-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lettuce', region 'Mediterranean', plant date column prints 'April' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'April' for this row (FAO row's planting month, region 'Mediterranean'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "04-30",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lettuce', region 'Mediterranean', plant date column prints 'April' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'April' for this row (FAO row's planting month, region 'Mediterranean'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "04-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Lettuce', region 'Mediterranean', plant date column prints 'April' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'April' for this row (FAO row's planting month, region 'Mediterranean'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "cantaloupe",
+      "name": "Cantaloupe",
+      "kc": {
+        "ini": {
+          "value": 0.5,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Cantaloupe', column Kc ini",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 0.85,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Cantaloupe', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.6,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Cantaloupe', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cantaloupe', region 'Calif., USA', plant date 'Jan', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has two 'Calif., USA' cantaloupe rows: January (30/45/35/10) and August (10/60/25/25). The January row is used."
+        },
+        "dev": {
+          "value": 45,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cantaloupe', region 'Calif., USA', plant date 'Jan', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has two 'Calif., USA' cantaloupe rows: January (30/45/35/10) and August (10/60/25/25). The January row is used."
+        },
+        "mid": {
+          "value": 35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cantaloupe', region 'Calif., USA', plant date 'Jan', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has two 'Calif., USA' cantaloupe rows: January (30/45/35/10) and August (10/60/25/25). The January row is used."
+        },
+        "late": {
+          "value": 10,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cantaloupe', region 'Calif., USA', plant date 'Jan', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has two 'Calif., USA' cantaloupe rows: January (30/45/35/10) and August (10/60/25/25). The January row is used."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "01-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cantaloupe', region 'Calif., USA', plant date column prints 'Jan' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Jan' for this row (FAO row's planting month, region 'Calif., USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "01-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cantaloupe', region 'Calif., USA', plant date column prints 'Jan' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Jan' for this row (FAO row's planting month, region 'Calif., USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "01-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Cantaloupe', region 'Calif., USA', plant date column prints 'Jan' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Jan' for this row (FAO row's planting month, region 'Calif., USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "sweet-melon",
+      "name": "Melon (honeydew, sweet melon)",
+      "kc": {
+        "ini": {
+          "value": 0.5,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sweet Melons', Kc ini inherited from group header 'c. Vegetables - Cucumber Family (Cucurbitaceae)'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'c. Vegetables - Cucumber Family (Cucurbitaceae)' (0.5); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.05,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sweet Melons', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.75,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Sweet Melons', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sweet melons', region 'Calif., USA', plant date 'March', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "dev": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sweet melons', region 'Calif., USA', plant date 'March', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 50,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sweet melons', region 'Calif., USA', plant date 'March', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sweet melons', region 'Calif., USA', plant date 'March', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "03-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sweet melons', region 'Calif., USA', plant date column prints 'March' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'March' for this row (FAO row's planting month, region 'Calif., USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "03-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sweet melons', region 'Calif., USA', plant date column prints 'March' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'March' for this row (FAO row's planting month, region 'Calif., USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "03-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Sweet melons', region 'Calif., USA', plant date column prints 'March' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'March' for this row (FAO row's planting month, region 'Calif., USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "watermelon",
+      "name": "Watermelon",
+      "kc": {
+        "ini": {
+          "value": 0.4,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Watermelon', column Kc ini",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Watermelon', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.75,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Watermelon', column Kc end",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Water melons', region 'Italy', plant date 'April', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California watermelon row; rows are 'Italy' (April) and 'Near East (desert)' (plant date misprinted 'Mat/Aug'). The Italy (Mediterranean) row is used."
+        },
+        "dev": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Water melons', region 'Italy', plant date 'April', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California watermelon row; rows are 'Italy' (April) and 'Near East (desert)' (plant date misprinted 'Mat/Aug'). The Italy (Mediterranean) row is used."
+        },
+        "mid": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Water melons', region 'Italy', plant date 'April', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California watermelon row; rows are 'Italy' (April) and 'Near East (desert)' (plant date misprinted 'Mat/Aug'). The Italy (Mediterranean) row is used."
+        },
+        "late": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Water melons', region 'Italy', plant date 'April', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 11 has no California watermelon row; rows are 'Italy' (April) and 'Near East (desert)' (plant date misprinted 'Mat/Aug'). The Italy (Mediterranean) row is used."
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "04-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Water melons', region 'Italy', plant date column prints 'April' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'April' for this row (FAO row's planting month, region 'Italy'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "04-30",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Water melons', region 'Italy', plant date column prints 'April' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'April' for this row (FAO row's planting month, region 'Italy'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "04-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Water melons', region 'Italy', plant date column prints 'April' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'April' for this row (FAO row's planting month, region 'Italy'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "sweet-corn",
+      "name": "Sweet corn",
+      "kc": {
+        "ini": {
+          "value": 0.3,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Maize, Sweet (sweet corn)', Kc ini inherited from group header 'i. Cereals'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'i. Cereals' (0.3); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.15,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Maize, Sweet (sweet corn)', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 1.05,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Maize, Sweet (sweet corn)', column Kc end (printed '1.05' with footnote 12)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 12: value is for sweet maize harvested fresh for human consumption."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (sweet)', region 'Calif. Desert, USA', plant date 'Jan', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "dev": {
+          "value": 40,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (sweet)', region 'Calif. Desert, USA', plant date 'Jan', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 70,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (sweet)', region 'Calif. Desert, USA', plant date 'Jan', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 10,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (sweet)', region 'Calif. Desert, USA', plant date 'Jan', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "01-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (sweet)', region 'Calif. Desert, USA', plant date column prints 'Jan' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Jan' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "01-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (sweet)', region 'Calif. Desert, USA', plant date column prints 'Jan' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Jan' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "01-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Maize (sweet)', region 'Calif. Desert, USA', plant date column prints 'Jan' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'Jan' for this row (FAO row's planting month, region 'Calif. Desert, USA'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
+      },
+      "spansNewYear": false
+    },
+    {
+      "id": "cowpea",
+      "name": "Cowpea (black-eyed pea)",
+      "kc": {
+        "ini": {
+          "value": 0.4,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Green Gram and Cowpeas', Kc ini inherited from group header 'e. Legumes (Leguminosae)'",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Table 12 prints Kc ini once on the group header row 'e. Legumes (Leguminosae)' (0.4); the crop's own row has a blank Kc ini cell, so the group value is used. Footnote 1: general value for typical irrigation management and soil wetting; it rises toward 1.0-1.2 with frequent wetting."
+        },
+        "mid": {
+          "value": 1.05,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Green Gram and Cowpeas', column Kc mid",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "end": {
+          "value": 0.35,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 12",
+          "page": "Row 'Green Gram and Cowpeas', column Kc end (printed '0.60-0.35', footnote 6)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "Footnote 6: 'The first Kc end is for harvested fresh. The second value is for harvested dry.' Dry-grain harvest (0.35) is used."
+        }
+      },
+      "stageDays": {
+        "ini": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Green gram, cowpeas', region 'Mediterranean', plant date 'March', column Init. (Lini)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "dev": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Green gram, cowpeas', region 'Mediterranean', plant date 'March', column Dev. (Ldev)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "mid": {
+          "value": 30,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Green gram, cowpeas', region 'Mediterranean', plant date 'March', column Mid (Lmid)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        },
+        "late": {
+          "value": 20,
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Green gram, cowpeas', region 'Mediterranean', plant date 'March', column Late (Llate)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm"
+        }
+      },
+      "planting": {
+        "windowStart": {
+          "value": "03-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Green gram, cowpeas', region 'Mediterranean', plant date column prints 'March' (window start)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'March' for this row (FAO row's planting month, region 'Mediterranean'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "windowEnd": {
+          "value": "03-31",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Green gram, cowpeas', region 'Mediterranean', plant date column prints 'March' (window end)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'March' for this row (FAO row's planting month, region 'Mediterranean'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop."
+        },
+        "defaultDate": {
+          "value": "03-01",
+          "source": "FAO Irrigation and Drainage Paper 56 (Allen et al. 1998), Chapter 6, Table 11",
+          "page": "Row 'Green gram, cowpeas', region 'Mediterranean', plant date column prints 'March' (default date)",
+          "url": "https://www.fao.org/4/x0490e/x0490e0b.htm",
+          "note": "FAO-56 Table 11 prints only the planting month(s) 'March' for this row (FAO row's planting month, region 'Mediterranean'). Window = first day of the first printed month to last day of the last printed month. This is not a local or farm-specific planting window; no UC or NASS California planting dates were sourced for this crop. Default = day 01 of the first printed month; the table gives no day."
+        }
+      },
+      "heatThresholdC": {
+        "value": null,
+        "source": "No sourced value",
+        "page": "n/a",
+        "note": "Unknown. No citable crop heat-stress threshold was found for this crop in the sources opened (Luo 2011 Table 1 and Table 2; FAO-56 and FAO-66 give none). Informational only; not used by the water replay."
       },
       "spansNewYear": false
     }

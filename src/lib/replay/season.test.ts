@@ -94,6 +94,7 @@ describe("season dates", () => {
     expect(resolveCrop(long).ok).toBe(false);
     expect(resolveCrop(fixtureCrop({ id: "bad", plant: "13-40" })).ok).toBe(false);
     expect(resolveCrop(fixtureCrop({ id: "nokc", kc: [0.4, null, 0.6] }))).toMatchObject({ ok: false });
-    expect(resolveCrop(fixtureCrop({ id: "noheat", heat: null }))).toMatchObject({ ok: false });
+    // The heat threshold is optional (information only): unknown resolves with a null threshold, never a guessed one.
+    expect(resolveCrop(fixtureCrop({ id: "noheat", heat: null }))).toMatchObject({ ok: true, crop: { heatThresholdC: null } });
   });
 });

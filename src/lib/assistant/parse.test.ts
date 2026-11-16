@@ -32,9 +32,47 @@ describe("parseFarmerText", () => {
   });
 
   it("puts unmodelled and non-catalog crops in unmatchedCrops", () => {
-    const u = parseFarmerText("tomatoes then wheat then sunflower then alfalfa, and dry beans, 20 inches");
+    const u = parseFarmerText("almonds then wheat then alfalfa, and chickpeas, 20 inches");
     expect(u.rotations[0].sequence).toEqual(["winter-wheat"]);
-    expect(u.unmatchedCrops).toEqual(["tomatoes", "Sunflower", "alfalfa", "Dry bean"]);
+    expect(u.unmatchedCrops).toEqual(["almonds", "alfalfa", "chickpeas"]);
+  });
+
+  it("maps farmers' words for the added crops to catalog ids", () => {
+    const cases: [string, string][] = [
+      ["milo", "grain-sorghum"],
+      ["sorghum", "grain-sorghum"],
+      ["barley", "barley"],
+      ["bajra", "millet"],
+      ["pearl millet", "millet"],
+      ["safflower", "safflower"],
+      ["dal", "lentil"],
+      ["soybeans", "soybean"],
+      ["soy", "soybean"],
+      ["peanuts", "groundnut"],
+      ["groundnut", "groundnut"],
+      ["potatoes", "potato"],
+      ["tomatoes", "processing-tomato"],
+      ["onions", "onion"],
+      ["carrots", "carrot"],
+      ["lettuce", "lettuce"],
+      ["cantaloupe", "cantaloupe"],
+      ["melons", "sweet-melon"],
+      ["watermelon", "watermelon"],
+      ["sweet corn", "sweet-corn"],
+      ["corn", "maize-grain"],
+      ["black-eyed peas", "cowpea"],
+      ["cowpeas", "cowpea"],
+      ["oats", "oats"],
+      ["spring wheat", "spring-wheat"],
+      ["wheat", "winter-wheat"],
+    ];
+    for (const [w, id] of cases) expect(cropWordToId(w), w).toEqual({ id });
+  });
+
+  it("keeps sweet corn and grain corn apart in a sentence", () => {
+    const u = parseFarmerText("sweet corn then corn then watermelon then milo, 600 mm");
+    expect(u.rotations[0].sequence).toEqual(["sweet-corn", "maize-grain", "watermelon", "grain-sorghum"]);
+    expect(u.unmatchedCrops).toEqual([]);
   });
 
   it("asks for crops when none can be modelled", () => {
@@ -92,7 +130,7 @@ describe("parseFarmerText", () => {
 describe("helpers", () => {
   it("maps crop words", () => {
     expect(cropWordToId("Grain corn")).toEqual({ id: "maize-grain" });
-    expect(cropWordToId("sugar beets")).toEqual({ unmatched: "Sugar beet (autumn-planted)" });
+    expect(cropWordToId("sugar beets")).toEqual({ id: "sugar-beet" });
     expect(cropWordToId("quinoa")).toEqual({ unmatched: "quinoa" });
   });
 

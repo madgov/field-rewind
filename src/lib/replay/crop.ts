@@ -25,7 +25,8 @@ export function resolveCrop(crop: Crop): ResolveResult {
   const mid = need("mid-season days", crop.stageDays.mid.value);
   const late = need("late-season days", crop.stageDays.late.value);
   const plant = need("default planting date", crop.planting.defaultDate.value);
-  const heat = need("heat threshold", crop.heatThresholdC.value);
+  // Optional: the heat threshold only feeds the information-only hot-day count. Unknown stays null, never guessed.
+  const heat = crop.heatThresholdC.value ?? null;
   // Not used by the replay arithmetic, but a crop with an unsourced planting window is excluded, same as the crop catalog's own usability rule.
   need("planting window start", crop.planting.windowStart.value);
   need("planting window end", crop.planting.windowEnd.value);
@@ -36,8 +37,8 @@ export function resolveCrop(crop: Crop): ResolveResult {
     ["Kc ini", kcIni as number],
     ["Kc mid", kcMid as number],
     ["Kc end", kcEnd as number],
-    ["heat threshold", heat as number],
   ];
+  if (heat !== null) nums.push(["heat threshold", heat]);
   for (const [label, v] of nums) {
     if (!Number.isFinite(v)) return { ok: false, reason: `${crop.name}: ${label} is not a finite number.` };
   }
@@ -80,7 +81,7 @@ export function resolveCrop(crop: Crop): ResolveResult {
       kcEnd: kcEnd as number,
       stageDays: days,
       plantingDate: plant as string,
-      heatThresholdC: heat as number,
+      heatThresholdC: heat,
       spansNewYearFlag: crop.spansNewYear,
       source: crop,
     },

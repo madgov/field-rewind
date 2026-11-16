@@ -30,7 +30,8 @@ export type ResolvedCrop = {
   stageDays: Record<StageName, number>;
   /** "MM-DD" */
   plantingDate: string;
-  heatThresholdC: number;
+  /** Null when the catalog has no sourced heat threshold: hot days are then not counted (null). */
+  heatThresholdC: number | null;
   /** The catalog's own flag, kept so a disagreement with the dates can be surfaced. */
   spansNewYearFlag: boolean;
   source: Crop;
@@ -71,9 +72,10 @@ export type SeasonNeed = {
   effectiveRainMm: number | null;
   /** max(0, ETc - effective rain), mm. Null when insufficient-data. */
   needMm: number | null;
-  /** Days with tMax above the crop's heat threshold (information only; never changes the result). Null when insufficient-data. */
+  /** Days with tMax above the crop's heat threshold (information only; never changes the result). Null when insufficient-data or when the heat threshold is unknown. */
   heatDays: number | null;
-  heatThresholdC: number;
+  /** Null when the crop has no sourced heat threshold. */
+  heatThresholdC: number | null;
   /** Season days with no ET0 (so no ETc). */
   missingEt0Days: number;
   /** Season days with no precipitation value. */

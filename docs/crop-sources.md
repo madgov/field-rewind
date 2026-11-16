@@ -4,14 +4,16 @@ Catalog: `data/crops/catalog.json` (types in `src/lib/crops/types.ts`, loader in
 
 ## Status
 
+A crop is usable when every water parameter is sourced: Kc ini/mid/end, the four stage lengths, and the planting window start, end and default date. The heat threshold is optional, because it only feeds the hot-day count, which is shown for information and never changes the water result. When a crop has no sourced heat threshold, the app shows "Heat threshold: unknown (no sourced value), so hot days are not counted for this crop" and its hot days are reported as unknown (null), never as 0 and never with a guessed threshold.
+
 | Crop | Usable in replay | Missing |
 |---|---|---|
 | Winter wheat (`winter-wheat`) | yes | - |
 | Maize (grain corn) (`maize-grain`) | yes | - |
 | Cotton (`cotton`) | yes | - |
 | Rice (paddy) (`rice`) | yes | - |
-| Sunflower (`sunflower`) | no | heatThresholdC |
-| Sugar beet (autumn-planted) (`sugar-beet`) | no | heatThresholdC |
+| Sunflower (`sunflower`) | yes | - (heat threshold unknown: hot days not counted) |
+| Sugar beet (autumn-planted) (`sugar-beet`) | yes | - (heat threshold unknown: hot days not counted) |
 | Dry bean (`dry-bean`) | no | planting.windowStart, planting.windowEnd, planting.defaultDate |
 
 ## Values per crop
@@ -177,3 +179,39 @@ Season crosses 31 Dec: `false`
 - **Stage lengths** are single indicative values from FAO-56 Table 11 ("indicative of general conditions ... may vary substantially from region to region, with climate and cropping conditions, and with crop variety"). Real fields vary by variety, planting date and year. The rice row is from the Mediterranean / May reading of a merged cell, and the sugar beet row from the California Desert row.
 - **Planting dates** are state-level NASS usual dates (California as a whole, 2009 data / 20-year progress), not Delta-specific. Default dates inside the window are chosen to be consistent with the planting month printed in the Table 11 row used.
 - **Heat thresholds** come from a literature review (Luo 2011) quoting experiments, mostly controlled-environment and mostly tied to a sensitive stage (anthesis, pollen viability). They are applied by the engine to daily maximum air temperature at any point in the season, which is a simplification, and the cotton, rice and dry-bean values are failure-point (Tfp) values whose exact day/night/mean basis the review does not state. The review's values for wheat, maize and rice are all 35 C, but they refer to different mechanisms (see each crop's note).
+
+## Added crops (2026-11-15): heat- and water-tolerant alternatives
+
+All Kc values from FAO-56 Table 12 and all stage lengths from FAO-56 Table 11 (https://www.fao.org/4/x0490e/x0490e0b.htm, read 2026-11-15). Where a crop's Table 12 row has a blank Kc ini, the group header value is used (same convention as cotton). Unconditioned printed ranges use the higher value; footnoted ranges follow the footnote. Planting windows are the FAO Table 11 row's printed planting month(s): window = first day of first month to last day of last month, default = day 01 of the first month. These are NOT local California planting dates (no UC or NASS planting dates were fetched for these crops in this pass). heatThresholdC is null (unknown) for every added crop: no citable threshold in the sources opened. It is informational only.
+
+| id | Table 11 row used (region, plant month) | Stage days ini/dev/mid/late | Kc ini / mid / end |
+|---|---|---|---|
+| grain-sorghum | Sorghum, "USA, Pakis., Med.", May/June | 20/35/40/30 | 0.3 (cereal group) / 1.10 (range 1.00-1.10) / 0.55 |
+| barley | Barley/Oats/Wheat, Calif. Desert, USA, Dec | 20/50/60/30 | 0.3 (group) / 1.15 / 0.25 |
+| oats | Barley/Oats/Wheat, Calif. Desert, USA, Dec | 20/50/60/30 | 0.3 (group) / 1.15 / 0.25 |
+| spring-wheat | Barley/Oats/Wheat, Calif. Desert, USA, Dec | 20/50/60/30 | 0.3 (group) / 1.15 / 0.25 (fn 10, machine harvest) |
+| millet | Millet, Pakistan, June (no Calif./Medit./arid row) | 15/25/40/25 | 0.3 (group) / 1.00 / 0.30 |
+| safflower | Safflower, California, USA, April | 20/35/45/25 | 0.35 (oil group) / 1.15 (fn 9, irrigated) / 0.25 |
+| lentil | Lentil, Arid Region, Oct/Nov | 25/35/70/40 | 0.4 (legume group) / 1.10 / 0.30 |
+| soybean | Soybeans, Japan, June (no Calif./Medit./arid row; Central USA row has ambiguous "30/35") | 20/25/75/30 | 0.4 (group) / 1.15 / 0.50 |
+| groundnut | Groundnut, Mediterranean, May/June (merged plant-date cell reads "May May/June") | 35/45/35/25 | 0.4 (group) / 1.15 / 0.60 |
+| potato | Potato, Calif. Desert, USA, Dec | 30/35/50/25 | 0.5 (root group) / 1.15 / 0.75 (no vine kill, fn 4) |
+| processing-tomato | Tomato, Calif., USA, Apr/May | 35/40/50/30 | 0.6 (Solanum group) / 1.15 (unstaked, fn 2) / 0.90 (range 0.70-0.90) |
+| onion | Onion (dry), "Arid Region; Calif.", California reading Jan | 20/35/110/45 | 0.7 (small veg group) / 1.05 / 0.75 |
+| carrot | Carrots, Calif. Desert, USA, Oct | 30/50/90/30 | 0.7 (group) / 1.05 / 0.95 |
+| lettuce | Lettuce, Mediterranean, April (first of three Medit. rows) | 20/30/15/10 | 0.7 (group) / 1.00 / 0.95 |
+| cantaloupe | Cantaloupe, Calif., USA, Jan (the Aug Calif. row not used) | 30/45/35/10 | 0.5 / 0.85 / 0.60 |
+| sweet-melon | Sweet melons, Calif., USA, March | 30/30/50/30 | 0.5 (cucurbit group) / 1.05 / 0.75 |
+| watermelon | Water melons, Italy, April (no Calif. row) | 20/30/30/30 | 0.4 / 1.00 / 0.75 |
+| sweet-corn | Maize (sweet), Calif. Desert, USA, Jan | 20/40/70/10 | 0.3 (group) / 1.15 / 1.05 (fresh, fn 12) |
+| cowpea | Green gram, cowpeas, Mediterranean, March | 20/30/30/20 | 0.4 (group) / 1.05 / 0.35 (dry harvest, fn 6) |
+
+Dry bean: planting window filled from its existing Table 11 row ("Pakistan, Calif.", June): 06-01 to 06-30, default 06-01, same month-only caveat.
+
+### Crops left out
+
+- **Chickpea / garbanzo**: Table 12 has Kc (Chick pea, Grabanzo) but Table 11 has no chickpea row, so stage lengths cannot be sourced.
+- **Canola / rapeseed**: Table 12 has Kc but Table 11 has no rapeseed or canola row.
+- **Quinoa**: not in Table 11 or Table 12.
+- **Sugar cane**: Table 11 seasons are 280-720 days (virgin and ratoon crops); not a single annual season.
+- **Alfalfa, orchards, vines**: perennials, out of scope for a one-season replay.

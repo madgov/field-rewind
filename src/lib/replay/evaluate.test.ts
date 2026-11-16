@@ -82,6 +82,22 @@ describe("season evaluation", () => {
     expect(rHot.outcome).toBe(rCool.outcome);
   });
 
+  it("an unknown heat threshold gives heatDays null (never 0) and the same water result", () => {
+    const noHeat = fixtureCrop({ id: "noheat", kc: [1, 1, 1], days: [10, 10, 10, 10], plant: "06-01", heat: null });
+    const r0 = resolveCrop(noHeat);
+    expect(r0.ok).toBe(true);
+    if (r0.ok) expect(r0.crop.heatThresholdC).toBeNull();
+    const c = makeClimate({ tMax: () => 45 });
+    const a = evaluateSeason(c, noHeat, 2001, 150);
+    const b = evaluateSeason(c, flat, 2001, 150);
+    expect(a.status).toBe("evaluated");
+    expect(a.heatDays).toBeNull();
+    expect(a.heatThresholdC).toBeNull();
+    expect(b.heatDays).toBe(40);
+    expect(a.needMm).toBe(b.needMm);
+    expect(a.outcome).toBe(b.outcome);
+  });
+
   it("10 missing ET0 days still evaluates (under-count, count carried); 11 is grey", () => {
     const start = dayNum(2000, 6, 1);
     const missing = (n: number) => (d: number) => (d >= start && d < start + n ? null : 5);

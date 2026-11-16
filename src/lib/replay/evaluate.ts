@@ -68,7 +68,7 @@ function computeNeed(climate: PreparedClimate, crop: ResolvedCrop, year: number)
     else seasonRainByMonth.set(key, (seasonRainByMonth.get(key) ?? 0) + p);
     const t = climate.tMax[off];
     if (Number.isNaN(t)) missingTMax++;
-    else if (t > crop.heatThresholdC) heat++;
+    else if (crop.heatThresholdC !== null && t > crop.heatThresholdC) heat++;
   }
 
   let missingPrecipMonthDays = 0;
@@ -124,7 +124,8 @@ function computeNeed(climate: PreparedClimate, crop: ResolvedCrop, year: number)
     etcMm: etc,
     effectiveRainMm: eff,
     needMm: Math.max(0, etc - eff),
-    heatDays: heat,
+    // Unknown threshold: hot days are unknown (null), never 0.
+    heatDays: crop.heatThresholdC === null ? null : heat,
   };
 }
 

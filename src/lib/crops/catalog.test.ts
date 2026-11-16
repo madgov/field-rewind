@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CROP_CATALOG, excludedCrops, getCrop, isCropUsable, usableCrops } from "./catalog";
+import { CROP_CATALOG, excludedCrops, getCrop, heatThresholdKnown, isCropUsable, usableCrops } from "./catalog";
 import type { Crop, Sourced } from "./types";
 
 function sourcedFields(c: Crop): [string, Sourced<unknown>][] {
@@ -110,7 +110,22 @@ describe("isCropUsable", () => {
     fixture.heatThresholdC.value = null;
     expect(isCropUsable(fixture)).toEqual({
       usable: false,
-      missing: ["kc.mid", "stageDays.late", "planting.windowEnd", "heatThresholdC"],
+      missing: ["kc.mid", "stageDays.late", "planting.windowEnd"],
     });
+  });
+
+  it("an unknown heat threshold alone does not exclude a crop", () => {
+    const fixture: Crop = structuredClone(getCrop("winter-wheat")!);
+    fixture.heatThresholdC.value = null;
+    expect(isCropUsable(fixture)).toEqual({ usable: true });
+    expect(heatThresholdKnown(fixture)).toBe(false);
+    expect(heatThresholdKnown(getCrop("winter-wheat")!)).toBe(true);
+  });
+
+  it("sunflower and sugar beet are usable (all water parameters sourced)", () => {
+    const ids = usableCrops().map((c) => c.id);
+    expect(ids).toContain("sunflower");
+    expect(ids).toContain("sugar-beet");
+    for (const { missing } of excludedCrops()) expect(missing).not.toContain("heatThresholdC");
   });
 });

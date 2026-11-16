@@ -37,9 +37,28 @@ export type Mentions = {
 /** Catalog synonyms. Order matters: "sugar beet" before "bean". */
 const CROP_SYNONYMS: { re: RegExp; id: string }[] = [
   { re: /\bsugar\s*beets?\b/, id: "sugar-beet" },
+  { re: /\b(?:soy\s*beans?|soya?)\b/, id: "soybean" },
+  { re: /\b(?:cow\s*peas?|black[\s-]*eyed?\s+(?:peas?|beans?)|blackeyes?)\b/, id: "cowpea" },
   { re: /\b(?:dry\s+)?beans?\b/, id: "dry-bean" },
+  { re: /\bspring\s+wheat\b/, id: "spring-wheat" },
   { re: /\bwheat\b/, id: "winter-wheat" },
+  { re: /\b(?:sweet\s*corn|sweet\s+maize)\b/, id: "sweet-corn" },
   { re: /\b(?:corn|maize)\b/, id: "maize-grain" },
+  { re: /\b(?:sorghum|milo|jowar)\b/, id: "grain-sorghum" },
+  { re: /\bbarley\b/, id: "barley" },
+  { re: /\boats?\b/, id: "oats" },
+  { re: /\b(?:(?:pearl\s+)?millets?|bajra)\b/, id: "millet" },
+  { re: /\bsafflower\b/, id: "safflower" },
+  { re: /\b(?:lentils?|dal|masoor)\b/, id: "lentil" },
+  { re: /\b(?:peanuts?|groundnuts?)\b/, id: "groundnut" },
+  { re: /\b(?:potato(?:es)?|spuds?)\b/, id: "potato" },
+  { re: /\b(?:(?:processing\s+)?tomato(?:es)?)\b/, id: "processing-tomato" },
+  { re: /\bonions?\b/, id: "onion" },
+  { re: /\bcarrots?\b/, id: "carrot" },
+  { re: /\blettuce\b/, id: "lettuce" },
+  { re: /\b(?:water\s*melons?)\b/, id: "watermelon" },
+  { re: /\b(?:cantaloupes?|musk\s*melons?)\b/, id: "cantaloupe" },
+  { re: /\b(?:honeydews?|melons?)\b/, id: "sweet-melon" },
   { re: /\bcotton\b/, id: "cotton" },
   { re: /\b(?:rice|paddy)\b/, id: "rice" },
   { re: /\bsunflowers?\b/, id: "sunflower" },
@@ -47,7 +66,7 @@ const CROP_SYNONYMS: { re: RegExp; id: string }[] = [
 
 /** Common crops that are not in the sourced catalog. Heard, shown back, never modelled. */
 const OTHER_CROPS =
-  /\b(?:tomato(?:es)?|alfalfa|almonds?|grapes?|vineyards?|soy(?:beans?|a)?|barley|potato(?:es)?|sorghum|oats?|pistachios?|walnuts?|lettuce|onions?|canola|peanuts?|sugar\s*cane|millet|chickpeas?|lentils?|garlic|carrots?|peppers?|melons?|citrus|oranges?|olives?|hay|rye|mustard|safflower|peaches|cherries|apples?)\b/;
+  /\b(?:alfalfa|almonds?|grapes?|vineyards?|pistachios?|walnuts?|canola|rapeseed|sugar\s*cane|chick\s*peas?|garbanzos?|chana|quinoa|garlic|peppers?|citrus|oranges?|olives?|hay|rye|mustard|peaches|cherries|apples?)\b/;
 
 function round1(v: number): number {
   return Math.round(v * 10) / 10;

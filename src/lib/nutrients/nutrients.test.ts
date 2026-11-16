@@ -14,9 +14,13 @@ function allSourced(): [string, Sourced<number>][] {
 }
 
 describe("nutrient catalog", () => {
-  it("has exactly one entry per catalog crop", () => {
-    const ids = CROP_CATALOG.crops.map((c) => c.id).sort();
-    expect(NUTRIENT_CATALOG.crops.map((c) => c.cropId).sort()).toEqual(ids);
+  // Crops added to the catalog later may have no sourced nutrient entry yet; callers then say "no nutrient entry", never 0.
+  it("has at most one entry per crop, each for a real catalog crop, covering the original crops", () => {
+    const ids = new Set(CROP_CATALOG.crops.map((c) => c.id));
+    const entries = NUTRIENT_CATALOG.crops.map((c) => c.cropId);
+    expect(new Set(entries).size).toBe(entries.length);
+    for (const id of entries) expect(ids.has(id), id).toBe(true);
+    for (const id of ["winter-wheat", "maize-grain", "cotton", "rice", "sunflower", "sugar-beet", "dry-bean"]) expect(entries, id).toContain(id);
   });
 
   it("every value has a source and page, and every unknown has a reason", () => {
